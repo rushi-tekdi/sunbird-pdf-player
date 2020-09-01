@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sunbird-pdf-player-app';
+  pdfMetadataEvents: object;
+  pdfPlayerConfig = {
+    src: 'https://raw.githubusercontent.com/mozilla/pdf.js-sample-files/master/tracemonkey.pdf'
+};
+
+pdfEventHandler(valueEmitted) {
+  console.log(valueEmitted);
+  this.pdfMetadataEvents = valueEmitted;
+  localStorage.setItem('lastPageVisited', this.pdfMetadataEvents['metaData']['currentPagePointer']);
+}
 }
