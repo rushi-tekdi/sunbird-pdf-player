@@ -19,7 +19,6 @@ interface IPdfMetaData {
 
 export interface PdfComponentInput {
     src: string;
-    showOpenFileButton?: boolean;
     showPropertiesButton?: boolean;
     textLayer?: boolean;
     showHandToolButton?: boolean;

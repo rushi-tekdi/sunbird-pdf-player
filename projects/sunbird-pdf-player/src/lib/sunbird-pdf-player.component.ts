@@ -5,7 +5,7 @@ import {
   PdfDownloadedEvent, PdfLoadedEvent, TextLayerRenderedEvent, ScaleChangingEvent
 } from 'ngx-extended-pdf-viewer';
 
-import { IPlayerEvent, PdfComponentInput, telEventType } from './playerEvents';
+import { IPlayerEvent, PdfComponentInput, telEventType } from './playerInterfaces';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
