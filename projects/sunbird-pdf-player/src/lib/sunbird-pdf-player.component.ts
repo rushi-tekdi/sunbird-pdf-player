@@ -50,7 +50,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     showRotateButton: true,
     showScrollingButton: false,
     showSpreadButton: false,
-    backgroundColor: '#00000'
+    backgroundColor: '#000000'
   };
 
   ngOnInit(): void {
@@ -132,14 +132,14 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   public onAfterPrint() {
     this.sendHeartBeatEvent({
-      type: 'PDF_BEFORE_PRINT',
+      type: 'PDF_AFTER_PRINT',
       currentPage: this.currentPagePointer
     });
   }
 
   public onBeforePrint() {
     this.sendHeartBeatEvent({
-      type: 'PDF_AFTER_PRINT',
+      type: 'PDF_BEFORE_PRINT',
       currentPage: this.currentPagePointer
     });
   }

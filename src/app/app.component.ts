@@ -11,7 +11,8 @@ export class AppComponent {
   pdfMetadataEvents: object;
   pdfPlayerConfig: PdfComponentInput = {
     src: 'https://raw.githubusercontent.com/mozilla/pdf.js-sample-files/master/tracemonkey.pdf',
-    startFromPage: 140
+    startFromPage: 10,
+    backgroundColor: '#FF0000'
 };
 
 pdfEventHandler(valueEmitted) {
