@@ -1,22 +1,3 @@
-export type telEventType = 'START' | 'END' | 'INTERACT' | 'FAILED' | 'IMPRESSION';
-
-export interface IPlayerEvent {
-    eventType: string;
-    metaData: IPdfMetaData | any;
-}
-
-// Generic metadata for player event
-interface IPdfMetaData {
-    numberOfPagesVisited: number;
-    totalNumberOfPages: number;
-    currentPagePointer: number;
-    pageDuration: Array<object>;
-    highlights: Array<object>;
-    sessionId: string;
-    userPlayBehavior: Array<object>;
-    eid: string;
-}
-
 export interface PdfComponentInput {
     src: string;
     showPropertiesButton?: boolean;
@@ -38,6 +19,7 @@ export interface PdfComponentInput {
     showRotateButton?: boolean;
     showScrollingButton?: boolean;
     showSpreadButton?: boolean;
-    backgroundColor?: string
+    backgroundColor?: string;
+    height?: string;
 }
 

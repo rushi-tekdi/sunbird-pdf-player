@@ -1,2 +1,7 @@
 
-<sunbird-pdf-player [pdfConfig]="pdfPlayerConfig" (sendMetadata)="pdfEventHandler($event)"></sunbird-pdf-player>
+<div style="height: 70vh; width: 50%; margin: 20px;">
+    <sunbird-pdf-player 
+    [pdfConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"></sunbird-pdf-player>
+
+</div>
+

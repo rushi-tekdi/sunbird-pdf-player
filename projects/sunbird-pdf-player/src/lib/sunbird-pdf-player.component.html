@@ -1,8 +1,8 @@
 <ngx-extended-pdf-viewer 
 [src]="pdfConfig.src" 
-height="100vh"
+[height]="pdfConfig.height"
 [showOpenFileButton]=false
-backgroundColor= "pdfConfig.backgroundColor"
+[backgroundColor]= "pdfConfig.backgroundColor"
 [showPropertiesButton]="pdfConfig.showPropertiesButton"
 [textLayer]="pdfConfig.textLayer"
 [showHandToolButton]="pdfConfig.showHandToolButton"
@@ -23,12 +23,9 @@ backgroundColor= "pdfConfig.backgroundColor"
 [showScrollingButton]="pdfConfig.showScrollingButton"
 [showSpreadButton]="pdfConfig.showSpreadButton"
 (pdfLoaded)="onPdfLoaded($event)"
-(textLayerRendered)="onTextLayerRendered($event)"
-(handToolChange)="onHandToolChange($event)"
 (pdfDownloaded)="onPdfDownloaded($event)"
 (pdfLoadingFailed)="onPdfLoadFailed($event)"
 (afterPrint)="onAfterPrint()"
-(beforePrint)="onBeforePrint()"
 (rotationChange)="onRotationChange($event)"
 (pageChange)="onPageChange($event)"
 (zoomChange)="onZoomChange($event)"></ngx-extended-pdf-viewer>

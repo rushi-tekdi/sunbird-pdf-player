@@ -4,7 +4,7 @@ import {
   PdfDownloadedEvent, PdfLoadedEvent, TextLayerRenderedEvent
 } from 'ngx-extended-pdf-viewer';
 
-import { IPlayerEvent, PdfComponentInput } from './playerInterfaces';
+import { PdfComponentInput } from './playerInterfaces';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
@@ -12,23 +12,23 @@ import { IPlayerEvent, PdfComponentInput } from './playerInterfaces';
 })
 export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   private version = '1.0';
+  private zoom = 'auto';
+  private rotation = 0;
   @Input() pdfConfig: PdfComponentInput;
   @Input() navigation: string;
-  @Output() sendMetadata: EventEmitter<object> = new EventEmitter<IPlayerEvent>();
+  @Output() playerEvent: EventEmitter<object> = new EventEmitter<any>();
   private metaData = {
     numberOfPagesVisited: [],
     totalPages: 0,
-    duration: []
+    duration: [],
+    zoom: [],
+    rotation: []
   };
 
   currentPagePointer: number;
   totalNumberOfPages: number;
   pdfPlayerStartTime: number;
   pdfLastPageTime: number;
-  pdfPlayerEvent: IPlayerEvent;
-  messages: Array<string> = [];
-  showBorders = false;
-  visits = [];
   // tslint:disable-next-line:variable-name
   defaultConfig = {
     showPropertiesButton: false,
@@ -50,7 +50,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     showRotateButton: true,
     showScrollingButton: false,
     showSpreadButton: false,
-    backgroundColor: '#000000'
+    backgroundColor: '#000000',
+    height: '100%',
+    zoom: this.zoom,
+    rotation: this.rotation
   };
 
   ngOnInit(): void {
@@ -64,7 +67,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.currentPagePointer = this.pdfConfig.startFromPage > event.pagesCount ? 1 : this.pdfConfig.startFromPage,
     this.metaData.totalPages = event.pagesCount;
     this.totalNumberOfPages = event.pagesCount;
-    this.sendMetadata.emit(
+    this.playerEvent.emit(
         {
           eid: 'START',
           ver: this.version,
@@ -81,7 +84,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   public onPdfLoadFailed(error: Error): void {
-    this.sendMetadata.emit(
+    this.playerEvent.emit(
       {
         eid: 'ERROR',
         ver: this.version,
@@ -94,32 +97,22 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     );
   }
 
+
+  private pageSessionUpdate() {
+    this.metaData.numberOfPagesVisited.push(this.currentPagePointer);
+    this.metaData.duration.push(new Date().getTime() - this.pdfLastPageTime);
+    this.metaData.zoom.push(this.zoom);
+    this.metaData.rotation.push(this.rotation);
+    this.pdfLastPageTime = new Date().getTime();
+  }
+
   public onZoomChange(event: any): void {
-    this.sendHeartBeatEvent(
-      {
+      this.pageSessionUpdate();
+      this.sendHeartBeatEvent({
         type: 'ZOOM_CHANGE',
-        currentPage: this.currentPagePointer,
-        zoomValue: event
-      }
-    );
-    // tslint:disable-next-line:comment-format
-    //this.setPlayerEvent('HEARTBEAT', 'INTERACT', this.currentPagePointer, this.totalNumberOfPages, this.currentPagePointer, this.visits);
-  }
-
-  public onTextLayerRendered(event: TextLayerRenderedEvent): void {
-    this.sendHeartBeatEvent({
-      type: 'TEXT_LAYER_RENDERED',
-      currentPage: event.pageNumber,
-      numTextDivs: event.numTextDivs
-    });
-  }
-
-  public onHandToolChange(event: any): void {
-    this.sendHeartBeatEvent({
-      type: 'HAND_TOOL_CHANGE',
-      currentPage: this.currentPagePointer,
-      enabled: event
-    });
+        currentPage: this.currentPagePointer
+      });
+      this.zoom = event;
   }
 
   public onPdfDownloaded(event: PdfDownloadedEvent): void {
@@ -132,32 +125,25 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   public onAfterPrint() {
     this.sendHeartBeatEvent({
-      type: 'PDF_AFTER_PRINT',
-      currentPage: this.currentPagePointer
-    });
-  }
-
-  public onBeforePrint() {
-    this.sendHeartBeatEvent({
-      type: 'PDF_BEFORE_PRINT',
+      type: 'PDF_PRINT',
       currentPage: this.currentPagePointer
     });
   }
 
   public onRotationChange(event: any): void {
+    this.pageSessionUpdate();
     this.sendHeartBeatEvent({
       type: 'ROTATION_CHANGE',
-      currentPage: this.currentPagePointer,
-      degrees: event
+      currentPage: this.currentPagePointer
     });
+    this.rotation = event;
   }
 
   // On Page next and previous or scroll
   public onPageChange(event: any): void {
-    this.metaData.numberOfPagesVisited.push(this.currentPagePointer);
-    this.metaData.duration.push(new Date().getTime() - this.pdfLastPageTime);
+    console.log(this.pdfConfig);
+    this.pageSessionUpdate();
     this.currentPagePointer = event;
-    this.pdfLastPageTime = new Date().getTime();
     this.sendHeartBeatEvent({
       type: 'PAGE_CHANGE',
       currentPage: this.currentPagePointer
@@ -180,7 +166,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
 
   private sendHeartBeatEvent(edata: any) {
-    this.sendMetadata.emit(
+    this.playerEvent.emit(
       {
         eid: 'HEARTBEAT',
         ver: this.version,
@@ -198,9 +184,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   @HostListener('window:beforeunload')
   ngOnDestroy() {
-    this.metaData.numberOfPagesVisited.push(this.currentPagePointer);
-    this.metaData.duration.push(new Date().getTime() - this.pdfLastPageTime);
-    this.sendMetadata.emit({
+    this.pageSessionUpdate();
+    this.playerEvent.emit({
       eid: 'END',
       ver: this.version,
       edata: {

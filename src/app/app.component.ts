@@ -10,9 +10,11 @@ export class AppComponent {
   title = 'sunbird-pdf-player-app';
   pdfMetadataEvents: object;
   pdfPlayerConfig: PdfComponentInput = {
-    src: 'https://raw.githubusercontent.com/mozilla/pdf.js-sample-files/master/tracemonkey.pdf',
+    // tslint:disable-next-line:max-line-length
+    src: 'https://ntpproductionall.blob.core.windows.net/ntp-content-production/content/assets/do_31291455031832576019477/b301b302_std_1_tamilenglish_lang_term-1_opt.pdf',
     startFromPage: 10,
-    backgroundColor: '#FF0000'
+    backgroundColor: '#ffffff',
+    height: '100%'
 };
 
 pdfEventHandler(valueEmitted) {
