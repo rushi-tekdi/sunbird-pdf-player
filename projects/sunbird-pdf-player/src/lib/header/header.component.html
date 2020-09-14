@@ -1,0 +1,36 @@
+<div class="header-grid">
+  <div>
+    <div class="pdf-menu" (click)="openNav()"><span class="pdf-optionMenu"></span></div>
+  </div>
+  <div>
+    <div (click)="zoomIn()" class="pdf-header-btn-inline pdf-header-btn">+</div>
+    <div (click)="zoomOut()" class="pdf-header-btn-inline pdf-header-btn">-</div>
+  </div>
+  <div>
+    <input  [(ngModel)]='pageNumber' (change)="getPage()" type="number"  class="pdf-header-btn-inline"/>
+    <span>/ {{pagesCount}}</span>
+    <!-- <div (click)="rotateLeft()" class="pdf-header-btn-inline pdf-header-btn">Rotate Left</div>
+    <div (click)="rotateRight()" class="pdf-header-btn-inline pdf-header-btn">Rotate Right</div> -->
+  </div>
+  <div>
+    <div class="pdf-button-container">
+      <div class="pdf-previousIcon pdf-header-btn-inline" (click)="prevSlide()"></div>
+      <div class="pdf-nextIcon pdf-header-btn-inline" (click)="nextSlide()"></div>
+      </div>
+  </div>
+</div>
+  <div id="mySidenav" class="sidenav">
+    <div class="navBlock">
+      <div class="pdf-nav-unit">PDF name</div>
+      <div class="pdf-nav-items">
+        <div class="pdf-replay"><span class="pdf-share"></span></div>Share
+      </div>
+      <div class="pdf-nav-items">
+        <div class="pdf-replay"><span class="pdf-download"></span></div>Download
+      </div>
+      <div class="pdf-nav-items" style="cursor: pointer;" (click)="closeNav()">
+        <div class="pdf-replay"><span class="pdf-exit"></span></div>Exit
+      </div>
+    </div>
+    <div class="transparentBlock" (click)="closeNav()"></div>
+  </div>
