@@ -1,5 +1,5 @@
-<pdf-header class="main-header"></pdf-header>
 <ngx-extended-pdf-viewer 
+[customToolbar]="customSunbirdPdfToolbar"
 [src]="pdfConfig.src" 
 [height]="pdfConfig.height"
 [showOpenFileButton]=false
@@ -30,3 +30,7 @@
 (rotationChange)="onRotationChange($event)"
 (pageChange)="onPageChange($event)"
 (zoomChange)="onZoomChange($event)"></ngx-extended-pdf-viewer>
+
+<ng-template #customSunbirdPdfToolbar>
+    <pdf-header class="main-header"></pdf-header>
+  </ng-template>
