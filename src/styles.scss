@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --white: #ffffff;
+    --white2: #f2f2f2;
+    --black: #000000;
+    --primary-color: #FFD955;
+    --secondary-color: #;
+    --gray-800: #2B2C43;
+  }
+html {
+    //calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
+    font-size: calc(16px + (32 - 16) * ((100vw - 360px) / (1900 - 360)));
+}
 body {
     margin: 0;
 }
