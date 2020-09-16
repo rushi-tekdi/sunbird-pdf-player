@@ -19,16 +19,22 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() playerConfig: PlayerConfig;
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
+  @Output() telemetryEvent: EventEmitter<any> =  new EventEmitter<any>();
 
 
   constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
     this.playerEvent = this.pdfPlayerService.playerEvent;
   }
 
-  ngOnInit() {
+  @HostListener('document:TelemetryEvent', ['$event'])
+  onTelemetryEvent(event) {
+    this.telemetryEvent.emit(event.detail);
+  }
+
+  ngOnInit(replay?) {
     this.pdfVisibility = 'none';
     this.pdfConfig = { ...this.pdfPlayerService.defaultConfig, ...this.playerConfig.config };
-    this.pdfPlayerService.init(this.playerConfig);
+    this.pdfPlayerService.init(this.playerConfig, replay);
     this.updateProgress();
   }
 
@@ -37,7 +43,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     setTimeout(() => {
       this.showPlayer =  true;
     }, 100);
-    this.ngOnInit();
+    this.ngOnInit(true);
   }
 
   private updateProgress() {

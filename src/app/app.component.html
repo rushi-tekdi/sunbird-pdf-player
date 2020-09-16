@@ -1,6 +1,8 @@
 
 <div class="sb-pdf-wrapper">
     <sunbird-pdf-player 
-    [playerConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"></sunbird-pdf-player>
+    [playerConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"
+    (telemetryEvent)="telemetryEvent($event)"
+    ></sunbird-pdf-player>
 </div>
 

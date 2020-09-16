@@ -2,7 +2,6 @@ import { Injectable, EventEmitter } from '@angular/core';
 import {CsTelemetryModule} from '@project-sunbird/client-services/telemetry';
 import {  PlayerConfig } from './playerInterfaces';
 import { PdfLoadedEvent } from 'ngx-extended-pdf-viewer';
-import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,9 +16,10 @@ export class SunbirdPdfPlayerService {
   public showDownloadPopup: boolean;
   public src: string;
   public userName: string;
-
   private metaData: any;
-
+  private contentSessionId: string;
+  private playSessionId: string;
+  private telemetryObject: any;
   currentPagePointer: number;
   totalNumberOfPages: number;
   pdfPlayerStartTime: number;
@@ -51,30 +51,40 @@ export class SunbirdPdfPlayerService {
     rotation: this.rotation
   };
 
-  constructor(private http: HttpClient) {}
+  constructor() {
+    this.contentSessionId = this.uniqueId();
+  }
 
-  init({ context, config, metadata}: PlayerConfig) {
-    CsTelemetryModule.instance.init({});
-    CsTelemetryModule.instance.telemetryService.initTelemetry(
-      {
-        config: {
-          pdata: context.pdata,
-          env: 'ContentPlayer',
-          channel: context.channel,
-          did: context.did,
-          authtoken: context.authToken || '',
-          uid: context.uid || '',
-          sid: context.sid,
-          batchsize: 20,
-          mode: context.mode,
-          host: context.host || '',
-          endpoint: context.endpoint || 'data/v3/telemetry',
-          tags: context.tags,
-          cdata: context.cdata
-        },
-        userOrgDetails: {}
+  init({ context, config, metadata}: PlayerConfig, replay= false) {
+    this.playSessionId = this.uniqueId();
+    let cdata = context.cdata;
+    if (!replay) {
+      cdata = [...cdata, ...[{id: this.contentSessionId, type: 'ContentSession'},
+      {id: this.playSessionId, type: 'PlaySession'}]];
     }
-    );
+    if (!CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.init({});
+      CsTelemetryModule.instance.telemetryService.initTelemetry(
+        {
+          config: {
+            pdata: context.pdata,
+            env: 'ContentPlayer',
+            channel: context.channel,
+            did: context.did,
+            authtoken: context.authToken || '',
+            uid: context.uid || '',
+            sid: context.sid,
+            batchsize: 20,
+            mode: context.mode,
+            host: context.host || '',
+            endpoint: context.endpoint || '/data/v3/telemetry',
+            tags: context.tags,
+            cdata
+          },
+          userOrgDetails: {}
+        }
+      );
+    }
     this.pdfPlayerStartTime = this.pdfLastPageTime = new Date().getTime();
     this.totalNumberOfPages = 0;
     this.currentPagePointer = (config && config.startFromPage ) || 1;
@@ -92,6 +102,12 @@ export class SunbirdPdfPlayerService {
     this.showDownloadPopup = false;
     this.rotation = 0;
     this.zoom = 'auto';
+    this.telemetryObject = {
+        id: metadata.identifier,
+        type: 'Content',
+        ver: metadata.pkgVersion + '',
+        rollup: context.objectRollup || {}
+      };
   }
 
   public pageSessionUpdate() {
@@ -103,40 +119,76 @@ export class SunbirdPdfPlayerService {
   }
 
   raiseStartEvent(event: PdfLoadedEvent) {
-
     this.currentPagePointer = this.currentPagePointer > event.pagesCount ? 1 : this.currentPagePointer,
     this.metaData.totalPages = event.pagesCount;
+    this.totalNumberOfPages = event.pagesCount;
+    const duration = new Date().getTime() - this.pdfPlayerStartTime;
     const startEvent =  {
       eid: 'START',
       ver: this.version,
       edata: {
         type: 'START',
         currentPage: this.currentPagePointer,
-        duration: new Date().getTime() - this.pdfPlayerStartTime
+        duration
       },
       metaData: this.metaData
     };
     this.playerEvent.emit(startEvent);
-    CsTelemetryModule.instance.playerTelemetryService.onStartEvent(startEvent, {}); // object 
+    CsTelemetryModule.instance.telemetryService.raiseStartTelemetry(
+      { options: {
+        object: this.telemetryObject
+      }, edata: {type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2))}}
+      );
     this.pdfLastPageTime = this.pdfPlayerStartTime = new Date().getTime();
-
   }
 
   raiseEndEvent() {
-   const endEvent =  {
+    const duration = new Date().getTime() - this.pdfPlayerStartTime;
+    const endEvent =  {
       eid: 'END',
       ver: this.version,
       edata: {
         type: 'END',
         currentPage: this.currentPagePointer,
         totalPages: this.totalNumberOfPages,
-        duration: new Date().getTime() - this.pdfPlayerStartTime
+        duration
       },
       metaData: this.metaData
     };
-   const summery = {}; // TODO: add the summery info here
-   this.playerEvent.emit(endEvent);
-   CsTelemetryModule.instance.playerTelemetryService.onEndEvent(endEvent, summery);
+    this.playerEvent.emit(endEvent);
+    const visitedlength = (this.metaData.pagesHistory.filter((v, i, a) => a.indexOf(v) === i)).length;
+
+    CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
+      edata: {
+        type: 'content',
+        mode: 'play',
+        pageid: 'sunbird-player-Endpage',
+        summary: [
+          {
+            progress: Number(((this.currentPagePointer / this.totalNumberOfPages) * 100).toFixed(0))
+          },
+          {
+            totallength: this.totalNumberOfPages
+          },
+          {
+            visitedlength
+          },
+          {
+            visitedcontentend: (this.currentPagePointer === this.totalNumberOfPages)
+          },
+          {
+            totalseekedlength: this.totalNumberOfPages - visitedlength
+          },
+          {
+            endpageseen: (this.currentPagePointer === this.totalNumberOfPages)
+          }
+        ],
+        duration: Number((duration / 1e3).toFixed(2))
+      },
+      options: {
+        object: this.telemetryObject
+      }
+    });
   }
 
   raiseErrorEvent(error: Error) {
@@ -150,7 +202,7 @@ export class SunbirdPdfPlayerService {
       metaData: this.metaData
     };
     this.playerEvent.emit(errorEvent);
-    CsTelemetryModule.instance.playerTelemetryService.onErrorEvent(errorEvent, {});
+    CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry(errorEvent);
   }
 
   raiseHeartBeatEvent(type: string) {
@@ -174,4 +226,14 @@ export class SunbirdPdfPlayerService {
     const seconds = Number(((duration % 60000) / 1000).toFixed(0));
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
+
+  private  uniqueId(length = 32 ) {
+    let result           = '';
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 }
