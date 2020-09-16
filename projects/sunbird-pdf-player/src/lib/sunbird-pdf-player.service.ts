@@ -13,6 +13,7 @@ export class SunbirdPdfPlayerService {
   public rotation = 0;
   public playerEvent = new EventEmitter<any>();
   public contentName: string;
+  public loadingProgress: number;
   public src: string;
   public userName: string;
 
@@ -43,7 +44,7 @@ export class SunbirdPdfPlayerService {
     showRotateButton: false,
     showScrollingButton: false,
     showSpreadButton: false,
-    backgroundColor: '#000000',
+    backgroundColor: '#FFFFFF',
     height: '100%',
     zoom: this.zoom,
     rotation: this.rotation
@@ -86,6 +87,9 @@ export class SunbirdPdfPlayerService {
       zoom: [],
       rotation: []
     };
+    this.loadingProgress = 0;
+    this.rotation = 0;
+    this.zoom = 'auto';
   }
 
   public pageSessionUpdate() {

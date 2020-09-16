@@ -13,7 +13,6 @@ import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 })
 export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   public pdfConfig: Config;
-  public loadingProgress = 0;
   private progressInterval: any;
   public pdfVisibility: any;
   public showPlayer = true;
@@ -44,8 +43,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   private updateProgress() {
    this.progressInterval =  setInterval(() => {
     if ((window as any).PDFViewerApplication && (window as any).PDFViewerApplication.loadingBar) {
-      this.loadingProgress = (window as any).PDFViewerApplication.loadingBar.percent || 0;
-      console.log(this.loadingProgress);
+      this.pdfPlayerService.loadingProgress = (window as any).PDFViewerApplication.loadingBar.percent || 0;
+      console.log(this.pdfPlayerService.loadingProgress);
      }
    }, 500);
   }

@@ -1,5 +1,6 @@
 <button (click)="replayContent()">replay</button>
 <ngx-extended-pdf-viewer *ngIf="showPlayer"
+[customToolbar]="customSunbirdPdfToolbar"
 [style.display]="pdfVisibility"
 [src]="pdfPlayerService?.src" 
 [height]="pdfConfig.height"
@@ -31,3 +32,6 @@
 (rotationChange)="onRotationChange($event)"
 (pageChange)="onPageChange($event)"
 (zoomChange)="onZoomChange($event)"></ngx-extended-pdf-viewer>
+<ng-template #customSunbirdPdfToolbar>
+    <pdf-header class="main-header"></pdf-header>
+</ng-template>
