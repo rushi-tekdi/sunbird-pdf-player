@@ -1,5 +1,7 @@
-<ngx-extended-pdf-viewer 
-[src]="pdfConfig.src" 
+<button (click)="replayContent()">replay</button>
+<ngx-extended-pdf-viewer *ngIf="showPlayer"
+[style.display]="pdfVisibility"
+[src]="pdfPlayerService?.src" 
 [height]="pdfConfig.height"
 [showOpenFileButton]=false
 [backgroundColor]= "pdfConfig.backgroundColor"

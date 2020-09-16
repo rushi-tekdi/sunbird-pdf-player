@@ -6,6 +6,7 @@
     "@angular/core": "^7.2.0"
   },
   "dependencies": {
+    "@project-sunbird/client-services": "file:../../../../sunbird-client-services/dist/project-sunbird-client-services-3.3.11.tgz",
     "ngx-extended-pdf-viewer": "^4.1.2"
   }
 }
