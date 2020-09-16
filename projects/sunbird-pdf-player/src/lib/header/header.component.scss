@@ -1,18 +1,20 @@
 .sb-pdf-header {
-  height: 2rem;
-  padding: 0.75rem 1rem;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2em;
+  padding: .75em 1em;
+  background: rgba(255,255,255,0.8);
   &__pdf-menu {
-    width: 40%;
     .hamburger-menu{
-      width: 1.125rem;
-      height: 0.75rem;
+      width: 1.125em;
+      height: 0.75em;
       cursor: pointer;
       span {
         display: block;
-        width: 1.125rem;
-        height: 0.125rem;
-        margin-bottom: 0.188rem;
+        width: 1.125em;
+        height: 0.125em;
+        margin-bottom: 0.188em;
         background-color: var(--black);
   
         &:last-child {
@@ -23,30 +25,28 @@
   }
 
   &__panel {
-    width: 60%;
-
     .pdf-header-btn {
-      border-radius: .25rem;
+      border-radius: .25em;
       background-color: var(--rc-e5e6e6);
-      padding: 0.125rem;
-      margin-right: 1rem;
+      padding: 0.125em;
+      margin-right: 1em;
       cursor: pointer;
-      width: 3.875rem;
-      height: 1.5rem;
+      width: 3.875em;
+      height: 1.5em;
       align-items: center;
 
       &__zoombtn {
         color: var(--black);
-        width: 2rem;
-        height: 1.438rem;
+        width: 2em;
+        height: 1.438em;
         text-align: center;
-        line-height: 1.438rem;
-        font-size: 1.5rem;
+        line-height: 1.438em;
+        font-size: 1.5em;
         display: inline-block;
       }
 
       .zoomOut-btn {
-        border-right: 0.063rem solid var(--rc-b0b1b1);
+        border-right: 0.063em solid var(--rc-b0b1b1);
 
         &::after {
           content: ' \002D';
@@ -59,33 +59,32 @@
     }
 
     .pdf-pagenumber {
-      font-size: 0.75rem;
-      margin-right: 1rem;
+      margin-right: 1em;
 
       .page-count {
-        height: 1.625rem;
-        width: 1.875rem;
-        border: 0.031rem solid var(--rc-C1C1C1);
-        border-radius: 0.25rem;
+        height: 1.625em;
+        width: 1.875em;
+        border: 0.031em solid var(--rc-C1C1C1);
+        border-radius: 0.25em;
         background-color: var(--white);
         text-align: center;
-        font-size: .75rem;
+        font-size: .75em;
       }
 
       .slash {
-        margin: 0 0.5rem;
+        margin: 0 0.5em;
       }
     }
 
     .pdf-slides {
       .navigation-arrows {
-        height: 1.9rem;
-        width: 3.2rem;
+        height: 1.9em;
+        width: 3.2em;
         cursor: pointer;
-        border-radius: 1rem;
-        border:0.25rem solid #ededed;
+        border-radius: 1em;
+        border:0.25em solid #ededed;
         background-color: var(--white);
-        box-shadow: inset 0 -0.063rem 0.125rem 0 rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 -0.063em 0.125em 0 rgba(0, 0, 0, 0.5);
 
         &:hover {
           background: var(--rc-415CF2);
@@ -95,13 +94,13 @@
           content: '';
           width: 8px;
           height: 8px;
-          border-top: 0.125rem solid var(--rc-999);
-          border-left: 0.125rem solid var(--rc-999);
+          border-top: 0.125em solid var(--rc-999);
+          border-left: 0.125em solid var(--rc-999);
         }
       }
 
       .pdf-previousIcon {
-        margin-right: 0.5rem;
+        margin-right: 0.5em;
 
         &::after {
           content: '';
@@ -119,8 +118,8 @@
       .navigation-arrows:hover.pdf-previousIcon::after,
       .navigation-arrows:hover.pdf-nextIcon::after {
         content: '';
-        border-top: 0.125rem solid var(--white);
-        border-left: 0.125rem solid var(--white);
+        border-top: 0.125em solid var(--white);
+        border-left: 0.125em solid var(--white);
       }
     }
   }
@@ -178,32 +177,32 @@
 }
 
 .navBlock {
-  width: 33.333%;
+  width: 40%;
   background: var(--white);
 }
 
 .pdf-nav-unit {
   background: var(--primary-color);
-  padding: 2rem;
-  min-height: 5.625rem;
+  padding: 2em;
+  min-height: 5.625em;
   display: flex;
   align-items: center;
   color: var(--gray-800);
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: bold;
-  line-height: 1.375rem;
+  line-height: 1.375em;
 }
 
 .navBlock ul li {
-  padding: 1rem 2rem;
+  padding: 1em 2em;
   background: var(--white);
-  min-height: 2rem;
+  min-height: 2em;
   cursor: pointer;
   display: flex;
   align-items: center;
   color: rgba(0, 0, 0, 0.85);
-  font-size: 0.875rem;
-  line-height: 1.375rem;
+  font-size: 0.875em;
+  line-height: 1.375em;
 }
 
 .navBlock ul li:hover {
@@ -211,9 +210,9 @@
 }
 
 .navBlock ul li .pdf-icon {
-  margin-right: 1rem;
-  width: 1.5rem;
-  height: 1.5rem;
+  margin-right: 1em;
+  width: 1.5em;
+  height: 1.5em;
   background-color: #6D7278;
 }
 

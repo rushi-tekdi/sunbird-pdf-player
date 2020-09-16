@@ -1,4 +1,4 @@
-<button (click)="replayContent()">replay</button>
+<!-- <button (click)="replayContent()">replay</button> -->
 <start-page *ngIf="pdfVisibility === 'none'"></start-page>
 <ngx-extended-pdf-viewer *ngIf="showPlayer"
 [customToolbar]="customSunbirdPdfToolbar"
@@ -34,6 +34,6 @@
 (pageChange)="onPageChange($event)"
 (zoomChange)="onZoomChange($event)"></ngx-extended-pdf-viewer>
 <ng-template #customSunbirdPdfToolbar>
-    <pdf-header class="main-header"></pdf-header>
+    <pdf-header class="sb-pdf-main-header"></pdf-header>
 </ng-template>
 <download-pdf-popup></download-pdf-popup>
