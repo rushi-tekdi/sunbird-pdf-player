@@ -22,8 +22,7 @@ export class AppComponent implements OnInit {
       tags: [
         ''
       ],
-      cdata: [{id: 'bbeaf9fabc60ca2154f49aa23f8b35de', type: 'ContentSession'},
-      {id: '929c9b442e8c6b27edab9c75926539a9', type: 'PlaySession'}],
+      cdata: [],
       timeDiff: 0,
       objectRollup: {},
       host: '',
@@ -47,4 +46,8 @@ pdfEventHandler(event) {
   console.log(JSON.stringify(event));
   this.pdfMetadataEvents = event;
 }
+telemetryEvent(event) {
+  console.log('in app: ', JSON.stringify(event));
+}
+
 }
