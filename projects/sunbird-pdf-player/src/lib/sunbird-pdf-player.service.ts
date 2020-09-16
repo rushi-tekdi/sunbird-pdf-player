@@ -77,7 +77,7 @@ export class SunbirdPdfPlayerService {
             batchsize: 20,
             mode: context.mode,
             host: context.host || '',
-            endpoint: context.endpoint || 'data/v3/telemetry',
+            endpoint: context.endpoint || '/data/v3/telemetry',
             tags: context.tags,
             cdata
           },
@@ -104,7 +104,8 @@ export class SunbirdPdfPlayerService {
     this.zoom = 'auto';
     this.telemetryObject = {
         id: metadata.identifier,
-        type: 'Content', ver: metadata.pkgVersion + '',
+        type: 'Content',
+        ver: metadata.pkgVersion + '',
         rollup: context.objectRollup || {}
       };
   }
@@ -120,6 +121,7 @@ export class SunbirdPdfPlayerService {
   raiseStartEvent(event: PdfLoadedEvent) {
     this.currentPagePointer = this.currentPagePointer > event.pagesCount ? 1 : this.currentPagePointer,
     this.metaData.totalPages = event.pagesCount;
+    this.totalNumberOfPages = event.pagesCount;
     const duration = new Date().getTime() - this.pdfPlayerStartTime;
     const startEvent =  {
       eid: 'START',
@@ -135,26 +137,58 @@ export class SunbirdPdfPlayerService {
     CsTelemetryModule.instance.telemetryService.raiseStartTelemetry(
       { options: {
         object: this.telemetryObject
-      }, edata: {type: 'content', mode: 'play', pageid: '', duration}}
+      }, edata: {type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2))}}
       );
     this.pdfLastPageTime = this.pdfPlayerStartTime = new Date().getTime();
   }
 
   raiseEndEvent() {
-   const endEvent =  {
+    const duration = new Date().getTime() - this.pdfPlayerStartTime;
+    const endEvent =  {
       eid: 'END',
       ver: this.version,
       edata: {
         type: 'END',
         currentPage: this.currentPagePointer,
         totalPages: this.totalNumberOfPages,
-        duration: new Date().getTime() - this.pdfPlayerStartTime
+        duration
       },
       metaData: this.metaData
     };
-   const summery = {}; // TODO: add the summery info here
-   this.playerEvent.emit(endEvent);
-   CsTelemetryModule.instance.playerTelemetryService.onEndEvent(endEvent, summery);
+    this.playerEvent.emit(endEvent);
+    const visitedlength = (this.metaData.pagesHistory.filter((v, i, a) => a.indexOf(v) === i)).length;
+
+    CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
+      edata: {
+        type: 'content',
+        mode: 'play',
+        pageid: 'sunbird-player-Endpage',
+        summary: [
+          {
+            progress: Number(((this.currentPagePointer / this.totalNumberOfPages) * 100).toFixed(0))
+          },
+          {
+            totallength: this.totalNumberOfPages
+          },
+          {
+            visitedlength
+          },
+          {
+            visitedcontentend: (this.currentPagePointer === this.totalNumberOfPages)
+          },
+          {
+            totalseekedlength: this.totalNumberOfPages - visitedlength
+          },
+          {
+            endpageseen: (this.currentPagePointer === this.totalNumberOfPages)
+          }
+        ],
+        duration: Number((duration / 1e3).toFixed(2))
+      },
+      options: {
+        object: this.telemetryObject
+      }
+    });
   }
 
   raiseErrorEvent(error: Error) {
@@ -168,7 +202,7 @@ export class SunbirdPdfPlayerService {
       metaData: this.metaData
     };
     this.playerEvent.emit(errorEvent);
-    CsTelemetryModule.instance.playerTelemetryService.onErrorEvent(errorEvent, {});
+    CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry(errorEvent);
   }
 
   raiseHeartBeatEvent(type: string) {
