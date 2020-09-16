@@ -14,6 +14,7 @@ export class SunbirdPdfPlayerService {
   public playerEvent = new EventEmitter<any>();
   public contentName: string;
   public loadingProgress: number;
+  public showDownloadPopup: boolean;
   public src: string;
   public userName: string;
 
@@ -88,6 +89,7 @@ export class SunbirdPdfPlayerService {
       rotation: []
     };
     this.loadingProgress = 0;
+    this.showDownloadPopup = false;
     this.rotation = 0;
     this.zoom = 'auto';
   }
