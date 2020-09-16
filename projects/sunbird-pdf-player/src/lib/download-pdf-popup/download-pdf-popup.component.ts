@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SunbirdPdfPlayerService } from '../../sunbird-pdf-player.service';
+import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 @Component({
   selector: 'download-pdf-popup',
   templateUrl: './download-pdf-popup.component.html',

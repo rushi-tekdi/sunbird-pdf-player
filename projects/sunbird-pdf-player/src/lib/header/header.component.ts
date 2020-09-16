@@ -4,7 +4,7 @@ import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 @Component({
   selector: 'pdf-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 
 
