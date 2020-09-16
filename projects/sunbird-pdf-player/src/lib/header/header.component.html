@@ -1,23 +1,28 @@
-<div class="header-grid">
-  <div>
-    <div class="pdf-menu" (click)="openNav()"><span class="pdf-optionMenu"></span></div>
+<div class="sb-pdf-header d-flex flex-ai-center">
+  <div class="sb-pdf-header__pdf-menu" (click)="openNav()">
+    <span></span>
+      <span></span>
+      <span></span>
   </div>
-  <div>
-    <div (click)="zoomIn()" class="pdf-header-btn-inline pdf-header-btn">+</div>
-    <div (click)="zoomOut()" class="pdf-header-btn-inline pdf-header-btn">-</div>
-  </div>
-  <div>
-    <input  [(ngModel)]='pageNumber' (change)="getPage()" type="number"  class="pdf-header-btn-inline"/>
-    <span>/ {{pagesCount}}</span>
-    <!-- <div (click)="rotateLeft()" class="pdf-header-btn-inline pdf-header-btn">Rotate Left</div>
-    <div (click)="rotateRight()" class="pdf-header-btn-inline pdf-header-btn">Rotate Right</div> -->
-  </div>
-  <div>
-    <div class="pdf-button-container">
-      <div class="pdf-previousIcon pdf-header-btn-inline" (click)="prevSlide()"></div>
-      <div class="pdf-nextIcon pdf-header-btn-inline" (click)="nextSlide()"></div>
-      </div>
-  </div>
+ <div class="sb-pdf-header__panel d-flex flex-ai-center flex-jc-flex-end">
+    <div class="pdf-header-btn d-flex">
+      <div (click)="zoomOut()" class="pdf-header-btn__zoombtn zoomOut-btn"></div>
+      <div (click)="zoomIn()" class="pdf-header-btn__zoombtn zoomIn-btn"></div>
+    </div>
+    <div class="pdf-pagenumber">
+      <input  [(ngModel)]='pageNumber' (change)="getPage()" type="text" class="page-count"/>
+      <span class="slash">/</span>
+      <span>{{pagesCount}}</span>
+      <!-- <div (click)="rotateLeft()" class="pdf-header-btn-inline pdf-header-btn">Rotate Left</div>
+      <div (click)="rotateRight()" class="pdf-header-btn-inline pdf-header-btn">Rotate Right</div> -->
+    </div>
+    <div class="d-flex pdf-slides">
+      <div class="navigation-arrows pdf-previousIcon d-flex flex-ai-center flex-jc-center" (click)="prevSlide()"></div>
+      <div class="navigation-arrows pdf-nextIcon d-flex flex-ai-center flex-jc-center" (click)="nextSlide()"></div>
+      <!-- <div class="pdf-previousIcon pdf-header-btn-inline" ></div>
+      <div class="pdf-nextIcon pdf-header-btn-inline" ></div> -->
+    </div>
+ </div>
 </div>
   <div id="mySidenav" class="sidenav">
     <div class="navBlock">

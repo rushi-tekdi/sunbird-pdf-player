@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angu
 @Component({
   selector: 'pdf-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 
 

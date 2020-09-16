@@ -6,6 +6,11 @@
     --primary-color: #FFD955;
     --secondary-color: #;
     --gray-800: #2B2C43;
+    --rc-e5e6e6:#e5e6e6;
+    --rc-b0b1b1:#b0b1b1;
+    --rc-C1C1C1:#C1C1C1;
+    --rc-415CF2:#415CF2;
+    --rc-999:#999;
   }
 html {
     //calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
@@ -13,4 +18,25 @@ html {
 }
 body {
     margin: 0;
+}
+#toolbarContainer{
+    background: none !important;
+    height: 40px !important;
+}
+
+.d-flex{
+    display: flex;
+}
+.d-flex-inline{
+    display: inline-flex;
+}
+.flex-jc-center {
+justify-content: center !important;
+}
+.flex-jc-flex-end {
+justify-content: flex-end !important;
+}
+
+.flex-ai-center {
+align-items: center !important;
 }
