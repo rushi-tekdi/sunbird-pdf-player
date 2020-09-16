@@ -9,7 +9,7 @@ import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
-  styles: []
+  styleUrls: ['./sunbird-pdf-player.component.scss']
 })
 export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   public pdfConfig: Config;

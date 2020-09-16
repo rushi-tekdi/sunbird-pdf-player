@@ -1,8 +1,16 @@
-
-<div class="sb-pdf-wrapper">
-    <sunbird-pdf-player 
-    [playerConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"
-    (telemetryEvent)="telemetryEvent($event)"
-    ></sunbird-pdf-player>
+<div style="width:90%;margin:0 auto;display: grid;grid-template-columns: 70% 30%;gap:24px;padding-top:64px;">
+    <div>
+        <div class="aspectratio" data-ratio="16:9" id="help-video-aspect-ratio" #aspectRatio>
+            <sunbird-pdf-player class="sunbird-pdf-player" [playerConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"></sunbird-pdf-player>
+          </div>
+          <br>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi eos pariatur ea reiciendis mollitia accusantium, maxime fugiat omnis quo possimus dolor eaque dicta rem repellat autem, tenetur praesentium quos veritatis!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi eos pariatur ea reiciendis mollitia accusantium, maxime fugiat omnis quo possimus dolor eaque dicta rem repellat autem, tenetur praesentium quos veritatis!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi eos pariatur ea reiciendis mollitia accusantium, maxime fugiat omnis quo possimus dolor eaque dicta rem repellat autem, tenetur praesentium quos veritatis!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi eos pariatur ea reiciendis mollitia accusantium, maxime fugiat omnis quo possimus dolor eaque dicta rem repellat autem, tenetur praesentium quos veritatis!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi eos pariatur ea reiciendis mollitia accusantium, maxime fugiat omnis quo possimus dolor eaque dicta rem repellat autem, tenetur praesentium quos veritatis!</p>
+    </div>
+    <div>
+        right column
+    </div>
 </div>
-
