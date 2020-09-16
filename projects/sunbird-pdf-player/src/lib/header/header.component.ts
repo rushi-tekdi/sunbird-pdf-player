@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-
+import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 
 @Component({
   selector: 'pdf-header',
@@ -11,19 +11,16 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angu
 export class HeaderComponent implements OnInit {
   @Input() duration?: any;
   @Input() disablePreviousNavigation: boolean;
-  @Output() nextSlideClicked = new EventEmitter<any>();
-  @Output() prevSlideClicked = new EventEmitter<any>();
-  @Output() durationEnds = new EventEmitter<any>();
   time: any;
   pagesCount: number;
   pageNumber: number;
-  constructor() {
+  constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
   }
 
 
   ngOnInit() {
     this.pageNumber = 1;
-    this.pagesCount = 80; // (window as any).PDFViewerApplication.page;
+    this.pagesCount = this.pdfPlayerService.totalNumberOfPages;
     if (this.duration) {
     }
   }
@@ -67,5 +64,9 @@ export class HeaderComponent implements OnInit {
   closeNav() {
     document.getElementById('mySidenav').style.width = '0';
     document.body.style.backgroundColor = 'white';
+  }
+
+  openPdfDownloadPopup() {
+    this.pdfPlayerService.showDownloadPopup = true;
   }
 }

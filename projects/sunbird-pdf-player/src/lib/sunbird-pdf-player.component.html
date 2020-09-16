@@ -1,4 +1,5 @@
 <button (click)="replayContent()">replay</button>
+<start-page *ngIf="pdfVisibility === 'none'"></start-page>
 <ngx-extended-pdf-viewer *ngIf="showPlayer"
 [customToolbar]="customSunbirdPdfToolbar"
 [style.display]="pdfVisibility"
