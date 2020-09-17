@@ -1,27 +1,27 @@
 .navigation-arrows {
-    height: 1.9em;
-    width: 3.2em;
-    cursor: pointer;
-    border-radius: 1em;
-    border:0.25em solid #ededed;
+  height:2rem;
+  width: 4rem;
+  cursor: pointer;
+  border-radius: 1rem;
+    border:0.25rem solid #ededed;
     background-color: var(--white);
-    box-shadow: inset 0 -0.063em 0.125em 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 -0.063rem 0.125rem 0 rgba(0, 0, 0, 0.5);
 
     &:hover {
-      background: var(--rc-415CF2);
+      background: var(--primary-color);
     }
 
     &::after {
       content: '';
-      width: 8px;
-      height: 8px;
-      border-top: 0.125em solid var(--rc-999);
-      border-left: 0.125em solid var(--rc-999);
+      width: 0.5rem;
+      height: 0.5rem;
+      border-top: 0.125rem solid var(--rc-999);
+      border-left: 0.125rem solid var(--rc-999);
     }
   }
 
   .pdf-previousIcon {
-    margin-right: 0.5em;
+    margin-right: 0.5rem;
 
     &::after {
       content: '';
@@ -39,6 +39,6 @@
   .navigation-arrows:hover.pdf-previousIcon::after,
   .navigation-arrows:hover.pdf-nextIcon::after {
     content: '';
-    border-top: 0.125em solid var(--white);
-    border-left: 0.125em solid var(--white);
+    border-top: 0.125rem solid var(--white);
+    border-left: 0.125rem solid var(--white);
   }

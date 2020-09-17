@@ -1,7 +1,7 @@
 .sb-pdf-splash-container {
   box-sizing: border-box;
-  padding: 1em;
-  background: var(--primary-color);
+  padding: 1rem;
+  background: var(--primary-theme);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
 
     span {
       color: var(--white);
-      font-size: 1.5em;
+      font-size: 1.5rem;
       font-weight: bold;
       letter-spacing: 0;
       line-height: normal;
@@ -28,8 +28,8 @@
 
   &__footer {
     color: var(--gray-800);
-    font-size: 0.75em;
-    line-height: 1.25em;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -115,12 +115,12 @@ $color: #F1635D;
 .bg {
   background-color: $color;
   animation: loading $loadingTime linear;
-  border-radius: 0.25em;
+  border-radius: 0.25rem;
 }
 
 .el{
   color: $color;
-  height: 0.5em;
+  height: 0.5rem;
 //   width: 200px;
 //   border: 1px solid $color;
   
@@ -135,5 +135,5 @@ $color: #F1635D;
 }
 .loading-text {
     align-self: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5rem;
 }
