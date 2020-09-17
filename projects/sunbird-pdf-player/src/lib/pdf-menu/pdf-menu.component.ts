@@ -14,11 +14,13 @@ export class PdfMenuComponent implements OnInit {
   }
 
   openNav() {
-    this.pdfPlayerService.showMenu = true;
+    document.getElementById('mySidenav').style.width = '100%';
+    document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'rgba(0,0,0,0.4)';
   }
 
   closeNav() {
-    this.pdfPlayerService.showMenu = false;
+    document.getElementById('mySidenav').style.width = '0';
+    document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'white';
   }
 
   openPdfDownloadPopup() {

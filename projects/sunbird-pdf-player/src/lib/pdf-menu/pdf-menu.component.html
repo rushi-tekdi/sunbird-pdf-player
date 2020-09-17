@@ -6,14 +6,14 @@
   </div>
 </div>
 
-<div id="mySidena__pdf" *ngIf="pdfPlayerService.showMenu" class="sidenav">
-    <div class="navBlock">
-      <div class="pdf-nav-unit">PDF full title comes here without truncation</div>
-      <ul>
-        <li><span class="pdf-icon pdf-share"></span>Share</li>
-        <li><span class="pdf-icon pdf-download" (click)="openPdfDownloadPopup()"></span>Download</li>
-        <li (click)="closeNav()"><span class="pdf-icon pdf-exit"></span>Exit</li>
-      </ul>
-    </div>
-    <div class="transparentBlock" (click)="closeNav()"></div>
+<div id="mySidenav" class="sidenav">
+  <div class="navBlock">
+    <div class="pdf-nav-unit">{{pdfPlayerService.contentName}}</div>
+    <ul>
+      <li (click)="pdfPlayerService.raiseHeartBeatEvent('SHARE')"><span class="pdf-icon pdf-share"></span>Share</li>
+      <li><span class="pdf-icon pdf-download" (click)="openPdfDownloadPopup()"></span>Download</li>
+      <li (click)="closeNav()"><span class="pdf-icon pdf-exit"></span>Exit</li>
+    </ul>
   </div>
+  <div class="transparentBlock" (click)="closeNav()"></div>
+</div>
