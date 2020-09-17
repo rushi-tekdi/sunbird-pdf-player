@@ -1,3 +1,102 @@
-.sb-pdf-main-header {
-    // font-size: calc(12px + (24 - 12) * ((100vw - 360px)/ (1900 - 360)));
+::ng-deep {
+  .pdfViewer .page {
+    background: none !important;
+    border-image: none !important;
+    border: 0 !important;
+  }
+
+  .grab-to-pan-grab :not(input):not(textarea):not(button):not(select):not(:link) {
+    // background-color: var(--white) !important;
+  }
+
+
+  #toolbarContainer {
+    background: none !important;
+    height: auto !important;
+  }
+
+  #viewerContainer {
+    position: relative !important;
+    height: calc(100% - 3rem);
+  }
+
+  .html,
+  .body,
+  .pdf-viewer button,
+  .pdf-viewer input,
+  .pdf-viewer select {
+    font-size: inherit !important;
+  }
+
+  .findbar,
+  .secondaryToolbar,
+  html[dir=ltr] #toolbarContainer,
+  html[dir=rtl] #toolbarContainer {
+    box-shadow: none !important;
+  }
+
+  .zoom {
+    min-height: inherit !important;
+  }
+
+}
+
+
+.sb-pdf-reading-status {
+  color: var(--gray-800);
+  font-size: 0.75em;
+  position: absolute;
+  left: 1em;
+  bottom: 1em;
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border-radius: 0.5em;
+  padding: 0.25em 0.5em;
+  z-index: 5;
+
+  span {
+    background: var(--gray-800);
+    width: 4px;
+    height: 4px;
+    display: block;
+    margin: 0px 0.5em;
+    border-radius: 50%;
+  }
+}
+
+.sbt-pdf-footer {
+  background: var(--white);
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+@media screen and (orientation:landscape) {
+  //@media screen and (min-width:768px) and (max-width:1024px) and (orientation:landscape)
+  .sb-pdf-header {
+    border: 5px solid red;
+  }
+  .visible-only-landscape {
+    display: block;
+  }
+  .visible-only-potrait {
+    display: none;
+  }
+}
+
+@media screen and (orientation:potrait) {
+  .sb-pdf-header {
+    border: 5px solid green;
+  }
+  .visible-only-landscape {
+    display: none;
+  }
+  .visible-only-potrait {
+    display: block;
+  }
 }

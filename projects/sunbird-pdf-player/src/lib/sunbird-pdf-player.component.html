@@ -33,7 +33,16 @@
 (rotationChange)="onRotationChange($event)"
 (pageChange)="onPageChange($event)"
 (zoomChange)="onZoomChange($event)"></ngx-extended-pdf-viewer>
+<sidebar></sidebar>
 <ng-template #customSunbirdPdfToolbar>
     <pdf-header class="sb-pdf-main-header"></pdf-header>
 </ng-template>
+<div class="sb-pdf-reading-status">Location 7 of 118 <span></span> 5%</div>
+<div class="sbt-pdf-footer">
+    <div class="d-flex pdf-slides visible-only-potrait" style="float: right;">
+      <previous-navigation></previous-navigation>
+      <next-navigation></next-navigation>
+    </div>
+  </div>
 <download-pdf-popup></download-pdf-popup>
+
