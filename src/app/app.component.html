@@ -1,4 +1,4 @@
-<div style="width:90%;margin:0 auto;display: grid;grid-template-columns: 70% 30%;gap:24px;padding-top:64px;">
+<div class="pdf-player-grid">
     <div>
         <div class="aspectratio" data-ratio="16:9" id="help-video-aspect-ratio" #aspectRatio>
             <sunbird-pdf-player class="sunbird-pdf-player" [playerConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"></sunbird-pdf-player>
