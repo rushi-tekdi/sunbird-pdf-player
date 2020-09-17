@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 
 @Component({
@@ -9,30 +9,25 @@ import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 
 
 export class HeaderComponent implements OnInit {
-  @Input() duration?: any;
-  @Input() disablePreviousNavigation: boolean;
-  time: any;
-  pagesCount: number;
-  pageNumber: number;
+  pageNumber;
+  subscription;
   constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
   }
 
-
-  ngOnInit() {
-    this.pageNumber = 1;
-    this.pagesCount = this.pdfPlayerService.totalNumberOfPages;
-    if (this.duration) {
-    }
+  ngOnInit(): void {
+    this.pageNumber = this.pdfPlayerService.currentPagePointer;
+    this.subscription  = this.pdfPlayerService.playerEvent.subscribe(data => {
+      if (data.edata.type === 'PAGE_CHANGE') {
+        this.pageNumber = this.pdfPlayerService.currentPagePointer;
+      }
+    });
   }
-
   nextSlide() {
     (window as any).PDFViewerApplication.eventBus.dispatch('nextpage');
   }
 
   prevSlide() {
-    if (!this.disablePreviousNavigation) {
       (window as any).PDFViewerApplication.eventBus.dispatch('previouspage');
-    }
   }
 
   zoomIn() {
@@ -43,18 +38,26 @@ export class HeaderComponent implements OnInit {
     (window as any).PDFViewerApplication.zoomOut();
   }
 
-  rotateLeft() {
-    (window as any).PDFViewerApplication.rotatePages(270);
-  }
-
-  rotateRight() {
-    (window as any).PDFViewerApplication.rotatePages(90);
-  }
-
   getPage() {
-    if (typeof this.pageNumber !== 'number') {
-      this.pageNumber = +this.pageNumber;
+    if (this.pageNumber > 0 && this.pageNumber < this.pdfPlayerService.totalNumberOfPages) {
+      (window as any).PDFViewerApplication.page = this.pageNumber;
     }
-    (window as any).PDFViewerApplication.page = this.pageNumber;
+  }
+
+  openNav() {
+    document.getElementById('mySidenav').style.width = '100%';
+    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
+  }
+
+  closeNav() {
+    document.getElementById('mySidenav').style.width = '0';
+    document.body.style.backgroundColor = 'white';
+  }
+
+  openPdfDownloadPopup() {
+    this.pdfPlayerService.showDownloadPopup = true;
+  }
+  ngOnDestroy() {
+    
   }
 }
