@@ -1,6 +1,7 @@
 <div id="sbPdfPlayerContainer">
   <div class="sb-pdf-header">
     <pdf-menu></pdf-menu>
+    <sidebar></sidebar>
    <div class="sb-pdf-header__panel d-flex flex-ai-center flex-jc-flex-end">
       <div class="pdf-header-btn d-flex">
         <div (click)="zoomOut()" class="pdf-header-btn__zoombtn zoomOut-btn"></div>
@@ -14,8 +15,8 @@
         <div (click)="rotateRight()" class="pdf-header-btn-inline pdf-header-btn">Rotate Right</div> -->
       </div>
       <div class="d-flex pdf-slides">
-        <div class="navigation-arrows pdf-previousIcon d-flex flex-ai-center flex-jc-center" (click)="prevSlide()"></div>
-        <div class="navigation-arrows pdf-nextIcon d-flex flex-ai-center flex-jc-center" (click)="nextSlide()"></div>
+        <previous-navigation></previous-navigation>
+        <next-navigation></next-navigation>
         <!-- <div class="pdf-previousIcon pdf-header-btn-inline" ></div>
         <div class="pdf-nextIcon pdf-header-btn-inline" ></div> -->
       </div>
