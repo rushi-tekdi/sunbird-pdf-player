@@ -11,7 +11,7 @@
     <div class="pdf-nav-unit">{{pdfPlayerService.contentName}}</div>
     <ul>
       <li (click)="pdfPlayerService.raiseHeartBeatEvent('SHARE')"><span class="pdf-icon pdf-share"></span>Share</li>
-      <li><span class="pdf-icon pdf-download" (click)="openPdfDownloadPopup()"></span>Download</li>
+      <li (click)="openPdfDownloadPopup()"><span class="pdf-icon pdf-download"></span>Download</li>
       <li (click)="closeNav()"><span class="pdf-icon pdf-exit"></span>Exit</li>
     </ul>
   </div>
