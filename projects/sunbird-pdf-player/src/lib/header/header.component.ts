@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 })
 
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   pageNumber;
   subscription;
   constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
@@ -23,6 +23,9 @@ export class HeaderComponent implements OnInit {
     });
   }
   nextSlide() {
+    if (this.pdfPlayerService.totalNumberOfPages === this.pdfPlayerService.currentPagePointer) {
+      this.pdfPlayerService.showEndPage = true;
+    }
     (window as any).PDFViewerApplication.eventBus.dispatch('nextpage');
   }
 
@@ -46,18 +49,18 @@ export class HeaderComponent implements OnInit {
 
   openNav() {
     document.getElementById('mySidenav').style.width = '100%';
-    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
+    document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'rgba(0,0,0,0.4)';
   }
 
   closeNav() {
     document.getElementById('mySidenav').style.width = '0';
-    document.body.style.backgroundColor = 'white';
+    document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'white';
   }
 
   openPdfDownloadPopup() {
     this.pdfPlayerService.showDownloadPopup = true;
   }
   ngOnDestroy() {
-    
+    this.subscription.unsubscribe();
   }
 }
