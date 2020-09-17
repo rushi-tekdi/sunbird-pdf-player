@@ -59,6 +59,12 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     clearInterval(this.progressInterval);
     this.pdfPlayerService.raiseStartEvent(event);
     this.pdfVisibility = 'inline';
+
+    document.getElementById('viewerContainer').onscroll = (e: any) => {
+      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+        console.log('end');
+      }
+    };
   }
 
   public onPdfLoadFailed(error: Error): void {
