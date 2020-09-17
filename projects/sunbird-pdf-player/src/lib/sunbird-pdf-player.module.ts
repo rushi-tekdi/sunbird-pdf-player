@@ -7,9 +7,12 @@ import { SunbirdPdfPlayerComponent } from './sunbird-pdf-player.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { StartPageComponent } from './start-page/start-page.component';
 import { EndPageComponent } from './end-page/end-page.component';
+import { PdfMenuComponent } from './pdf-menu/pdf-menu.component';
 
 @NgModule({
-  declarations: [SunbirdPdfPlayerComponent, HeaderComponent, DownloadPdfPopupComponent, StartPageComponent, EndPageComponent],
+  declarations: [
+    SunbirdPdfPlayerComponent, HeaderComponent, DownloadPdfPopupComponent, StartPageComponent, EndPageComponent, PdfMenuComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

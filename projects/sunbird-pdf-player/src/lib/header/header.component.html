@@ -1,12 +1,6 @@
 <div id="sbPdfPlayerContainer">
   <div class="sb-pdf-header">
-    <div class="sb-pdf-header__pdf-menu" (click)="openNav()">
-      <div class="hamburger-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+    <pdf-menu></pdf-menu>
    <div class="sb-pdf-header__panel d-flex flex-ai-center flex-jc-flex-end">
       <div class="pdf-header-btn d-flex">
         <div (click)="zoomOut()" class="pdf-header-btn__zoombtn zoomOut-btn"></div>
@@ -26,17 +20,5 @@
         <div class="pdf-nextIcon pdf-header-btn-inline" ></div> -->
       </div>
    </div>
-  </div>
-    <div id="mySidenav" class="sidenav">
-      <div class="navBlock">
-        <div class="pdf-nav-unit">{{pdfPlayerService.contentName}}</div>
-        <ul>
-          <li (click)="pdfPlayerService.raiseHeartBeatEvent('SHARE')"><span class="pdf-icon pdf-share"></span>Share</li>
-          <li><span class="pdf-icon pdf-download" (click)="openPdfDownloadPopup()"></span>Download</li>
-          <!-- <li (click)="closeNav()"><span class="pdf-icon pdf-exit"></span>Exit</li> -->
-        </ul>
-      </div>
-      <div class="transparentBlock" (click)="closeNav()"></div>
-    </div>
-  
+  </div>  
 </div>
