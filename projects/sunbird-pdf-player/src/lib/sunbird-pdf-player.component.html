@@ -1,8 +1,8 @@
 <!-- <button (click)="replayContent()">replay</button> -->
-<start-page *ngIf="pdfVisibility === 'none'"></start-page>
+<start-page *ngIf="pdfPlayerService?.viewState === 'start'"></start-page>
 <ngx-extended-pdf-viewer *ngIf="showPlayer"
 [customToolbar]="customSunbirdPdfToolbar"
-[style.display]="pdfVisibility"
+[style.display]="pdfPlayerService?.viewState ==='player' ? 'inline': 'none'"
 [src]="pdfPlayerService?.src" 
 [height]="pdfConfig.height"
 [showOpenFileButton]=false
@@ -37,7 +37,7 @@
 <ng-template #customSunbirdPdfToolbar>
     <pdf-header class="sb-pdf-main-header"></pdf-header>
 </ng-template>
-<div class="sb-pdf-reading-status">Location 7 of 118 <span></span> 5%</div>
+<div class="sb-pdf-reading-status" *ngIf="pdfPlayerService?.viewState ==='player'">Location {{pdfPlayerService.currentPagePointer}} of {{pdfPlayerService.totalNumberOfPages}} <span></span> {{((pdfPlayerService.currentPagePointer/pdfPlayerService.totalNumberOfPages) * 100).toFixed(0)}}%</div>
 <div class="visible-only-potrait">
     <div class="sbt-pdf-footer">
         <div class="d-flex pdf-slides" style="float: right;">
@@ -48,4 +48,4 @@
 </div>
 
 <download-pdf-popup></download-pdf-popup>
-
+<end-page *ngIf="pdfPlayerService?.viewState === 'end'"></end-page>

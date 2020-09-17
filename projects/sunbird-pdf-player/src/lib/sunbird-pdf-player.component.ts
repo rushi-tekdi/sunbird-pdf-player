@@ -1,6 +1,8 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 
 import {
+  PageRenderedEvent,
   PdfDownloadedEvent, PdfLoadedEvent
 } from 'ngx-extended-pdf-viewer';
 
@@ -14,8 +16,8 @@ import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   public pdfConfig: Config;
   private progressInterval: any;
-  public pdfVisibility: any;
   public showPlayer = true;
+  private subscription;
   @Input() playerConfig: PlayerConfig;
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
@@ -24,6 +26,11 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
     this.playerEvent = this.pdfPlayerService.playerEvent;
+    this.subscription =  this.pdfPlayerService.playerEvent.subscribe((data) => {
+      if (data.edata.type === 'REPLAY') {
+        this.replayContent();
+      }
+    });
   }
 
   @HostListener('document:TelemetryEvent', ['$event'])
@@ -32,13 +39,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(replay?) {
-    this.pdfVisibility = 'none';
     this.pdfConfig = { ...this.pdfPlayerService.defaultConfig, ...this.playerConfig.config };
     this.pdfPlayerService.init(this.playerConfig, replay);
     this.updateProgress();
   }
 
   replayContent() {
+    this.pdfPlayerService.viewState = 'player';
     this.showPlayer = false;
     setTimeout(() => {
       this.showPlayer =  true;
@@ -58,19 +65,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   public onPdfLoaded(event: PdfLoadedEvent): void {
     clearInterval(this.progressInterval);
     this.pdfPlayerService.raiseStartEvent(event);
-    this.pdfVisibility = 'inline';
-
-    document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
-        console.log('end');
-      }
-    };
+    this.pdfPlayerService.viewState = 'player';
   }
 
   public onPdfLoadFailed(error: Error): void {
     clearInterval(this.progressInterval);
     this.pdfPlayerService.raiseErrorEvent(error);
-    this.pdfVisibility = 'inline';
+    this.pdfPlayerService.viewState = 'player';
   }
 
   public onZoomChange(event: any): void {
@@ -124,5 +125,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.pdfPlayerService.pageSessionUpdate();
     this.pdfPlayerService.raiseEndEvent();
     this.pdfViewerCleanUp();
+    this.subscription.unsubscribe();
   }
 }

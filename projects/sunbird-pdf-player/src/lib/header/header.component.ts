@@ -11,6 +11,7 @@ import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   pageNumber;
   subscription;
+  totalPageView = true;
   constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
   }
 
@@ -31,10 +32,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     (window as any).PDFViewerApplication.zoomOut();
   }
 
-  getPage() {
-    if (this.pageNumber > 0 && this.pageNumber < this.pdfPlayerService.totalNumberOfPages) {
-      (window as any).PDFViewerApplication.page = this.pageNumber;
+  gotoPage() {
+    if (this.pageNumber > 0 && this.pageNumber <= this.pdfPlayerService.totalNumberOfPages) {
+      (window as any).PDFViewerApplication.page = parseInt(this.pageNumber, 10) ;
     }
+    this.totalPageView = true;
   }
 
   openPdfDownloadPopup() {

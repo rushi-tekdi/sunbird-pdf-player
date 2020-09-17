@@ -10,10 +10,14 @@
         <div (click)="zoomIn()" class="pdf-header-btn__zoombtn zoomIn-btn"></div>
       </div>
       <div class="pdf-pagenumber">
-        <input  [(ngModel)]='pageNumber' (change)="getPage()" type="text" class="page-count"/>
-        <span class="focus-arrow"><img src="./assets/arrow-right.svg" width="100%" /></span>
-        <span class="slash">/</span>
-        <span class="pageNumberFullcount">{{pdfPlayerService.totalNumberOfPages}}</span>
+        <input  [(ngModel)]='pageNumber' type="text" class="page-count" 
+        (click)="totalPageView = false"/>
+        <span class="focus-arrow" (click)="gotoPage()"><img src="./assets/arrow-right.svg" width="100%" /></span>
+        <span class="slash" 
+        [style.display]="totalPageView === true ? 'inline': 'none'">/</span>
+        <span class="pageNumberFullcount" 
+        [style.display]="totalPageView === true ? 'inline': 'none'"
+        >{{pdfPlayerService.totalNumberOfPages}}</span>
         <!-- <div (click)="rotateLeft()" class="pdf-header-btn-inline pdf-header-btn">Rotate Left</div>
         <div (click)="rotateRight()" class="pdf-header-btn-inline pdf-header-btn">Rotate Right</div> -->
       </div>

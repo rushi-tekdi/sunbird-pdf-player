@@ -4,32 +4,32 @@
       <img src="assets/badge-2.svg" alt="badge" class="badge">
       <div class="score-details">
         <span class="progress">Pages read :</span>
-        <span class="score">387</span>
+        <span class="score">{{pdfPlayerService.currentPagePointer}}</span>
       </div>
      <div class="user-details">
       <img src="assets/user.svg" alt="user" class="user">
-      <div class="user-title">User name</div>
+      <div class="user-title">{{pdfPlayerService?.userName}}</div>
      </div>
      <div class="timer-details">
       <img src="assets/timer.svg" alt="timer" class="timer">
-      <span>8:46</span>
+      <span>{{pdfPlayerService.timeSpent}}</span>
      </div>
     </div>
   </div>
   <div class="pdf-endpage__right-panel">
     <div class="title-section">
       <div class="title">You just completed</div>
-      <span>Central nervous system</span>
+      <span>{{pdfPlayerService.contentName}}</span>
     </div>
     <div class="user-options">
-      <div class="replay-section">
+      <div class="replay-section" (click)="replay()">
         <img src="assets/replay.svg" alt="replay">
         <div class="title">Replay</div>
       </div>
-      <div class="exit-section">
+      <!-- <div class="exit-section">
         <img src="assets/exit_to_app.svg" alt="exit">
         <div class="title">Exit</div>
-      </div>
+      </div> -->
     </div>
     <div class="next">Up Next</div>
     <div class="next-level">

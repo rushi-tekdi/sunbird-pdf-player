@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 
 @Component({
   selector: 'end-page',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EndPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public pdfPlayerService: SunbirdPdfPlayerService) { }
 
   ngOnInit() {
+  }
+  replay() {
+    this.pdfPlayerService.replayContent();
   }
 
 }

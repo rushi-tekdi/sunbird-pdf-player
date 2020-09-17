@@ -14,9 +14,10 @@ export class NextNavigationComponent implements OnInit {
   }
 
   nextSlide() {
-    if (this.pdfPlayerService.totalNumberOfPages === this.pdfPlayerService.currentPagePointer) {
-      this.pdfPlayerService.showEndPage = true;
-    }
+    const nextPage = this.pdfPlayerService.currentPagePointer + 1;
     (window as any).PDFViewerApplication.eventBus.dispatch('nextpage');
+    if (this.pdfPlayerService.totalNumberOfPages < nextPage) {
+      this.pdfPlayerService.viewState = 'end';
+    }
   }
 }

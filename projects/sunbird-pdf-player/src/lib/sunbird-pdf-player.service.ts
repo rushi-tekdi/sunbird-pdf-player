@@ -20,11 +20,13 @@ export class SunbirdPdfPlayerService {
   private contentSessionId: string;
   private playSessionId: string;
   private telemetryObject: any;
-  currentPagePointer: number;
-  totalNumberOfPages: number;
+  currentPagePointer = 0;
+  totalNumberOfPages = 0;
   pdfPlayerStartTime: number;
   pdfLastPageTime: number;
   showEndPage = false;
+  viewState = 'start';
+  timeSpent = '0:0';
 
   defaultConfig = {
     showPropertiesButton: false,
@@ -110,6 +112,10 @@ export class SunbirdPdfPlayerService {
         rollup: context.objectRollup || {}
       };
     this.showEndPage = false;
+    // setTimeout(() => {
+    //   this.raiseEndEvent();
+    //   this.viewState = 'end';
+    // }, 20000);
   }
 
   public pageSessionUpdate() {
@@ -142,6 +148,15 @@ export class SunbirdPdfPlayerService {
       }, edata: {type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2))}}
       );
     this.pdfLastPageTime = this.pdfPlayerStartTime = new Date().getTime();
+    document.getElementById('viewerContainer').onscroll = (e: any) => {
+      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+        this.raiseEndEvent();
+      }
+      if (e.target.scrollTop < 10) {
+         this.currentPagePointer = (window as any).PDFViewerApplication.page;
+         this.raiseHeartBeatEvent('PAGE_CHANGE');
+      }
+    };
   }
 
   raiseEndEvent() {
@@ -191,6 +206,8 @@ export class SunbirdPdfPlayerService {
         object: this.telemetryObject
       }
     });
+    this.getTimeSpentForUI();
+    this.viewState = 'end';
   }
 
   raiseErrorEvent(error: Error) {
@@ -249,7 +266,7 @@ export class SunbirdPdfPlayerService {
     const duration = new Date().getTime() - this.pdfPlayerStartTime;
     const minutes = Math.floor(duration / 60000);
     const seconds = Number(((duration % 60000) / 1000).toFixed(0));
-    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    this.timeSpent =  minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
   private  uniqueId(length = 32 ) {
@@ -260,5 +277,9 @@ export class SunbirdPdfPlayerService {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+ }
+
+ replayContent() {
+  this.raiseHeartBeatEvent('REPLAY');
  }
 }
