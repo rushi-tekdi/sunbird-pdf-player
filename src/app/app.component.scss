@@ -1,0 +1,12 @@
+.pdf-player-grid {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 24px;
+  padding-top: 64px;
+  @media screen and (max-width:768px) {
+  grid-template-columns: 100%;
+  gap: 0px;
+  }
+}
