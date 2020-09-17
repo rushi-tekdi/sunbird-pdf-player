@@ -24,6 +24,7 @@ export class SunbirdPdfPlayerService {
   totalNumberOfPages: number;
   pdfPlayerStartTime: number;
   pdfLastPageTime: number;
+  showEndPage = false;
 
   defaultConfig = {
     showPropertiesButton: false,
@@ -108,6 +109,7 @@ export class SunbirdPdfPlayerService {
         ver: metadata.pkgVersion + '',
         rollup: context.objectRollup || {}
       };
+    this.showEndPage = false;
   }
 
   public pageSessionUpdate() {
