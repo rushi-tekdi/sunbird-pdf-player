@@ -1,16 +1,20 @@
-<div class="modal" *ngIf="pdfPlayerService.showDownloadPopup">
-    <div class="sb-modal-header">
-      Confirm Download
+<div class="file-download" *ngIf="pdfPlayerService.showDownloadPopup">
+  <div class="file-download__overlay" (click)="hidePdfDownloadPopup()">
+    <div class="file-download__popup">
+      <div class="file-download__close-btn">
+        <img src="./assets/iconclosedownload.svg" alt="Close">
+      </div>
+      <div class="file-download__metadata">
+        <h5 class="file-download__title">Confirm Download</h5>
+        <div class="file-download__text">"{{pdfPlayerService.contentName}}" will be saved on your device.</div>
+        <div class="file-download__size">
+          <!-- File Size 1.6mb -->
+        </div>
+        <div class="file-download__action-btns">
+          <button type="button" (click)="hidePdfDownloadPopup()" class="cancel-btn">Cancel</button>
+          <button type="button" class="download-btn" (click)="downloadPdf()">Download</button>
+        </div>
+      </div>
     </div>
-    <div class="sb-modal-content">
-      "{{pdfPlayerService.contentName}}" will be saved on your device.
-    </div>
-    <div class="sb-modal-actions">
-      <button (click)="hidePdfDownloadPopup()" class="sb-btn sb-btn-normal sb-btn-primary">
-       cancel
-      </button>
-      <button  class="sb-btn sb-btn-normal sb-btn-outline-primary" (click)="downloadPdf()">
-        Download
-      </button>
-    </div>
+  </div>
 </div>

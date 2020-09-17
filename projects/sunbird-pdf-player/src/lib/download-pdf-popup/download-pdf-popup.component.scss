@@ -1,0 +1,86 @@
+.file-download {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    &__overlay {
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &__popup {
+      min-width: 65%;
+      max-width: 22.5rem;
+      height: 13.125rem;
+      background:var(--white);
+      border-radius: 1rem;
+      box-shadow: 0 0 1.5em 0 rgba(0,0,0,0.22);
+      padding: 1.5rem;
+      position: relative;
+    }
+    &__close-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+      img {
+        max-width: 100%;
+      }
+    }
+    &__metadata {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    &__title {
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.375rem;
+      word-break: break-word;
+    }
+    &__text {
+      color: #666666;
+      word-break: break-word;
+    }
+    &__size {
+      color:var(--black);
+    }
+    &__text, &__size {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+    &__title, &__text, &__size {
+        margin:0 0 1.5em 0;
+    }
+    &__action-btns {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      .cancel-btn {
+        background-color: transparent;
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+      .download-btn {
+        margin-left: auto;
+        border-radius: 1.25rem;
+        background-color: var(--primary-color);
+        color:var(--white);
+        padding: 0.75em 1.5rem;
+      }
+      .cancel-btn, .download-btn {
+        outline: none;
+        border: none;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    }
+  }

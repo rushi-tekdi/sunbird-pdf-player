@@ -3,7 +3,7 @@ import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 @Component({
   selector: 'download-pdf-popup',
   templateUrl: './download-pdf-popup.component.html',
-  styleUrls: ['./download-pdf-popup.component.css']
+  styleUrls: ['./download-pdf-popup.component.scss']
 })
 export class DownloadPdfPopupComponent implements OnInit {
   constructor(public pdfPlayerService: SunbirdPdfPlayerService) { }
@@ -12,7 +12,7 @@ export class DownloadPdfPopupComponent implements OnInit {
   }
 
   hidePdfDownloadPopup() {
-    this.pdfPlayerService.showDownloadPopup = false;
+    this.pdfPlayerService.showDownloadPopup = true;
   }
 
   downloadPdf() {
