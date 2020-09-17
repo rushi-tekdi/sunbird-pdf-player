@@ -14,7 +14,7 @@
     <div class="pdf-pagenumber">
       <input  [(ngModel)]='pageNumber' (change)="getPage()" type="text" class="page-count"/>
       <span class="slash">/</span>
-      <span>{{pagesCount}}</span>
+      <span>{{pdfPlayerService.totalNumberOfPages}}</span>
       <!-- <div (click)="rotateLeft()" class="pdf-header-btn-inline pdf-header-btn">Rotate Left</div>
       <div (click)="rotateRight()" class="pdf-header-btn-inline pdf-header-btn">Rotate Right</div> -->
     </div>
@@ -28,11 +28,11 @@
 </div>
   <div id="mySidenav" class="sidenav">
     <div class="navBlock">
-      <div class="pdf-nav-unit">PDF full title comes here without truncation</div>
+      <div class="pdf-nav-unit">{{pdfPlayerService.contentName}}</div>
       <ul>
         <li><span class="pdf-icon pdf-share"></span>Share</li>
         <li><span class="pdf-icon pdf-download" (click)="openPdfDownloadPopup()"></span>Download</li>
-        <li (click)="closeNav()"><span class="pdf-icon pdf-exit"></span>Exit</li>
+        <!-- <li (click)="closeNav()"><span class="pdf-icon pdf-exit"></span>Exit</li> -->
       </ul>
     </div>
     <div class="transparentBlock" (click)="closeNav()"></div>

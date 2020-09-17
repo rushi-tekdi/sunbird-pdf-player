@@ -57,7 +57,7 @@ export class SunbirdPdfPlayerService {
 
   init({ context, config, metadata}: PlayerConfig, replay= false) {
     this.playSessionId = this.uniqueId();
-    let cdata = context.cdata;
+    let cdata = context.cdata || [];
     if (!replay) {
       cdata = [...cdata, ...[{id: this.contentSessionId, type: 'ContentSession'},
       {id: this.playSessionId, type: 'PlaySession'}]];
@@ -202,7 +202,13 @@ export class SunbirdPdfPlayerService {
       metaData: this.metaData
     };
     this.playerEvent.emit(errorEvent);
-    CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry(errorEvent);
+    CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
+      edata: {
+        err: 'LOAD',
+        errtype: 'content',
+        stacktrace: (error && error.toString()) || ''
+      }
+    });
   }
 
   raiseHeartBeatEvent(type: string) {
@@ -217,7 +223,24 @@ export class SunbirdPdfPlayerService {
     };
     this.playerEvent.emit(hearBeatEvent);
     CsTelemetryModule.instance.playerTelemetryService.onHeartBeatEvent(hearBeatEvent, {});
+    if (type === 'PAGE_CHANGE') {
+      CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry({
+        options: {
+          object: this.telemetryObject
+        },
+        edata: {type: 'workflow', subtype: '', pageid: this.currentPagePointer + '', uri: ''}
+      });
+    }
 
+  }
+
+  public raiseInteractEvent(id) {
+    CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
+      options: {
+        object: this.telemetryObject
+      },
+      edata: {type: 'TOUCH', subtype: '', id, pageid: this.currentPagePointer + ''}
+    });
   }
 
   public getTimeSpentForUI() {
