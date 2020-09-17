@@ -53,7 +53,7 @@
             }
             .timer-details{
                 position: absolute;
-                bottom: 2.75rem;
+                bottom: 2.25rem;
                 left: 0;
                 right: 0;
                 display: flex;
@@ -144,21 +144,3 @@
     }
 }
 
-// @media screen and (max-width: 768px) and (orientation: portrait) {
-//     .pdf-endpage {
-//         display: block;
-//         position: relative;
-//         &__left-panel{
-//             width: 100%;
-//         }
-//         &__right-panel{
-//             width: 100%;
-//             .title-section{
-//                 position: absolute;
-//                 top: 0;
-//                 left: 0;
-//                 right: 0;
-//             }
-//         }
-//     }
-//   }
