@@ -52,21 +52,9 @@ export class HeaderComponent implements OnInit {
   }
 
   getPage() {
-    console.log(this.pageNumber);
+    if (typeof this.pageNumber !== 'number') {
+      this.pageNumber = +this.pageNumber;
+    }
     (window as any).PDFViewerApplication.page = this.pageNumber;
-  }
-
-  openNav() {
-    document.getElementById('mySidenav').style.width = '100%';
-    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
-  }
-
-  closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-    document.body.style.backgroundColor = 'white';
-  }
-
-  openPdfDownloadPopup() {
-    this.pdfPlayerService.showDownloadPopup = true;
   }
 }

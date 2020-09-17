@@ -15,4 +15,8 @@ export class DownloadPdfPopupComponent implements OnInit {
     this.pdfPlayerService.showDownloadPopup = false;
   }
 
+  downloadPdf() {
+    (window as any).PDFViewerApplication.download();
+  }
+
 }
