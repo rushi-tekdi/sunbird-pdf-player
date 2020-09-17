@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="37px" viewBox="0 0 36 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>4C4000DB-FBF3-4810-AE32-5E0932FCACE5xxhdpi/</title>
+    <defs>
+        <linearGradient x1="18%" y1="0%" x2="83.1005864%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#415CF2" offset="0%"></stop>
+            <stop stop-color="#6E84FD" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="PDF-Player" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="endgame-l2" transform="translate(-360.000000, -119.000000)">
+            <g id="Group-7" transform="translate(356.000000, 117.000000)">
+                <g id="Group-6" transform="translate(0.000000, 2.853333)">
+                    <g id="Icon-24px" transform="translate(4.000000, 0.000000)">
+                        <polygon id="Shape" points="0 0 36 0 36 36 0 36"></polygon>
+                        <path d="M18,7.5 L18,1.5 L10.5,9 L18,16.5 L18,10.5 C22.965,10.5 27,14.535 27,19.5 C27,24.465 22.965,28.5 18,28.5 C13.035,28.5 9,24.465 9,19.5 L6,19.5 C6,26.13 11.37,31.5 18,31.5 C24.63,31.5 30,26.13 30,19.5 C30,12.87 24.63,7.5 18,7.5 L18,7.5 Z" id="Shape" fill="url(#linearGradient-1)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
