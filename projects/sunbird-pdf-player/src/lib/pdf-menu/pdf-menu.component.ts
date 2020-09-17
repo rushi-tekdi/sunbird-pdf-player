@@ -17,13 +17,4 @@ export class PdfMenuComponent implements OnInit {
     document.getElementById('mySidenav').style.width = '100%';
     document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'rgba(0,0,0,0.4)';
   }
-
-  closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'white';
-  }
-
-  openPdfDownloadPopup() {
-    this.pdfPlayerService.showDownloadPopup = true;
-  }
 }
