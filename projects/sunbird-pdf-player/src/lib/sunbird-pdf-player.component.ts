@@ -57,7 +57,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
    this.progressInterval =  setInterval(() => {
     if ((window as any).PDFViewerApplication && (window as any).PDFViewerApplication.loadingBar) {
       this.pdfPlayerService.loadingProgress = (window as any).PDFViewerApplication.loadingBar.percent || 0;
-      console.log(this.pdfPlayerService.loadingProgress);
      }
    }, 500);
   }
