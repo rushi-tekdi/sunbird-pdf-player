@@ -97,13 +97,33 @@
     //   border: 5px solid green;
     // }
     .visible-only-landscape {
-        display: none;
+      display: none;
     }
+
     .visible-only-potrait {
       display: block;
     }
-  }
+    .file-download__popup{
+    height: 15.125rem;
+    }
+    .pdf-endpage {
+      display: block !important;
+      position: relative;
 
+      &__left-panel {
+        margin-top: 6rem;
+      }
+
+      &__right-panel {
+        .title-section {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  }
 }
 
 // @media (orientation: portrait) {

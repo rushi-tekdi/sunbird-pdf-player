@@ -1,33 +1,33 @@
 .pdf-endpage{
-    padding: 1em;
+    padding: 1rem;
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     &__left-panel{
-        width: 50%;
         text-align: center;
         .user-score-card{
             position: relative;
             .badge{
-                width: 17.625em;
-                height: 13.1em;
+                width: 17.625rem;
+                height: 13.1rem;
             }
             .score-details{
                 position: absolute;
                 left: 0;
                 right: 0;
-                top: 6.6em;
+                top: 6.6rem;
                 color: #fff;
                 text-shadow: 0.063 0.125 #8b2925;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 .progress{
-                    font-size: 0.85em;
-                    margin-right: 0.7em;
+                    font-size: 0.85rem;
+                    margin-right: 0.7rem;
                 }
                 .score{
-                    font-size: 1.3em;
+                    font-size: 1.3rem;
                     font-weight: bold;
                 }
             }
@@ -35,17 +35,17 @@
                 position: absolute;
                 left: 0;
                 right: 0;
-                top: 2.8em;
-                width: 8.5em;
+                top: 2.8rem;
+                width: 8.5rem;
                 margin: 0 auto;
                 .user{
-                    width: 1.275em;
-                    height: 1.275em;
+                    width: 1.275rem;
+                    height: 1.275rem;
                 }
                 .user-title{
-                    color: #5A72F8;
-                    font-size: 0.85em;
-                    line-height: 1em;
+                    color: var(--primary-color);
+                    font-size: 0.85rem;
+                    line-height: 1rem;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -53,73 +53,72 @@
             }
             .timer-details{
                 position: absolute;
-                bottom: 2.75em;
+                bottom: 2.25rem;
                 left: 0;
                 right: 0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 .timer{
-                    width: 1.275em;
-                    height: 1.275em;
+                    width: 1.275rem;
+                    height: 1.275rem;
                 }
                 span{
-                    color: #5a72f8;
-                    font-size: 1em;
+                    color: var(--primary-color);
+                    font-size: 1rem;
                     font-weight: 700;
-                    margin-left: .3em;
+                    margin-left: .3rem;
                 }
             }
         }
     }
     &__right-panel{
-        width: 50%;
         text-align: center;
         .title-section{
             .title{
-                color: #5a72f8;
+                color: var(--primary-color);
                 font-weight: bold;
-                font-size: 1.5em;
+                font-size: 1.5rem;
             }
             span{
                 color: #6D7278;
-                font-size: .85em;
+                font-size: .85rem;
             }
         }
         .user-options{
             display: flex;
             justify-content: space-around;
-            padding: 1.7em 0;
+            padding: 1.7rem 0;
             .title{
                 color: #2B2C43;
-                font-size: .99em;
-                line-height: 1.188em;
+                font-size: .99rem;
+                line-height: 1.188rem;
                 text-align: center;
             }
             img{
-                width: 2.55em;
-                height: 2.55em;
+                width: 2.55rem;
+                height: 2.55rem;
             }
         }
         .next{
             color: #6D7278;
-            font-size: 0.85em;
-            line-height: 1.063em;
-            margin-bottom: .7em;
+            font-size: 0.85rem;
+            line-height: 1.063rem;
+            margin-bottom: .7rem;
         }
         .next-level{
             margin: 0 auto;
-            width: 18.5em;
-            border-radius: 0.5em;
-            padding: 0.75em;
+            width: 18.5rem;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
             background: linear-gradient(135deg, #FFCD55 0%, #FFD955 100%);
-            box-shadow: inset 0 -0.063em 0.188em 0 rgba(0,0,0,0.5);
+            box-shadow: inset 0 -0.063rem 0.188rem 0 rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: space-between;
             .title-text{
                 color: #2B2C43;
-                font-size: 0.85em;
+                font-size: 0.85rem;
                 width: 85%;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -128,8 +127,8 @@
                 -webkit-box-orient: vertical;
             }
             .next-arrow{
-                height: 2.55em;
-                width: 2.55em;
+                height: 2.55rem;
+                width: 2.55rem;
                 background-color: #FFFCFF;
                 border-radius: 50%;
                 text-align: center;
@@ -138,28 +137,10 @@
                 justify-content: center;
                 cursor: pointer;
                 img{
-                    width: 1.75em;
+                    width: 1.75rem;
                 }
             }
         }
     }
 }
 
-// @media screen and (max-width: 768px) and (orientation: portrait) {
-//     .pdf-endpage {
-//         display: block;
-//         position: relative;
-//         &__left-panel{
-//             width: 100%;
-//         }
-//         &__right-panel{
-//             width: 100%;
-//             .title-section{
-//                 position: absolute;
-//                 top: 0;
-//                 left: 0;
-//                 right: 0;
-//             }
-//         }
-//     }
-//   }
