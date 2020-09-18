@@ -29,13 +29,14 @@
   &__panel {
     .pdf-header-btn {
       border-radius: .25rem;
-      background-color: var(--rc-e5e6e6);
-      padding: 0.125rem;
+      background-color: var(--gray-100);
+      padding: 0;
       margin-right: 1rem;
       cursor: pointer;
       width: 4rem;
       height: 2rem;
       align-items: center;
+      overflow: hidden;
 
       &__zoombtn {
         color: var(--black);
@@ -50,12 +51,13 @@
 
         &:hover {
           background: var(--gray-200);
-    height: 2rem;
+          height: 2rem;
+          border:0px solid transparent;
         }
       }
 
       .zoomOut-btn {
-        border-right: 0.063em solid var(--rc-b0b1b1);
+        border-right: 0.063em solid var(--gray-200);
 
         &::after {
           content: '\002D';
@@ -68,7 +70,6 @@
     }
 
     .pdf-pagenumber {
-      margin-right: 1rem;
       font-size: 1rem;
       display: flex;
       align-items: center;
@@ -77,7 +78,7 @@
       .page-count {
         height: 2rem;
         width: 2rem;
-        border: 0.031em solid var(--rc-C1C1C1);
+        border: 0.031em solid var(--gray-100);
         border-radius: 0.25rem;
         background-color: var(--white);
         text-align: center;
@@ -117,7 +118,9 @@
   }
 }
 
-
+.pdf-slides {
+  margin-left: 1rem;
+}
 .pdf-header-btn-inline {
   display: inline-block
 }

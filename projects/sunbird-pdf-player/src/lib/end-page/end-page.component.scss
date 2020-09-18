@@ -16,8 +16,8 @@
                 position: absolute;
                 left: 0;
                 right: 0;
-                top: 6.6rem;
-                color: #fff;
+                bottom: 5rem;
+                color: var(--white);
                 text-shadow: 0.063 0.125 #8b2925;
                 display: flex;
                 justify-content: center;
@@ -43,7 +43,7 @@
                     height: 1.275rem;
                 }
                 .user-title{
-                    color: var(--primary-color);
+                    color:var(--primary-color);
                     font-size: 0.85rem;
                     line-height: 1rem;
                     white-space: nowrap;
@@ -53,7 +53,7 @@
             }
             .timer-details{
                 position: absolute;
-                bottom: 2.25rem;
+                bottom: 2.75rem;
                 left: 0;
                 right: 0;
                 display: flex;
@@ -64,7 +64,7 @@
                     height: 1.275rem;
                 }
                 span{
-                    color: var(--primary-color);
+                    color:var(--primary-color);
                     font-size: 1rem;
                     font-weight: 700;
                     margin-left: .3rem;
@@ -74,15 +74,17 @@
     }
     &__right-panel{
         text-align: center;
+        padding: 1rem;
         .title-section{
             .title{
-                color: var(--primary-color);
+                color:var(--primary-color);
                 font-weight: bold;
                 font-size: 1.5rem;
             }
             span{
-                color: #6D7278;
+                color: var(--gray-400);
                 font-size: .85rem;
+                word-break: break-word;
             }
         }
         .user-options{
@@ -101,14 +103,14 @@
             }
         }
         .next{
-            color: #6D7278;
+            color: var(--gray-400);
             font-size: 0.85rem;
             line-height: 1.063rem;
             margin-bottom: .7rem;
         }
         .next-level{
             margin: 0 auto;
-            width: 18.5rem;
+            width: auto;
             border-radius: 0.5rem;
             padding: 0.75rem;
             background: linear-gradient(135deg, #FFCD55 0%, #FFD955 100%);
@@ -117,19 +119,20 @@
             align-items: center;
             justify-content: space-between;
             .title-text{
-                color: #2B2C43;
+                color: var(--gray-800);
                 font-size: 0.85rem;
-                width: 85%;
+                flex:1;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 -webkit-line-clamp: 2;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
+                line-height: normal;
             }
             .next-arrow{
                 height: 2.55rem;
                 width: 2.55rem;
-                background-color: #FFFCFF;
+                background-color: var(--white);
                 border-radius: 50%;
                 text-align: center;
                 display: flex;
