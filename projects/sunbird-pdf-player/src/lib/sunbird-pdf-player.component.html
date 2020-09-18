@@ -26,6 +26,7 @@
 [showRotateButton]="pdfConfig.showRotateButton"
 [showScrollingButton]="pdfConfig.showScrollingButton"
 [showSpreadButton]="pdfConfig.showSpreadButton"
+[filenameForDownload]="pdfPlayerService?.contentName"
 (pdfLoaded)="onPdfLoaded($event)"
 (pdfDownloaded)="onPdfDownloaded($event)"
 (pdfLoadingFailed)="onPdfLoadFailed($event)"
