@@ -21,7 +21,7 @@
       font-weight: bold;
       letter-spacing: 0;
       line-height: normal;
-      text-shadow: 0px 2px #CF8221;
+      text-shadow: 0px 2px var(--gray-400);
       word-break: break-word;
     }
   }
@@ -59,26 +59,18 @@ $color: #F1635D;
   }
 }
 
-.bg {
-  background-color: $color;
-  animation: loading $loadingTime linear;
+.bg,.el {
   border-radius: 0.25rem;
-}
-
-.el{
-  color: $color;
   height: 0.5rem;
-//   width: 200px;
-//   border: 1px solid $color;
-  
-  &:after {
-    content: "0%";
-    display: block;
-    text-align: center;
-    mix-blend-mode: difference;
-    animation: percentage $loadingTime linear;
-    display: none;
-  }
+}
+.bg {
+    background-color: var(--white);
+}
+.el{
+  background-color: $color;
+  width: 0%;
+  transition: all ease .3s;
+//   animation: loading $loadingTime linear;
 }
 .loading-text {
     align-self: center;
