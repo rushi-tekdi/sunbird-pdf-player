@@ -20,6 +20,8 @@ export class SunbirdPdfPlayerService {
   private contentSessionId: string;
   private playSessionId: string;
   private telemetryObject: any;
+  private context;
+  private content;
   currentPagePointer = 0;
   totalNumberOfPages = 0;
   pdfPlayerStartTime: number;
@@ -59,12 +61,10 @@ export class SunbirdPdfPlayerService {
   }
 
   init({ context, config, metadata}: PlayerConfig, replay= false) {
+    this.context =  context;
+    this.content =  metadata;
     this.playSessionId = this.uniqueId();
-    let cdata = context.cdata || [];
-    if (!replay) {
-      cdata = [...cdata, ...[{id: this.contentSessionId, type: 'ContentSession'},
-      {id: this.playSessionId, type: 'PlaySession'}]];
-    }
+
     if (!CsTelemetryModule.instance.isInitialised) {
       CsTelemetryModule.instance.init({});
       CsTelemetryModule.instance.telemetryService.initTelemetry(
@@ -82,7 +82,8 @@ export class SunbirdPdfPlayerService {
             host: context.host || '',
             endpoint: context.endpoint || '/data/v3/telemetry',
             tags: context.tags,
-            cdata
+            cdata : [{id: this.contentSessionId, type: 'ContentSession'},
+            {id: this.playSessionId, type: 'PlaySession'}]
           },
           userOrgDetails: {}
         }
@@ -93,7 +94,10 @@ export class SunbirdPdfPlayerService {
     this.currentPagePointer = (config && config.startFromPage ) || 1;
     this.contentName = metadata.name;
     this.src = metadata.artifactUrl;
-    this.userName = context.userData ? `${context.userData.firstName} ${context.userData.lastName}` : '';
+    if (context.userData) {
+      this.userName = context.userData.firstName === context.userData.lastName ? context.userData.firstName :
+      `${context.userData.firstName} ${context.userData.lastName}`;
+    }
     this.metaData = {
       pagesHistory: [],
       totalPages: 0,
@@ -140,7 +144,8 @@ export class SunbirdPdfPlayerService {
     this.playerEvent.emit(startEvent);
     CsTelemetryModule.instance.telemetryService.raiseStartTelemetry(
       { options: {
-        object: this.telemetryObject
+        object: this.telemetryObject,
+        context: this.getEventContext()
       }, edata: {type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2))}}
       );
     this.pdfLastPageTime = this.pdfPlayerStartTime = new Date().getTime();
@@ -200,7 +205,8 @@ export class SunbirdPdfPlayerService {
         duration: Number((duration / 1e3).toFixed(2))
       },
       options: {
-        object: this.telemetryObject
+        object: this.telemetryObject,
+        context: this.getEventContext()
       }
     });
     this.getTimeSpentForUI();
@@ -241,7 +247,8 @@ export class SunbirdPdfPlayerService {
     if (type === 'PAGE_CHANGE') {
       CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry({
         options: {
-          object: this.telemetryObject
+          object: this.telemetryObject,
+          context: this.getEventContext()
         },
         edata: {type: 'workflow', subtype: '', pageid: this.currentPagePointer + '', uri: ''}
       });
@@ -261,7 +268,8 @@ export class SunbirdPdfPlayerService {
   public raiseInteractEvent(id) {
     CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
       options: {
-        object: this.telemetryObject
+        object: this.telemetryObject,
+        context: this.getEventContext()
       },
       edata: {type: 'TOUCH', subtype: '', id, pageid: this.currentPagePointer + ''}
     });
@@ -287,4 +295,19 @@ export class SunbirdPdfPlayerService {
  replayContent() {
   this.raiseHeartBeatEvent('REPLAY');
  }
+
+ private getEventContext() {
+  const eventContextData = {
+    channel:  this.context.channel,
+    pdata: this.context.pdata,
+    env: 'ContentPlayer',
+    sid: this.context.sid,
+    uid: this.context.uid,
+    cdata: [{id: this.contentSessionId, type: 'ContentSession'},
+    {id: this.playSessionId, type: 'PlaySession'}],
+    rollup: this.context.contextRollup || {}
+  };
+  return eventContextData;
+}
+
 }
