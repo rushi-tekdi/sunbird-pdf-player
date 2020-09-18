@@ -4,16 +4,9 @@
     <span class="">{{pdfPlayerService.contentName}}</span>
   </div>
   <div class="sb-pdf-splash-container__footer">
-    <!-- <div class="skill">
-      <p>Loading {{pdfPlayerService.loadingProgress}}%</p>
-      <div class="skill-bar skill1 wow slideInLeft animated">
-          <span class="skill-count1">95%</span>
-      </div>
-  </div> -->
-  <div class="loading-text">Loading... {{pdfPlayerService.loadingProgress}}%</div>
-  <div class="bg">
-    <div class="el"></div>
-  </div>
-
+    <div class="loading-text">Loading... {{pdfPlayerService.loadingProgress}}%</div>
+    <div class="bg">
+      <div class="el" [style.width]="pdfPlayerService?.loadingProgress+'%'"></div>
+    </div>
   </div>
 </div>
