@@ -14,8 +14,8 @@
       justify-content: center;
     }
     &__popup {
-      min-width: 65%;
-      max-width: 22.5rem;
+        width: 90%;
+        max-width: 360px;
       height: 13.125rem;
       background:var(--white);
       border-radius: 1rem;
@@ -81,6 +81,7 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         cursor: pointer;
+        line-height: normal;
       }
     }
   }
