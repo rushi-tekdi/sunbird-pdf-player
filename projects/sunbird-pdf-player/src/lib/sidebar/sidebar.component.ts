@@ -16,10 +16,12 @@ export class SidebarComponent implements OnInit {
   closeNav() {
     document.getElementById('mySidenav').style.width = '0';
     document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'white';
+    this.pdfPlayerService.raiseHeartBeatEvent('CLOSE_MENU');
   }
 
   openPdfDownloadPopup() {
     this.pdfPlayerService.showDownloadPopup = true;
+    this.pdfPlayerService.raiseHeartBeatEvent('DOWNLOAD_MENU');
   }
 
 }

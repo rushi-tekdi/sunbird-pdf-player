@@ -26,17 +26,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   zoomIn() {
     (window as any).PDFViewerApplication.zoomIn();
+    this.pdfPlayerService.raiseHeartBeatEvent('ZOOM_IN');
   }
 
   zoomOut() {
     (window as any).PDFViewerApplication.zoomOut();
+    this.pdfPlayerService.raiseHeartBeatEvent('ZOOM_OUT');
   }
 
   gotoPage() {
     if (this.pageNumber > 0 && this.pageNumber <= this.pdfPlayerService.totalNumberOfPages) {
       (window as any).PDFViewerApplication.page = parseInt(this.pageNumber, 10) ;
+    } else {
+      this.pageNumber = this.pdfPlayerService.currentPagePointer;
     }
     this.totalPageView = true;
+    this.pdfPlayerService.raiseHeartBeatEvent('NAVIGATE_TO_PAGE');
   }
 
   openPdfDownloadPopup() {

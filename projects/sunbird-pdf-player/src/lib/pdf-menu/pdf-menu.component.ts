@@ -16,5 +16,6 @@ export class PdfMenuComponent implements OnInit {
   openNav() {
     document.getElementById('mySidenav').style.width = '100%';
     document.getElementById('sbPdfPlayerContainer').style.backgroundColor = 'rgba(0,0,0,0.4)';
+    this.pdfPlayerService.raiseHeartBeatEvent('OPEN_MENU');
   }
 }

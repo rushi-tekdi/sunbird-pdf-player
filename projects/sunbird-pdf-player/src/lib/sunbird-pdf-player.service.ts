@@ -112,10 +112,6 @@ export class SunbirdPdfPlayerService {
         rollup: context.objectRollup || {}
       };
     this.showEndPage = false;
-    // setTimeout(() => {
-    //   this.raiseEndEvent();
-    //   this.viewState = 'end';
-    // }, 20000);
   }
 
   public pageSessionUpdate() {
@@ -151,6 +147,7 @@ export class SunbirdPdfPlayerService {
     document.getElementById('viewerContainer').onscroll = (e: any) => {
       if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
         this.raiseEndEvent();
+        this.viewState = 'end';
       }
       if (e.target.scrollTop < 10) {
          this.currentPagePointer = (window as any).PDFViewerApplication.page;
@@ -207,7 +204,6 @@ export class SunbirdPdfPlayerService {
       }
     });
     this.getTimeSpentForUI();
-    this.viewState = 'end';
   }
 
   raiseErrorEvent(error: Error) {
@@ -249,6 +245,15 @@ export class SunbirdPdfPlayerService {
         },
         edata: {type: 'workflow', subtype: '', pageid: this.currentPagePointer + '', uri: ''}
       });
+    }
+
+    const interactItems = ['CLOSE_DOWNLOAD', 'DOWNLOAD', 'ZOOM_IN',
+    'ZOOM_OUT', 'NAVIGATE_TO_PAGE',
+    'NEXT_PAGE', 'OPEN_MENU', 'PREVIOUS_PAGE', 'CLOSE_MENU', 'DOWNLOAD_MENU',
+    'SHARE'
+  ];
+    if (interactItems.includes(type)) {
+      this.raiseInteractEvent(type.toLowerCase());
     }
 
   }

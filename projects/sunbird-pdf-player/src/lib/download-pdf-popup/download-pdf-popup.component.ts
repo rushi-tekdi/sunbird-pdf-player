@@ -13,11 +13,13 @@ export class DownloadPdfPopupComponent implements OnInit {
 
   hidePdfDownloadPopup() {
     this.pdfPlayerService.showDownloadPopup = false;
+    this.pdfPlayerService.raiseHeartBeatEvent('CLOSE_DOWNLOAD');
   }
 
   downloadPdf() {
     (window as any).PDFViewerApplication.download();
     this.hidePdfDownloadPopup();
+    this.pdfPlayerService.raiseHeartBeatEvent('DOWNLOAD');
   }
 
 }

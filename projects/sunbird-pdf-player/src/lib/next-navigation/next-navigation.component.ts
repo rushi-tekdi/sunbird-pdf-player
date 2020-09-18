@@ -19,5 +19,6 @@ export class NextNavigationComponent implements OnInit {
     if (this.pdfPlayerService.totalNumberOfPages < nextPage) {
       this.pdfPlayerService.viewState = 'end';
     }
+    this.pdfPlayerService.raiseHeartBeatEvent('NEXT_PAGE');
   }
 }
