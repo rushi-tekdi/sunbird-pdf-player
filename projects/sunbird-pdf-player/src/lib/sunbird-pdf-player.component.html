@@ -27,6 +27,8 @@
 [showScrollingButton]="pdfConfig.showScrollingButton"
 [showSpreadButton]="pdfConfig.showSpreadButton"
 [filenameForDownload]="pdfPlayerService?.contentName"
+[enablePinchOnMobile]="pdfConfig.enablePinchOnMobile"
+[sidebarVisible]="pdfConfig.sidebarVisible"
 (pdfLoaded)="onPdfLoaded($event)"
 (pdfDownloaded)="onPdfDownloaded($event)"
 (pdfLoadingFailed)="onPdfLoadFailed($event)"

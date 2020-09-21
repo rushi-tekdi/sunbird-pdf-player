@@ -21,7 +21,6 @@ export class SunbirdPdfPlayerService {
   private playSessionId: string;
   private telemetryObject: any;
   private context;
-  private content;
   currentPagePointer = 0;
   totalNumberOfPages = 0;
   pdfPlayerStartTime: number;
@@ -50,6 +49,8 @@ export class SunbirdPdfPlayerService {
     showRotateButton: false,
     showScrollingButton: false,
     showSpreadButton: false,
+    sidebarVisible: false,
+    enablePinchOnMobile: true,
     backgroundColor: '#FFFFFF',
     height: '100%',
     zoom: this.zoom,
@@ -62,7 +63,6 @@ export class SunbirdPdfPlayerService {
 
   init({ context, config, metadata}: PlayerConfig, replay= false) {
     this.context =  context;
-    this.content =  metadata;
     this.playSessionId = this.uniqueId();
 
     if (!CsTelemetryModule.instance.isInitialised) {
