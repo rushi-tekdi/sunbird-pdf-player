@@ -20,6 +20,8 @@ export interface PdfComponentInput {
     showSpreadButton?: boolean;
     backgroundColor?: string;
     height?: string;
+    enablePinchOnMobile?: boolean;
+    sidebarVisible?: boolean;
 }
 
 

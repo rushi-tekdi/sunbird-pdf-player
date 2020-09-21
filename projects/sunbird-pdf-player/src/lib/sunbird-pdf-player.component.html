@@ -26,6 +26,9 @@
 [showRotateButton]="pdfConfig.showRotateButton"
 [showScrollingButton]="pdfConfig.showScrollingButton"
 [showSpreadButton]="pdfConfig.showSpreadButton"
+[filenameForDownload]="pdfPlayerService?.contentName"
+[enablePinchOnMobile]="pdfConfig.enablePinchOnMobile"
+[sidebarVisible]="pdfConfig.sidebarVisible"
 (pdfLoaded)="onPdfLoaded($event)"
 (pdfDownloaded)="onPdfDownloaded($event)"
 (pdfLoadingFailed)="onPdfLoadFailed($event)"
@@ -38,7 +41,7 @@
     <pdf-header class="sb-pdf-main-header"></pdf-header>
 </ng-template>
 <div class="sb-pdf-reading-status" *ngIf="pdfPlayerService?.viewState ==='player'">Location {{pdfPlayerService.currentPagePointer}} of {{pdfPlayerService.totalNumberOfPages}} <span></span> {{((pdfPlayerService.currentPagePointer/pdfPlayerService.totalNumberOfPages) * 100).toFixed(0)}}%</div>
-<div class="visible-only-potrait">
+<div class="visible-only-potrait"  *ngIf="pdfPlayerService?.viewState ==='player'">
     <div class="sbt-pdf-footer">
         <div class="d-flex pdf-slides" style="float: right;">
           <previous-navigation></previous-navigation>

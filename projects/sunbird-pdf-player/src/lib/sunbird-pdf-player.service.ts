@@ -20,6 +20,7 @@ export class SunbirdPdfPlayerService {
   private contentSessionId: string;
   private playSessionId: string;
   private telemetryObject: any;
+  private context;
   currentPagePointer = 0;
   totalNumberOfPages = 0;
   pdfPlayerStartTime: number;
@@ -48,6 +49,8 @@ export class SunbirdPdfPlayerService {
     showRotateButton: false,
     showScrollingButton: false,
     showSpreadButton: false,
+    sidebarVisible: false,
+    enablePinchOnMobile: true,
     backgroundColor: '#FFFFFF',
     height: '100%',
     zoom: this.zoom,
@@ -59,12 +62,9 @@ export class SunbirdPdfPlayerService {
   }
 
   init({ context, config, metadata}: PlayerConfig, replay= false) {
+    this.context =  context;
     this.playSessionId = this.uniqueId();
-    let cdata = context.cdata || [];
-    if (!replay) {
-      cdata = [...cdata, ...[{id: this.contentSessionId, type: 'ContentSession'},
-      {id: this.playSessionId, type: 'PlaySession'}]];
-    }
+
     if (!CsTelemetryModule.instance.isInitialised) {
       CsTelemetryModule.instance.init({});
       CsTelemetryModule.instance.telemetryService.initTelemetry(
@@ -82,7 +82,8 @@ export class SunbirdPdfPlayerService {
             host: context.host || '',
             endpoint: context.endpoint || '/data/v3/telemetry',
             tags: context.tags,
-            cdata
+            cdata : [{id: this.contentSessionId, type: 'ContentSession'},
+            {id: this.playSessionId, type: 'PlaySession'}]
           },
           userOrgDetails: {}
         }
@@ -93,7 +94,10 @@ export class SunbirdPdfPlayerService {
     this.currentPagePointer = (config && config.startFromPage ) || 1;
     this.contentName = metadata.name;
     this.src = metadata.artifactUrl;
-    this.userName = context.userData ? `${context.userData.firstName} ${context.userData.lastName}` : '';
+    if (context.userData) {
+      this.userName = context.userData.firstName === context.userData.lastName ? context.userData.firstName :
+      `${context.userData.firstName} ${context.userData.lastName}`;
+    }
     this.metaData = {
       pagesHistory: [],
       totalPages: 0,
@@ -112,10 +116,6 @@ export class SunbirdPdfPlayerService {
         rollup: context.objectRollup || {}
       };
     this.showEndPage = false;
-    // setTimeout(() => {
-    //   this.raiseEndEvent();
-    //   this.viewState = 'end';
-    // }, 20000);
   }
 
   public pageSessionUpdate() {
@@ -144,13 +144,15 @@ export class SunbirdPdfPlayerService {
     this.playerEvent.emit(startEvent);
     CsTelemetryModule.instance.telemetryService.raiseStartTelemetry(
       { options: {
-        object: this.telemetryObject
+        object: this.telemetryObject,
+        context: this.getEventContext()
       }, edata: {type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2))}}
       );
     this.pdfLastPageTime = this.pdfPlayerStartTime = new Date().getTime();
     document.getElementById('viewerContainer').onscroll = (e: any) => {
       if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
         this.raiseEndEvent();
+        this.viewState = 'end';
       }
       if (e.target.scrollTop < 10) {
          this.currentPagePointer = (window as any).PDFViewerApplication.page;
@@ -203,11 +205,11 @@ export class SunbirdPdfPlayerService {
         duration: Number((duration / 1e3).toFixed(2))
       },
       options: {
-        object: this.telemetryObject
+        object: this.telemetryObject,
+        context: this.getEventContext()
       }
     });
     this.getTimeSpentForUI();
-    this.viewState = 'end';
   }
 
   raiseErrorEvent(error: Error) {
@@ -245,10 +247,20 @@ export class SunbirdPdfPlayerService {
     if (type === 'PAGE_CHANGE') {
       CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry({
         options: {
-          object: this.telemetryObject
+          object: this.telemetryObject,
+          context: this.getEventContext()
         },
         edata: {type: 'workflow', subtype: '', pageid: this.currentPagePointer + '', uri: ''}
       });
+    }
+
+    const interactItems = ['CLOSE_DOWNLOAD', 'DOWNLOAD', 'ZOOM_IN',
+    'ZOOM_OUT', 'NAVIGATE_TO_PAGE',
+    'NEXT_PAGE', 'OPEN_MENU', 'PREVIOUS_PAGE', 'CLOSE_MENU', 'DOWNLOAD_MENU',
+    'SHARE'
+  ];
+    if (interactItems.includes(type)) {
+      this.raiseInteractEvent(type.toLowerCase());
     }
 
   }
@@ -256,7 +268,8 @@ export class SunbirdPdfPlayerService {
   public raiseInteractEvent(id) {
     CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
       options: {
-        object: this.telemetryObject
+        object: this.telemetryObject,
+        context: this.getEventContext()
       },
       edata: {type: 'TOUCH', subtype: '', id, pageid: this.currentPagePointer + ''}
     });
@@ -282,4 +295,19 @@ export class SunbirdPdfPlayerService {
  replayContent() {
   this.raiseHeartBeatEvent('REPLAY');
  }
+
+ private getEventContext() {
+  const eventContextData = {
+    channel:  this.context.channel,
+    pdata: this.context.pdata,
+    env: 'ContentPlayer',
+    sid: this.context.sid,
+    uid: this.context.uid,
+    cdata: [{id: this.contentSessionId, type: 'ContentSession'},
+    {id: this.playSessionId, type: 'PlaySession'}],
+    rollup: this.context.contextRollup || {}
+  };
+  return eventContextData;
+}
+
 }

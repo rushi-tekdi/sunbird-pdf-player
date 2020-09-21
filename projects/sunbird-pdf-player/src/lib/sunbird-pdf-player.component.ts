@@ -39,13 +39,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(replay?) {
+    this.pdfPlayerService.viewState = 'start';
     this.pdfConfig = { ...this.pdfPlayerService.defaultConfig, ...this.playerConfig.config };
     this.pdfPlayerService.init(this.playerConfig, replay);
     this.updateProgress();
   }
 
   replayContent() {
-    this.pdfPlayerService.viewState = 'player';
     this.showPlayer = false;
     setTimeout(() => {
       this.showPlayer =  true;
@@ -57,7 +57,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
    this.progressInterval =  setInterval(() => {
     if ((window as any).PDFViewerApplication && (window as any).PDFViewerApplication.loadingBar) {
       this.pdfPlayerService.loadingProgress = (window as any).PDFViewerApplication.loadingBar.percent || 0;
-      console.log(this.pdfPlayerService.loadingProgress);
      }
    }, 500);
   }

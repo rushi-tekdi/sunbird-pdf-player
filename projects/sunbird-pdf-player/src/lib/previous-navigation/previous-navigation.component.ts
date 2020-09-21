@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 
 @Component({
   selector: 'previous-navigation',
@@ -7,12 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviousNavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(public pdfPlayerService: SunbirdPdfPlayerService) { }
 
   ngOnInit() {
   }
 
   prevSlide() {
     (window as any).PDFViewerApplication.eventBus.dispatch('previouspage');
+    this.pdfPlayerService.raiseHeartBeatEvent('PREVIOUS_PAGE');
   }
 }
