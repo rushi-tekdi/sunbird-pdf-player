@@ -2,7 +2,44 @@
   <div class="pdf-endpage__left-panel">
     <div class="user-score-card">
       <!-- <img src="assets/badge-2.svg" alt="badge" class="badge"> -->
-<svg width="100%" height="100%" viewBox="0 0 250 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="100%" height="100%" viewBox="0 0 250 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <style>
+      .truncate-overflow {
+        --lh: 1.4rem;
+        line-height: var(--lh);
+        --max-lines: 1;
+        position: relative;
+        max-height: calc(var(--lh) * var(--max-lines));
+        overflow: hidden;
+        padding-right: 0.5rem; 
+        width: 100%;font-size: 0.65rem;
+      }
+      .truncate-overflow::before {
+        position: absolute;
+        content: "...";
+        /* tempting... but shows when lines == content */
+        /* top: calc(var(--lh) * (var(--max-lines) - 1)); */
+        
+        /*
+        inset-block-end: 0;
+        inset-inline-end: 0;
+        */
+        bottom: 0;
+        right: 0;
+      }
+      .truncate-overflow::after {
+        content: "";
+        position: absolute;
+        /*
+        inset-inline-end: 0;
+        */
+        right: 0;
+        /* missing bottom on purpose*/
+        width: 1rem;
+        height: 1rem;
+        background: white;
+      }
+    </style>
     <defs>
         <filter id="filter-1">
             <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.906248 0 0 0 0 0.902287 0 0 0 1.000000 0"></feColorMatrix>
@@ -26,22 +63,23 @@
           <stop stop-color="#70D4AD" offset="0%"></stop>
           <stop stop-color="#31A679" offset="100%"></stop>
         </linearGradient>
-        <text id="text-6" font-family="NotoSans-Bold, Noto Sans" font-size="18" font-weight="bold" fill="#FFFFFE">
+        <!-- <text id="text-6" font-family="NotoSans-Bold, Noto Sans" font-size="18" font-weight="bold" fill="#FFFFFE">
             <tspan x="75.5" y="19">{{pdfPlayerService.currentPagePointer}}</tspan>
-        </text>
-        <filter x="-11.3%" y="-10.4%" width="122.6%" height="129.2%" filterUnits="objectBoundingBox" id="filter-7">
+        </text> -->
+        <!-- <filter x="-11.3%" y="-10.4%" width="122.6%" height="129.2%" filterUnits="objectBoundingBox" id="filter-7">
             <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
             <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
             <feColorMatrix values="0 0 0 0 0.81006567   0 0 0 0 0.508945651   0 0 0 0 0.130709529  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-        <text id="text-8" font-family="Avenir-Medium, Avenir" font-size="12" font-weight="400" fill="#FFFFFE">
-            <tspan x="0" y="16">Pages read:</tspan>
+        </filter> -->
+        <text id="text-8" x="55" y="16" text-anchor="middle" fill="#FFFFFE">
+            <tspan font-size="12" font-weight="400" font-family="Noto Sans, NotoSans-Bold">Pages read:</tspan>
+            <tspan font-size="18" font-family="NotoSans-Bold, Noto Sans">157</tspan>
         </text>
-        <filter x="-5.1%" y="-15.6%" width="110.3%" height="143.8%" filterUnits="objectBoundingBox" id="filter-9">
+        <!-- <filter x="-5.1%" y="-15.6%" width="110.3%" height="143.8%" filterUnits="objectBoundingBox" id="filter-9">
             <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
             <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
             <feColorMatrix values="0 0 0 0 0.81006567   0 0 0 0 0.508945651   0 0 0 0 0.130709529  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
+        </filter> -->
     </defs>
     <g id="PDF-Player" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="endgame-l2" transform="translate(-39.000000, -65.000000)">
@@ -245,9 +283,12 @@
                             </g>
                         </g>
                         <path d="M124.0235,47.417 C126.50975,47.417 128.5235,45.40325 128.5235,42.917 C128.5235,40.43075 126.50975,38.417 124.0235,38.417 C121.53725,38.417 119.5235,40.43075 119.5235,42.917 C119.5235,45.40325 121.53725,47.417 124.0235,47.417 L124.0235,47.417 Z M124.0235,49.667 C121.01975,49.667 115.0235,51.1745 115.0235,54.167 L115.0235,56.417 L133.0235,56.417 L133.0235,54.167 C133.0235,51.1745 127.02725,49.667 124.0235,49.667 L124.0235,49.667 Z" id="Shape-Copy-2" fill="#5A72F8"></path>
-                        <text id="User-name-Copy-2" font-family="Avenir-Medium, Avenir" font-size="12" font-weight="400" fill="#5A72F8">
-                            <tspan x="94.5235" y="72.417">{{pdfPlayerService?.userName}}</tspan>
-                        </text>
+                        <foreignObject text-anchor="middle" x="60" y="60" style="width:50%;height:24px;font-size: 12px;">
+                            <xhtml:div xmlns="http://www.w3.org/1999/xhtml" class="truncate-overflow"> {{pdfPlayerService?.userName}} </xhtml:div>
+                        </foreignObject>
+                        <!-- <text id="User-name-Copy-2" font-family="Noto Sans, NotoSans-Bold" font-size="12" font-weight="400" fill="#5A72F8">
+                            <tspan x="94.5235" y="72.417">{{pdfPlayerService?.userName}} full name comes here</tspan>
+                        </text> -->
                         <g id="Group-17-Copy-2" transform="translate(95.523500, 128.964250)">
                             <g id="Icon-24px" transform="translate(0.000000, 0.500000)">
                                 <polygon id="Shape" points="0 0 18 0 18 18 0 18"></polygon>
