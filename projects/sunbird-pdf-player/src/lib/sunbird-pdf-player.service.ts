@@ -162,7 +162,8 @@ export class SunbirdPdfPlayerService {
   }
 
   raiseEndEvent() {
-    const duration = new Date().getTime() - this.pdfPlayerStartTime;
+    const duration  = new Date().getTime() - this.pdfPlayerStartTime;
+    const durationSec = Number((duration / 1e3).toFixed(2));
     const endEvent =  {
       eid: 'END',
       ver: this.version,
@@ -202,7 +203,7 @@ export class SunbirdPdfPlayerService {
             endpageseen: (this.currentPagePointer === this.totalNumberOfPages)
           }
         ],
-        duration: Number((duration / 1e3).toFixed(2))
+        duration: durationSec
       },
       options: {
         object: this.telemetryObject,
