@@ -1,7 +1,7 @@
 .sb-pdf-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 3rem;
   padding: .75em 1rem;
   background: var(--white);
@@ -128,10 +128,6 @@
 .pdf-replay {
   display: inline;
   padding: 8px;
-}
-
-.transparentBlock {
-  width: 60%;
 }
 
 
