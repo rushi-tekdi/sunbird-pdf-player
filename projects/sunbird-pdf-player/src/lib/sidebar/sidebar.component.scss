@@ -1,13 +1,12 @@
 
   .sidenav {
     height: 100%;
-    width: 0;
+    width: 100%;
     position: absolute;
     z-index: 1;
     top: 0;
     left: 0;
     // background-color: rgba(0, 0, 0, 0.5);
-    transition: 0.5s;
     overflow-x: hidden;
     display: flex;
     z-index: 9;
@@ -49,7 +48,11 @@
     width: 100%;
     background: var(--white);
     max-width: 16rem;
-
+    transition: all 0.3s ease-in;
+    margin-left: -100%;
+    z-index: 10;
+    position: absolute;
+    height: 100%;
   .pdf-nav-unit {
     background: var(--primary-theme);
     padding: 3rem 2rem 2rem 2rem;
@@ -88,7 +91,9 @@
     }
   }
   }
-  
+  #pdfPlayerSideMenu {
+    visibility: hidden;
+  }
   .pdf-replay {
     display: inline;
     padding: 8px;
@@ -97,10 +102,10 @@
   .transparentBlock {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    transition: all 0.3s ease;
   }
-  #pdfPlayerSideMenu {
-    margin-left: -100%;
-  }
+
   .pdf-share {
     -webkit-mask-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik00MDYsMzMyYy0yOS42NDEsMC01NS43NjEsMTQuNTgxLTcyLjE2NywzNi43NTVMMTkxLjk5LDI5Ni4xMjRjMi4zNTUtOC4wMjcsNC4wMS0xNi4zNDYsNC4wMS0yNS4xMjQNCgkJCWMwLTExLjkwNi0yLjQ0MS0yMy4yMjUtNi42NTgtMzMuNjM2bDE0OC40NDUtODkuMzI4QzM1NC4zMDcsMTY3LjQyNCwzNzguNTg5LDE4MCw0MDYsMTgwYzQ5LjYyOSwwLDkwLTQwLjM3MSw5MC05MA0KCQkJYzAtNDkuNjI5LTQwLjM3MS05MC05MC05MGMtNDkuNjI5LDAtOTAsNDAuMzcxLTkwLDkwYzAsMTEuNDM3LDIuMzU1LDIyLjI4Niw2LjI2MiwzMi4zNThsLTE0OC44ODcsODkuNTkNCgkJCUMxNTYuODY5LDE5My4xMzYsMTMyLjkzNywxODEsMTA2LDE4MWMtNDkuNjI5LDAtOTAsNDAuMzcxLTkwLDkwYzAsNDkuNjI5LDQwLjM3MSw5MCw5MCw5MGMzMC4xMywwLDU2LjY5MS0xNS4wMDksNzMuMDM1LTM3LjgwNg0KCQkJbDE0MS4zNzYsNzIuMzk1QzMxNy44MDcsNDAzLjk5NSwzMTYsNDEyLjc1LDMxNiw0MjJjMCw0OS42MjksNDAuMzcxLDkwLDkwLDkwYzQ5LjYyOSwwLDkwLTQwLjM3MSw5MC05MA0KCQkJQzQ5NiwzNzIuMzcxLDQ1NS42MjksMzMyLDQwNiwzMzJ6Ii8+DQoJPC9nPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=');
     mask-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik00MDYsMzMyYy0yOS42NDEsMC01NS43NjEsMTQuNTgxLTcyLjE2NywzNi43NTVMMTkxLjk5LDI5Ni4xMjRjMi4zNTUtOC4wMjcsNC4wMS0xNi4zNDYsNC4wMS0yNS4xMjQNCgkJCWMwLTExLjkwNi0yLjQ0MS0yMy4yMjUtNi42NTgtMzMuNjM2bDE0OC40NDUtODkuMzI4QzM1NC4zMDcsMTY3LjQyNCwzNzguNTg5LDE4MCw0MDYsMTgwYzQ5LjYyOSwwLDkwLTQwLjM3MSw5MC05MA0KCQkJYzAtNDkuNjI5LTQwLjM3MS05MC05MC05MGMtNDkuNjI5LDAtOTAsNDAuMzcxLTkwLDkwYzAsMTEuNDM3LDIuMzU1LDIyLjI4Niw2LjI2MiwzMi4zNThsLTE0OC44ODcsODkuNTkNCgkJCUMxNTYuODY5LDE5My4xMzYsMTMyLjkzNywxODEsMTA2LDE4MWMtNDkuNjI5LDAtOTAsNDAuMzcxLTkwLDkwYzAsNDkuNjI5LDQwLjM3MSw5MCw5MCw5MGMzMC4xMywwLDU2LjY5MS0xNS4wMDksNzMuMDM1LTM3LjgwNg0KCQkJbDE0MS4zNzYsNzIuMzk1QzMxNy44MDcsNDAzLjk5NSwzMTYsNDEyLjc1LDMxNiw0MjJjMCw0OS42MjksNDAuMzcxLDkwLDkwLDkwYzQ5LjYyOSwwLDkwLTQwLjM3MSw5MC05MA0KCQkJQzQ5NiwzNzIuMzcxLDQ1NS42MjksMzMyLDQwNiwzMzJ6Ii8+DQoJPC9nPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=');
