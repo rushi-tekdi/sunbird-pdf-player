@@ -1,4 +1,4 @@
-<div class="file-download" *ngIf="pdfPlayerService.showDownloadPopup">
+<div class="file-download" [ngClass]="{'showDownload':pdfPlayerService.showDownloadPopup}">
   <div class="file-download__overlay" (click)="hidePdfDownloadPopup()">
     <div class="file-download__popup">
       <div class="file-download__close-btn">

@@ -64,14 +64,14 @@
   @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;}}
   
   #overlay-button {
-    z-index: 99;
+    z-index: 10;
     cursor: pointer;
     user-select: none;
     padding: 24px 12px;
     margin: 0px;
     span {
         height: 4px;
-        width: 2rem;
+        width: 1.5rem;
         border-radius: 2px;
         background-color: #000;
         position: relative;
@@ -86,7 +86,7 @@
         }
         &:before, &:after {
             height: 4px;
-            width: 2rem;
+            width: 1.5rem;
             border-radius: 2px;
             background-color: #000;
             position: absolute;
