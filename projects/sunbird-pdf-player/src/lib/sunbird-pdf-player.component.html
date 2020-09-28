@@ -1,4 +1,5 @@
 <!-- <button (click)="replayContent()">replay</button> -->
+<div class="sunbird-pdf-palyer-container">
 <start-page *ngIf="pdfPlayerService?.viewState === 'start'"></start-page>
 <ngx-extended-pdf-viewer *ngIf="showPlayer"
 [customToolbar]="customSunbirdPdfToolbar"
@@ -36,6 +37,7 @@
 (rotationChange)="onRotationChange($event)"
 (pageChange)="onPageChange($event)"
 (zoomChange)="onZoomChange($event)"></ngx-extended-pdf-viewer>
+<pdf-menu></pdf-menu>
 <sidebar></sidebar>
 <ng-template #customSunbirdPdfToolbar>
     <pdf-header class="sb-pdf-main-header"></pdf-header>
@@ -52,3 +54,4 @@
 
 <download-pdf-popup></download-pdf-popup>
 <end-page *ngIf="pdfPlayerService?.viewState === 'end'"></end-page>
+</div>

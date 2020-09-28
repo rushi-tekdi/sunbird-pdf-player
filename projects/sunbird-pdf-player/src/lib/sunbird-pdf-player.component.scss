@@ -1,4 +1,18 @@
+.sunbird-pdf-palyer-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+pdf-menu {
+  position: absolute;
+    top: 0;
+    left: 0px;
+    z-index: 99;
+}
 ::ng-deep {
+  sunbird-pdf-player {
+    overflow: hidden;
+  }
   .pdfViewer .page {
     background: none !important;
     border-image: none !important;
