@@ -32,7 +32,9 @@
   .pdf-nextIcon {
     &::after {
       content: '';
-      transform: rotate(135deg);
+    transform: rotate(135deg);
+    border-top: .125rem solid var(--white);
+    border-left: .125rem solid var(--white);
     }
   }
 
@@ -41,4 +43,7 @@
     content: '';
     border-top: 0.125rem solid var(--white);
     border-left: 0.125rem solid var(--white);
+  }
+  .navigation-arrows.pdf-nextIcon {
+    background: var(--primary-color);
   }
