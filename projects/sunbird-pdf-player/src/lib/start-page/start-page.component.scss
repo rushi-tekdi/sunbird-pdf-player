@@ -1,0 +1,78 @@
+.sb-pdf-splash-container {
+  box-sizing: border-box;
+  padding: 1rem;
+  background: var(--primary-theme);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: var(--gray-800);
+    letter-spacing: 0;
+
+    span {
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 0;
+      line-height: normal;
+      text-shadow: 0px 2px var(--gray-400);
+      word-break: break-word;
+    }
+  }
+
+  &__footer {
+    color: var(--gray-800);
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // align-items: center;
+  }
+}
+
+
+$loadingTime: 20s;
+$color: #F1635D;
+
+
+@keyframes loading {
+  0% {
+    width: 0;
+  } 100% {
+    width: 100%;
+  }
+}
+
+@keyframes percentage { 
+  @for $i from 1 through 100 {
+    $percentage: $i + "%";
+    #{$percentage} {
+      content: $percentage;
+    }
+  }
+}
+
+.bg,.el {
+  border-radius: 0.25rem;
+  height: 0.5rem;
+}
+.bg {
+    background-color: var(--white);
+}
+.el{
+  background-color: $color;
+  width: 0%;
+  transition: all ease .3s;
+//   animation: loading $loadingTime linear;
+}
+.loading-text {
+    align-self: center;
+    margin-bottom: 0.5rem;
+}

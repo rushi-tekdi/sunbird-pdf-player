@@ -1,0 +1,157 @@
+.pdf-endpage{
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background:var(--white);
+    &__left-panel{
+        text-align: center;
+        flex:50%;
+        .user-score-card{
+            position: relative;
+            padding:1.5rem;
+            .badge{
+                width: 17.625rem;
+                height: 13.1rem;
+            }
+            .score-details{
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 5rem;
+                color: var(--white);
+                text-shadow: 0.063 0.125 #8b2925;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .progress{
+                    font-size: 0.85rem;
+                    margin-right: 0.7rem;
+                }
+                .score{
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                }
+            }
+            .user-details{
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 2.8rem;
+                width: 8.5rem;
+                margin: 0 auto;
+                .user{
+                    width: 1.275rem;
+                    height: 1.275rem;
+                }
+                .user-title{
+                    color:var(--primary-color);
+                    font-size: 0.85rem;
+                    line-height: 1rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .timer-details{
+                position: absolute;
+                bottom: 2.75rem;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .timer{
+                    width: 1.275rem;
+                    height: 1.275rem;
+                }
+                span{
+                    color:var(--primary-color);
+                    font-size: 1rem;
+                    font-weight: 700;
+                    margin-left: .3rem;
+                }
+            }
+        }
+    }
+    &__right-panel{
+        flex:50%;
+        text-align: center;
+        padding: 1rem;
+        .title-section{
+            .title{
+                color:var(--primary-color);
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+            span{
+                color: var(--gray-400);
+                font-size: .85rem;
+                word-break: break-word;
+            }
+        }
+        .user-options{
+            display: flex;
+            justify-content: space-around;
+            padding: 1.7rem 0;
+            .title{
+                color: #2B2C43;
+                font-size: .99rem;
+                line-height: 1.188rem;
+                text-align: center;
+            }
+            img{
+                width: 2.55rem;
+                height: 2.55rem;
+            }
+        }
+        .next{
+            color: var(--gray-400);
+            font-size: 0.85rem;
+            line-height: 1.063rem;
+            margin-bottom: .7rem;
+        }
+        .next-level{
+            margin: 0 auto;
+            width: auto;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #FFCD55 0%, #FFD955 100%);
+            box-shadow: inset 0 -0.063rem 0.188rem 0 rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor:pointer;
+            .title-text{
+                color: var(--gray-800);
+                font-size: 0.85rem;
+                flex:1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                line-height: normal;
+            }
+            .next-arrow{
+                height: 2.55rem;
+                width: 2.55rem;
+                background-color: var(--white);
+                border-radius: 50%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                img{
+                    width: 1.75rem;
+                }
+            }
+        }
+    }
+}
+
+.replay-section {
+    cursor: pointer;
+}

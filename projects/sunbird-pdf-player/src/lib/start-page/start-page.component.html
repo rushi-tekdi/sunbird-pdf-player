@@ -1,0 +1,12 @@
+<div class="sb-pdf-splash-container">
+  <div class="sb-pdf-splash-container__header"></div>
+  <div class="sb-pdf-splash-container__body">
+    <span class="">{{pdfPlayerService.contentName}}</span>
+  </div>
+  <div class="sb-pdf-splash-container__footer">
+    <div class="loading-text">Loading... {{pdfPlayerService.loadingProgress}}%</div>
+    <div class="bg">
+      <div class="el" [style.width]="pdfPlayerService?.loadingProgress+'%'"></div>
+    </div>
+  </div>
+</div>
