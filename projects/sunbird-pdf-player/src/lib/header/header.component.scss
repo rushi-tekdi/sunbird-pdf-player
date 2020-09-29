@@ -77,7 +77,7 @@
 
       .page-count {
         height: 2rem;
-        width: 2rem;
+        width: 2.5rem;
         border: 0.031em solid var(--gray-100);
         border-radius: 0.25rem;
         background-color: var(--white);
@@ -93,12 +93,12 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 2rem;
+          width: 2.2rem;
           height: 2rem;
           background: var(--gray-800);
           border-radius: 0px 0.25em 0.25em 0px;
           position: absolute;
-          left: calc(2rem - 2px);
+          left: calc(2.5rem - 0px);
           cursor: pointer;
           img {
             width: 50%;
@@ -107,6 +107,12 @@
 
         &:focus~.focus-arrow {
           opacity: 1;
+        }
+        &:focus~.slash {
+          visibility: hidden;
+        }
+        &:focus~.pageNumberFullcount {
+          visibility: hidden;
         }
       }
 
