@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "@project-sunbird/client-services": "3.3.24",
-    "ngx-extended-pdf-viewer": "^4.1.2"
+    "@project-sunbird/sunbird-player-sdk": "file:../../../sunbird-player-sdk/dist/sunbird-player-sdk/project-sunbird-sunbird-player-sdk-0.0.1.tgz"
   }
 }

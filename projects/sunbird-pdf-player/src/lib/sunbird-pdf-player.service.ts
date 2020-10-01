@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import {CsTelemetryModule} from '@project-sunbird/client-services/telemetry';
 import {  PlayerConfig } from './playerInterfaces';
-import { PdfLoadedEvent } from 'ngx-extended-pdf-viewer';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +25,6 @@ export class SunbirdPdfPlayerService {
   pdfPlayerStartTime: number;
   pdfLastPageTime: number;
   showEndPage = false;
-  viewState = 'start';
   timeSpent = '0:0';
 
   defaultConfig = {
@@ -126,7 +124,7 @@ export class SunbirdPdfPlayerService {
     this.pdfLastPageTime = new Date().getTime();
   }
 
-  raiseStartEvent(event: PdfLoadedEvent) {
+  raiseStartEvent(event) {
     this.currentPagePointer = this.currentPagePointer > event.pagesCount ? 1 : this.currentPagePointer,
     this.metaData.totalPages = event.pagesCount;
     this.totalNumberOfPages = event.pagesCount;
@@ -149,16 +147,6 @@ export class SunbirdPdfPlayerService {
       }, edata: {type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2))}}
       );
     this.pdfLastPageTime = this.pdfPlayerStartTime = new Date().getTime();
-    document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
-        this.raiseEndEvent();
-        this.viewState = 'end';
-      }
-      if (e.target.scrollTop < 10) {
-         this.currentPagePointer = (window as any).PDFViewerApplication.page;
-         this.raiseHeartBeatEvent('PAGE_CHANGE');
-      }
-    };
   }
 
   raiseEndEvent() {
