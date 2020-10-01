@@ -1,11 +1,6 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges, SimpleChanges, HostListener } from '@angular/core';
-
-import {
-  PageRenderedEvent,
-  PdfDownloadedEvent, PdfLoadedEvent
-} from 'ngx-extended-pdf-viewer';
-
+import { Component, OnInit, Input, Output, EventEmitter,
+  OnDestroy, OnChanges, SimpleChanges, HostListener,
+  ChangeDetectorRef } from '@angular/core';
 import { PlayerConfig, Config } from './playerInterfaces';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 @Component({
@@ -15,16 +10,22 @@ import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 })
 export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   public pdfConfig: Config;
-  private progressInterval: any;
   public showPlayer = true;
   private subscription;
+  public viewState = 'start';
+  sideMenuConfig = {
+    showShare: true,
+    showDownload: true,
+    showReplay: true,
+    showExit: false
+  };
   @Input() playerConfig: PlayerConfig;
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
   @Output() telemetryEvent: EventEmitter<any> =  new EventEmitter<any>();
 
 
-  constructor(public pdfPlayerService: SunbirdPdfPlayerService) {
+  constructor(public pdfPlayerService: SunbirdPdfPlayerService, private cdRef: ChangeDetectorRef) {
     this.playerEvent = this.pdfPlayerService.playerEvent;
     this.subscription =  this.pdfPlayerService.playerEvent.subscribe((data) => {
       if (data.edata.type === 'REPLAY') {
@@ -39,10 +40,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(replay?) {
-    this.pdfPlayerService.viewState = 'start';
+    this.viewState = 'start';
     this.pdfConfig = { ...this.pdfPlayerService.defaultConfig, ...this.playerConfig.config };
+    this.sideMenuConfig =  {...this.sideMenuConfig, ...this.playerConfig.config.sideMenu};
     this.pdfPlayerService.init(this.playerConfig, replay);
-    this.updateProgress();
   }
 
   replayContent() {
@@ -53,24 +54,15 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.ngOnInit(true);
   }
 
-  private updateProgress() {
-   this.progressInterval =  setInterval(() => {
-    if ((window as any).PDFViewerApplication && (window as any).PDFViewerApplication.loadingBar) {
-      this.pdfPlayerService.loadingProgress = (window as any).PDFViewerApplication.loadingBar.percent || 0;
-     }
-   }, 500);
-  }
-
-  public onPdfLoaded(event: PdfLoadedEvent): void {
-    clearInterval(this.progressInterval);
+  public onPdfLoaded(event): void {
     this.pdfPlayerService.raiseStartEvent(event);
-    this.pdfPlayerService.viewState = 'player';
+    this.viewState = 'player';
+    this.cdRef.detectChanges();
   }
 
   public onPdfLoadFailed(error: Error): void {
-    clearInterval(this.progressInterval);
     this.pdfPlayerService.raiseErrorEvent(error);
-    this.pdfPlayerService.viewState = 'player';
+    this.viewState = 'player';
   }
 
   public onZoomChange(event: any): void {
@@ -79,7 +71,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
       this.pdfPlayerService.zoom = event;
   }
 
-  public onPdfDownloaded(event: PdfDownloadedEvent): void {
+  public onPdfDownloaded(): void {
     this.pdfPlayerService.raiseHeartBeatEvent('PDF_DOWNLOAD');
   }
 
@@ -96,7 +88,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   // On Page next and previous or scroll
   public onPageChange(event: any): void {
     this.pdfPlayerService.pageSessionUpdate();
-    this.pdfPlayerService.currentPagePointer = event;
+    this.pdfPlayerService.currentPagePointer = event.pageNumber;
     this.pdfPlayerService.raiseHeartBeatEvent('PAGE_CHANGE');
   }
 
@@ -112,10 +104,19 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  private pdfViewerCleanUp() {
-    if ((window as any).PDFViewerApplication) {
-      (window as any).PDFViewerApplication.cleanup();
-      (window as any).PDFViewerApplication.close();
+
+
+  public viewerEvent({type, data}) {
+    if (type === 'progress') {
+      this.pdfPlayerService.loadingProgress = data;
+    } else if (type === 'pagesloaded') {
+      this.onPdfLoaded(data);
+    } else if (type === 'pagechanging') {
+      this.onPageChange(data);
+    } else if (type === 'pageend') {
+      this.pdfPlayerService.raiseEndEvent();
+      this.viewState = 'end';
+      this.cdRef.detectChanges();
     }
   }
 
@@ -123,7 +124,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
     this.pdfPlayerService.pageSessionUpdate();
     this.pdfPlayerService.raiseEndEvent();
-    this.pdfViewerCleanUp();
     this.subscription.unsubscribe();
   }
 }
