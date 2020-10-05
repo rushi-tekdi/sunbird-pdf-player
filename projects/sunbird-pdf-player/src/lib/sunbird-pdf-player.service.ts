@@ -59,7 +59,7 @@ export class SunbirdPdfPlayerService {
     this.contentSessionId = this.uniqueId();
   }
 
-  init({ context, config, metadata}: PlayerConfig, replay= false) {
+  init({ context, config, metadata}: PlayerConfig) {
     this.context =  context;
     this.playSessionId = this.uniqueId();
 
