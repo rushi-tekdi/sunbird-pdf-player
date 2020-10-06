@@ -20,6 +20,7 @@ export class SunbirdPdfPlayerService {
   private playSessionId: string;
   private telemetryObject: any;
   private context;
+  public config;
   currentPagePointer = 0;
   totalNumberOfPages = 0;
   pdfPlayerStartTime: number;
@@ -61,6 +62,7 @@ export class SunbirdPdfPlayerService {
 
   init({ context, config, metadata}: PlayerConfig) {
     this.context =  context;
+    this.config = config;
     this.playSessionId = this.uniqueId();
 
     if (!CsTelemetryModule.instance.isInitialised) {
