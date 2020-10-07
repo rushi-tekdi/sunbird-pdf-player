@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter,
   OnDestroy, OnChanges, SimpleChanges, HostListener,
-  ChangeDetectorRef } from '@angular/core';
+  ChangeDetectorRef, ElementRef, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
 import { PlayerConfig, Config } from './playerInterfaces';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 @Component({
@@ -8,11 +8,13 @@ import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
   templateUrl: './sunbird-pdf-player.component.html',
   styleUrls: ['./sunbird-pdf-player.component.scss']
 })
-export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
+export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   public pdfConfig: Config;
   public showPlayer = true;
   private subscription;
   public viewState = 'start';
+  public showControls = true;
+  @ViewChild('pdfPlayer') pdfPlayerRef: ElementRef;
   sideMenuConfig = {
     showShare: true,
     showDownload: true,
@@ -24,9 +26,12 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Output() playerEvent: EventEmitter<object>;
   @Output() telemetryEvent: EventEmitter<any> =  new EventEmitter<any>();
   @Output() viewerActions: EventEmitter<any> =  new EventEmitter<any>();
+  private unlistenMouseEnter: () => void;
+  private unlistenMouseLeave: () => void;
+  // private unlistenTouch: () => void;
 
   constructor(public pdfPlayerService: SunbirdPdfPlayerService,
-              private cdRef: ChangeDetectorRef) {
+              private cdRef: ChangeDetectorRef, private renderer2: Renderer2) {
 
     this.playerEvent = this.pdfPlayerService.playerEvent;
     this.subscription =  this.pdfPlayerService.playerEvent.subscribe((data) => {
@@ -46,6 +51,20 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.pdfConfig = { ...this.pdfPlayerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig =  {...this.sideMenuConfig, ...this.playerConfig.config.sideMenu};
     this.pdfPlayerService.init(this.playerConfig);
+  }
+
+  ngAfterViewInit() {
+    const pdfPlayerElement = this.pdfPlayerRef.nativeElement;
+    this.unlistenMouseEnter = this.renderer2.listen(pdfPlayerElement, 'mouseenter', () => {
+      this.showControls = true;
+    });
+
+    this.unlistenMouseLeave = this.renderer2.listen(pdfPlayerElement, 'mouseleave', () => {
+      this.showControls = false;
+    });
+    // this.unlistenTouch = this.renderer2.listen(pdfPlayerElement, 'touchstart', () => {
+    //   this.showControls = !this.showControls;
+    // });
   }
 
   headerActions({type, data}) {
@@ -147,5 +166,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.pdfPlayerService.pageSessionUpdate();
     this.pdfPlayerService.raiseEndEvent();
     this.subscription.unsubscribe();
+    this.unlistenMouseEnter();
+    this.unlistenMouseLeave();
+    // this.unlistenTouch();
   }
 }

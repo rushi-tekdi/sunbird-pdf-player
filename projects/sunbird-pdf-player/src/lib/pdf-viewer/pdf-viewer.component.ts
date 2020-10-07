@@ -25,7 +25,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
       const viewerApp: any = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
       let progress;
       this.progressInterval =  setInterval(() => {
-        if (progress !== viewerApp.loadingBar.percent || viewerApp.loadingBar.percent === 100) {
+        if (viewerApp && (progress !== viewerApp.loadingBar.percent || viewerApp.loadingBar.percent === 100)) {
           progress = viewerApp.loadingBar.percent;
           this.viewerEvent.emit({type: 'progress', data: viewerApp.loadingBar.percent});
         }
@@ -42,7 +42,9 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
         this.iframeRef.nativeElement.src = '';
         this.iframeRef.nativeElement.src = src;
       } else if (type === 'ZOOM_IN') {
-        viewerApp.zoomIn();
+        if (viewerApp.pdfViewer.currentScale < 3) {
+          viewerApp.zoomIn();
+        }
       } else if (type === 'ZOOM_OUT') {
         viewerApp.zoomOut();
       } else if (type === 'NEXT_PAGE') {
