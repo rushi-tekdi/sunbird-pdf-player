@@ -84,6 +84,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.viewerActions.emit({type: 'PREVIOUS_PAGE'});
     } else if (type === 'header:navigateToPage') {
       this.viewerActions.emit({type: 'NAVIGATE_TO_PAGE', data});
+    } else if (type === 'header:rotateCW') {
+      this.viewerActions.emit({type: 'ROTATE_CW', data});
     }
   }
 
@@ -95,8 +97,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   public onPdfLoaded(event): void {
     this.pdfPlayerService.raiseStartEvent(event);
-    this.viewState = 'player';
-    this.cdRef.detectChanges();
+    setTimeout(() => {
+      this.viewState = 'player';
+      this.cdRef.detectChanges();
+    }, 2000);
   }
 
   public onPdfLoadFailed(error: Error): void {

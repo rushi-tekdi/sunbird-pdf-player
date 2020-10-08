@@ -2,11 +2,11 @@
   "name": "sunbird-pdf-player-app",
   "version": "0.0.0",
   "scripts": {
-    "start-lib": "watch --wait=5 'npm run buildLib' projects",
+    "start-lib": "watch --wait=5 'npm run build-lib' projects",
     "build": "ng build",
-    "buildLib": "ng build sunbird-pdf-player",
-    "postbuildLib": "node assets-copy.js",
-    "create-package": "ng build sunbird-pdf-player && node assets-copy.js && cd dist/sunbird-pdf-player && npm pack",
+    "build-lib": "ng build sunbird-pdf-player",
+    "postbuild-lib": "node assets-copy.js",
+    "create-package": "ng build sunbird-pdf-player && node assets-copy.js && cd dist/sunbird-pdf-player && npm pack && cd ../..  && npm i dist/sunbird-pdf-player/sunbird-pdf-player-0.0.13.tgz",
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json"
   },
   "private": true,
@@ -19,10 +19,11 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@project-sunbird/client-services": "^3.3.27",
     "@project-sunbird/sb-styles": "0.0.7",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
-    "sunbird-pdf-player": "file:dist/sunbird-pdf-player",
+    "sunbird-pdf-player": "file:dist/sunbird-pdf-player/sunbird-pdf-player-0.0.13.tgz",
     "tslib": "^1.9.0",
     "zone.js": "~0.10.3"
   },
