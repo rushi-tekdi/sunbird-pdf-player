@@ -13,7 +13,22 @@ pdf-menu {
   left: 0px;
   z-index: 99;
 }
-
+.notVisible,.BtmNotVisible {
+  transition: all .3s ease-in-out;position: absolute;
+  width: 100%;
+}
+.notVisible {
+  top:-10rem;
+  &.isVisible {
+    top:0rem;
+  }
+}
+.BtmNotVisible {
+  bottom:-10rem;
+  &.isVisible {
+    bottom:0rem;
+  }
+}
 ::ng-deep {
 
   // .sunbird-pdf-player {
