@@ -73,6 +73,10 @@ pdf-menu {
   .zoom {
     min-height: inherit !important;
   }
+  html[dir=rtl] .sb-pdf-reading-status{
+    left: auto;
+    right: 1rem;
+  }
 
 }
 
