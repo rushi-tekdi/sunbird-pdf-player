@@ -31,17 +31,10 @@ pdf-menu {
 }
 ::ng-deep {
 
-  // .sunbird-pdf-player {
-  //   overflow: hidden;
-  // }
   .pdfViewer .page {
     background: none !important;
     border-image: none !important;
     border: 0 !important;
-  }
-
-  .grab-to-pan-grab :not(input):not(textarea):not(button):not(select):not(:link) {
-    // background-color: var(--white) !important;
   }
 
 
