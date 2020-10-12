@@ -21,7 +21,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit() {
-    this.iframeRef.nativeElement.src = `${this.src}${this.pdfURL}&rotation=0&zoom=auto`;
+    this.iframeRef.nativeElement.src = `${this.src}${this.pdfURL}#pagemode=none`;
     this.unListenLoadEvent = this.renderer.listen(this.iframeRef.nativeElement, 'load', () => {
       const viewerApp: any = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
       let progress;
@@ -39,25 +39,24 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
     this.actions.subscribe(({type, data}) => {
       const viewerApp: any = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
       if (type === 'REPLAY') {
-        const src = this.iframeRef.nativeElement.src;
-        this.iframeRef.nativeElement.src = '';
-        this.iframeRef.nativeElement.src = src;
+        this.iframeRef.nativeElement.contentDocument.location.reload(true);
         this.isRegisteredForEvents = false;
-        viewerApp.pdfViewer.pagesRotation = 0;
       } else if (type === 'ZOOM_IN') {
         if (viewerApp.pdfViewer.currentScale < 3) {
           viewerApp.zoomIn();
         }
       } else if (type === 'ZOOM_OUT') {
         viewerApp.zoomOut();
-      } else if (type === 'NEXT_PAGE') {
+      } else if (type === 'NEXT') {
         viewerApp.eventBus.dispatch('nextpage');
-      } else if (type === 'PREVIOUS_PAGE') {
+      } else if (type === 'PREVIOUS') {
         viewerApp.eventBus.dispatch('previouspage');
       } else if (type === 'NAVIGATE_TO_PAGE') {
         viewerApp.page = data;
       } else if (type === 'ROTATE_CW') {
         viewerApp.eventBus.dispatch('rotatecw');
+      } else if (type === 'DOWNLOAD') {
+        viewerApp.download();
       }
     });
   }
@@ -70,6 +69,8 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
       viewerApp.eventBus.on('pagesloaded', (data) => {
           this.viewerEvent.emit({type: 'progress', data: 100});
           clearInterval(this.progressInterval);
+          viewerApp.pdfViewer.pagesRotation = 0;
+          viewerApp.pdfViewer.currentScaleValue = 'page-width';
           this.viewerEvent.emit({type: 'pagesloaded', data});
         });
       viewerApp.eventBus.on('pagechanging', (data) => {

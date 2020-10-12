@@ -9,6 +9,7 @@ const fs = require('fs-extra');
         if (isAssetsExists) {
             await fs.remove(dest);
         }
+        await fs.ensureDir(dest);
         await fs.copy(source, dest)
         await fs.copy(libsource, dest)
         console.log('Assets copied successfully')

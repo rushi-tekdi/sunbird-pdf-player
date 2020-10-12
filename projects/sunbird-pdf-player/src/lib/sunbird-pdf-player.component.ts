@@ -68,25 +68,21 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   headerActions({type, data}) {
-    if (type === 'header:zoomIn') {
-      this.viewerActions.emit({type: 'ZOOM_IN'});
-    } else if (type === 'header:zoomOut') {
-      this.viewerActions.emit({type: 'ZOOM_OUT'});
-    } else if (type === 'header:next') {
+    this.viewerActions.emit({type, data});
+    if (type === 'NEXT') {
       if (this.pdfPlayerService.currentPagePointer === this.pdfPlayerService.totalNumberOfPages) {
         this.pdfPlayerService.raiseEndEvent();
         this.viewState = 'end';
         this.cdRef.detectChanges();
       } else {
-        this.viewerActions.emit({type: 'NEXT_PAGE'});
+        this.viewerActions.emit({type, data});
       }
-    } else if (type === 'header:previous') {
-      this.viewerActions.emit({type: 'PREVIOUS_PAGE'});
-    } else if (type === 'header:navigateToPage') {
-      this.viewerActions.emit({type: 'NAVIGATE_TO_PAGE', data});
-    } else if (type === 'header:rotateCW') {
-      this.viewerActions.emit({type: 'ROTATE_CW', data});
-    }
+  }
+}
+
+  sideBarEvents(event) {
+    this.pdfPlayerService.raiseHeartBeatEvent(event);
+    this.viewerActions.emit(event);
   }
 
   replayContent() {
@@ -97,10 +93,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   public onPdfLoaded(event): void {
     this.pdfPlayerService.raiseStartEvent(event);
-    setTimeout(() => {
-      this.viewState = 'player';
-      this.cdRef.detectChanges();
-    }, 2000);
+    this.viewState = 'player';
+    this.cdRef.detectChanges();
   }
 
   public onPdfLoadFailed(error: Error): void {
@@ -146,8 +140,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.performAction(changes.action);
     }
   }
-
-
 
   public viewerEvent({type, data}) {
     if (type === 'progress') {

@@ -2,7 +2,8 @@
   "name": "sunbird-pdf-player-app",
   "version": "0.0.0",
   "scripts": {
-    "start-lib": "watch --wait=5 'npm run build-lib' projects",
+    "start": "ng serve",
+    "start-lib": "watch 'npm run build-lib' projects",
     "build": "ng build",
     "build-lib": "ng build sunbird-pdf-player",
     "postbuild-lib": "node assets-copy.js",
@@ -23,7 +24,6 @@
     "@project-sunbird/sb-styles": "0.0.7",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
-    "sunbird-pdf-player": "file:dist/sunbird-pdf-player/sunbird-pdf-player-0.0.13.tgz",
     "tslib": "^1.9.0",
     "zone.js": "~0.10.3"
   },
