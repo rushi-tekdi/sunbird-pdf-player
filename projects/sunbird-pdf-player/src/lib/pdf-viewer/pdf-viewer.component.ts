@@ -1,4 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, 
+  Renderer2, ViewChild, OnDestroy, EventEmitter,
+   Output, Input } from '@angular/core';
+import { get as _get } from 'lodash';  
 
 @Component({
   selector: 'pdf-viewer',
@@ -14,75 +17,79 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
   private unListenLoadEvent: () => void;
   private progressInterval;
   private isRegisteredForEvents = false;
-  @Output()  viewerEvent = new EventEmitter<any>();
+  private viewerApp;
+  private iframeWindow;
+  @Output() viewerEvent = new EventEmitter<any>();
+  private actionsMap = new Map([
+    ['ZOOM_OUT', 'zoomout'],
+    ['NEXT', 'nextpage'],
+    ['PREVIOUS', 'previouspage'],
+    ['ROTATE_CW', 'rotatecw'],
+    ['DOWNLOAD', 'download']
+  ])
 
-  constructor(private renderer: Renderer2 ) {
-   }
+  constructor(private renderer: Renderer2) { }
 
 
   ngAfterViewInit() {
     this.iframeRef.nativeElement.src = `${this.src}${this.pdfURL}#pagemode=none`;
     this.unListenLoadEvent = this.renderer.listen(this.iframeRef.nativeElement, 'load', () => {
-      const viewerApp: any = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
+      this.iframeWindow = this.iframeRef.nativeElement.contentWindow;
+      this.viewerApp = this.iframeWindow.PDFViewerApplication;
       let progress;
-      this.progressInterval =  setInterval(() => {
-        if (viewerApp && (progress !== viewerApp.loadingBar.percent || viewerApp.loadingBar.percent === 100)) {
-          progress = viewerApp.loadingBar.percent;
-          this.viewerEvent.emit({type: 'progress', data: viewerApp.loadingBar.percent});
+      this.progressInterval = setInterval(() => {
+        if (this.viewerApp && (progress !== this.viewerApp.loadingBar.percent || this.viewerApp.loadingBar.percent === 100)) {
+          progress = this.viewerApp.loadingBar.percent;
+          this.viewerEvent.emit({ type: 'progress', data: this.viewerApp.loadingBar.percent });
         }
-        if (viewerApp && viewerApp.eventBus && viewerApp.eventBus.on && !this.isRegisteredForEvents) {
+        if ( _get(this, 'viewerApp.eventBus.on') && !this.isRegisteredForEvents) {
           this.registerForEvents();
         }
       }, 100);
     });
 
-    this.actions.subscribe(({type, data}) => {
-      const viewerApp: any = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
+    this.actions.subscribe(({ type, data }) => {
       if (type === 'REPLAY') {
         this.iframeRef.nativeElement.contentDocument.location.reload(true);
         this.isRegisteredForEvents = false;
-      } else if (type === 'ZOOM_IN') {
-        if (viewerApp.pdfViewer.currentScale < 3) {
-          viewerApp.zoomIn();
-        }
-      } else if (type === 'ZOOM_OUT') {
-        viewerApp.zoomOut();
-      } else if (type === 'NEXT') {
-        viewerApp.eventBus.dispatch('nextpage');
-      } else if (type === 'PREVIOUS') {
-        viewerApp.eventBus.dispatch('previouspage');
-      } else if (type === 'NAVIGATE_TO_PAGE') {
-        viewerApp.page = data;
-      } else if (type === 'ROTATE_CW') {
-        viewerApp.eventBus.dispatch('rotatecw');
-      } else if (type === 'DOWNLOAD') {
-        viewerApp.download();
+      } else if (type === 'ZOOM_IN' && this.viewerApp.pdfViewer.currentScale < 3) {
+          this.viewerApp.zoomIn();
+      } if (type === 'NAVIGATE_TO_PAGE') {
+        this.viewerApp.page = data;
+      } else if (this.actionsMap.has(type)) {
+        this.viewerApp.eventBus.dispatch(this.actionsMap.get(type));
       }
     });
   }
 
   registerForEvents() {
     this.isRegisteredForEvents = true;
-    if (this.iframeRef.nativeElement.contentWindow.PDFViewerApplication) {
-      const viewerApp: any = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
-      // viewerApp.onError = (error: Error) => this.viewerEvent.emit({type: 'error', data: error});
-      viewerApp.eventBus.on('pagesloaded', (data) => {
-          this.viewerEvent.emit({type: 'progress', data: 100});
-          clearInterval(this.progressInterval);
-          viewerApp.pdfViewer.pagesRotation = 0;
-          viewerApp.pdfViewer.currentScaleValue = 'page-width';
-          this.viewerEvent.emit({type: 'pagesloaded', data});
-        });
-      viewerApp.eventBus.on('pagechanging', (data) => {
-          this.viewerEvent.emit({type: 'pagechanging', data});
-        });
+    if (this.iframeWindow.PDFViewerApplication) {
+      this.viewerApp.eventBus.on('pagesloaded', (data) => {
+        this.pagesLoadedCallback(data);
+      });
+      this.viewerApp.eventBus.on('pagechanging', (data) => {
+        this.viewerEvent.emit({ type: 'pagechanging', data });
+      });
     }
 
-    this.iframeRef.nativeElement.contentWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
-        if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
-          this.viewerEvent.emit({type: 'pageend'});
-        }
-      };
+    this.ListenToPageScroll();
+  }
+
+  private pagesLoadedCallback(data: any) {
+    this.viewerEvent.emit({ type: 'progress', data: 100 });
+    clearInterval(this.progressInterval);
+    this.viewerApp.pdfViewer.pagesRotation = 0;
+    this.viewerApp.pdfViewer.currentScaleValue = 'page-width';
+    this.viewerEvent.emit({ type: 'pagesloaded', data });
+  }
+
+  private ListenToPageScroll() {
+    this.iframeWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
+      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+        this.viewerEvent.emit({ type: 'pageend' });
+      }
+    };
   }
 
   ngOnDestroy() {
