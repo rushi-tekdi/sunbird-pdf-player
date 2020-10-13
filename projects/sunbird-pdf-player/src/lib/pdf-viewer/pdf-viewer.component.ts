@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, ElementRef, 
   Renderer2, ViewChild, OnDestroy, EventEmitter,
    Output, Input } from '@angular/core';
-import { get as _get } from 'lodash';  
-
 @Component({
   selector: 'pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
@@ -42,7 +40,10 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
           progress = this.viewerApp.loadingBar.percent;
           this.viewerEvent.emit({ type: 'progress', data: this.viewerApp.loadingBar.percent });
         }
-        if ( _get(this, 'viewerApp.eventBus.on') && !this.isRegisteredForEvents) {
+        if ( this.viewerApp && 
+          this.viewerApp.eventBus &&
+          this.viewerApp.eventBus.on &&
+          !this.isRegisteredForEvents) {
           this.registerForEvents();
         }
       }, 100);
@@ -70,6 +71,10 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
       });
       this.viewerApp.eventBus.on('pagechanging', (data) => {
         this.viewerEvent.emit({ type: 'pagechanging', data });
+      });
+
+      this.viewerApp.eventBus.on('rotatecw', () => {
+        this.viewerEvent.emit({ type: 'rotatecw', data: this.viewerApp.pdfViewer.pagesRotation });
       });
     }
 

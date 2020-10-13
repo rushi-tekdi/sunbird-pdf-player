@@ -22,6 +22,8 @@
     "@angular/router": "~7.2.0",
     "@project-sunbird/client-services": "^3.3.27",
     "@project-sunbird/sb-styles": "0.0.7",
+    "@project-sunbird/sunbird-pdf-player": "0.0.1",
+    "@project-sunbird/telemetry-sdk": "0.0.26",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

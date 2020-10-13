@@ -1,23 +1,23 @@
 <div class="sunbird-pdf-palyer-container" #pdfPlayer>
-  <sb-player-start-page *ngIf="viewState === 'start'" [title]="pdfPlayerService.contentName"
-    [progress]="pdfPlayerService.loadingProgress"></sb-player-start-page>
+  <sb-player-start-page *ngIf="viewState === 'start'" [title]="viewerService.contentName"
+    [progress]="viewerService.loadingProgress"></sb-player-start-page>
 
   <sb-player-header class="sb-pdf-main-header notVisible" [ngClass]="{'isVisible': showControls}"
-    *ngIf="viewState ==='player'" [pageNumber]="pdfPlayerService.currentPagePointer"
-    [totalPages]="pdfPlayerService.totalNumberOfPages" (actions)="headerActions($event)"></sb-player-header>
-  <sb-player-side-menu-icon class="notVisible" (sidebarMenuEvent)="pdfPlayerService.raiseHeartBeatEvent($event)"
+    *ngIf="viewState ==='player'" [pageNumber]="viewerService.currentPagePointer"
+    [totalPages]="viewerService.totalNumberOfPages" (actions)="headerActions($event)"></sb-player-header>
+  <sb-player-side-menu-icon class="notVisible" (sidebarMenuEvent)="viewerService.raiseHeartBeatEvent($event)"
     *ngIf="viewState ==='player'" [ngClass]="{'isVisible': showControls}">
     </sb-player-side-menu-icon>
     <span [style.display]="viewState ==='player' ? 'inline': 'none'">
-      <pdf-viewer (viewerEvent)="viewerEvent($event)" [pdfURL]="pdfPlayerService.src" *ngIf="showPlayer"
+      <pdf-viewer (viewerEvent)="viewerEvent($event)" [pdfURL]="viewerService.src" *ngIf="showPlayer"
         [actions]="viewerActions"></pdf-viewer>
     </span>
-    <sb-player-sidebar *ngIf="viewState ==='player'" [title]="pdfPlayerService.contentName"
+    <sb-player-sidebar *ngIf="viewState ==='player'" [title]="viewerService.contentName"
       (sidebarEvent)="sideBarEvents($event)" [config]="sideMenuConfig"></sb-player-sidebar>
 
-    <div class="sb-pdf-reading-status" *ngIf="viewState ==='player'">Location {{pdfPlayerService.currentPagePointer}} of
-      {{pdfPlayerService.totalNumberOfPages}} <span></span>
-      {{((pdfPlayerService.currentPagePointer/pdfPlayerService.totalNumberOfPages) * 100).toFixed(0)}}%</div>
+    <div class="sb-pdf-reading-status" *ngIf="viewState ==='player'">Location {{viewerService.currentPagePointer}} of
+      {{viewerService.totalNumberOfPages}} <span></span>
+      {{((viewerService.currentPagePointer/viewerService.totalNumberOfPages) * 100).toFixed(0)}}%</div>
     <div class="visible-only-potrait BtmNotVisible" [ngClass]="{'isVisible': showControls}"
       *ngIf="viewState ==='player'">
       <div class="sbt-pdf-footer">
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <sb-player-end-page [contentName]="pdfPlayerService.contentName" [pagesRead]="pdfPlayerService.currentPagePointer"
-      [userName]="pdfPlayerService.userName" [timeSpentLabel]="pdfPlayerService.timeSpent"
-      (replayContent)="replayContent()" *ngIf="viewState === 'end'"></sb-player-end-page>
+    <sb-player-end-page [contentName]="viewerService.contentName" [pagesRead]="viewerService.currentPagePointer"
+      [userName]="viewerService.userName" [timeSpentLabel]="viewerService.timeSpent"
+      (replayContent)="replayContent($event)" *ngIf="viewState === 'end'"></sb-player-end-page>
 </div>

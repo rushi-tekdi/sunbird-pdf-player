@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter,
   OnDestroy, OnChanges, SimpleChanges, HostListener,
   ChangeDetectorRef, ElementRef, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
 import { PlayerConfig, Config } from './playerInterfaces';
+import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 @Component({
   selector: 'sunbird-pdf-player',
@@ -30,15 +31,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   private unlistenMouseLeave: () => void;
   // private unlistenTouch: () => void;
 
-  constructor(public pdfPlayerService: SunbirdPdfPlayerService,
+  constructor(public pdfPlayerService: SunbirdPdfPlayerService, public viewerService: ViewerService,
               private cdRef: ChangeDetectorRef, private renderer2: Renderer2) {
 
-    this.playerEvent = this.pdfPlayerService.playerEvent;
-    this.subscription =  this.pdfPlayerService.playerEvent.subscribe((data) => {
-      if (data.edata.type === 'REPLAY') {
-        this.replayContent();
-      }
-    });
+    this.playerEvent = this.viewerService.playerEvent;
   }
 
   @HostListener('document:TelemetryEvent', ['$event'])
@@ -48,9 +44,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   ngOnInit() {
     this.viewState = 'start';
-    this.pdfConfig = { ...this.pdfPlayerService.defaultConfig, ...this.playerConfig.config };
+    this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig =  {...this.sideMenuConfig, ...this.playerConfig.config.sideMenu};
-    this.pdfPlayerService.init(this.playerConfig);
+    this.pdfPlayerService.initialize(this.playerConfig);
+    this.viewerService.initialize(this.playerConfig);
   }
 
   ngAfterViewInit() {
@@ -69,10 +66,12 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   headerActions({type, data}) {
     this.viewerActions.emit({type, data});
+    this.viewerService.raiseHeartBeatEvent(type);
     if (type === 'NEXT') {
-      if (this.pdfPlayerService.currentPagePointer === this.pdfPlayerService.totalNumberOfPages) {
-        this.pdfPlayerService.raiseEndEvent();
+      if (this.viewerService.currentPagePointer === this.viewerService.totalNumberOfPages) {
+        this.viewerService.raiseEndEvent();
         this.viewState = 'end';
+        this.viewerService.endPageSeen = true;
         this.cdRef.detectChanges();
       } else {
         this.viewerActions.emit({type, data});
@@ -81,75 +80,73 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 }
 
   sideBarEvents(event) {
-    this.pdfPlayerService.raiseHeartBeatEvent(event);
+    this.viewerService.raiseHeartBeatEvent(event);
     this.viewerActions.emit(event);
   }
 
-  replayContent() {
+  replayContent(event) {
+    this.viewerService.raiseHeartBeatEvent(event.type)
     this.ngOnInit();
     this.viewerActions.emit({type: 'REPLAY'});
     this.cdRef.detectChanges();
   }
 
   public onPdfLoaded(event): void {
-    this.pdfPlayerService.raiseStartEvent(event);
+    this.viewerService.raiseStartEvent(event);
     this.viewState = 'player';
     this.cdRef.detectChanges();
   }
 
   public onPdfLoadFailed(error: Error): void {
-    this.pdfPlayerService.raiseErrorEvent(error);
+    this.viewerService.raiseErrorEvent(error);
     this.viewState = 'player';
   }
 
   public onZoomChange(event: any): void {
-      this.pdfPlayerService.pageSessionUpdate();
-      this.pdfPlayerService.raiseHeartBeatEvent('ZOOM_CHANGE');
-      this.pdfPlayerService.zoom = event;
+      this.viewerService.pageSessionUpdate();
+      this.viewerService.raiseHeartBeatEvent('ZOOM_CHANGE');
+      this.viewerService.zoom = event;
   }
 
   public onPdfDownloaded(): void {
-    this.pdfPlayerService.raiseHeartBeatEvent('PDF_DOWNLOAD');
+    this.viewerService.raiseHeartBeatEvent('PDF_DOWNLOAD');
   }
 
   public onAfterPrint() {
-    this.pdfPlayerService.raiseHeartBeatEvent('PDF_PRINT');
+    this.viewerService.raiseHeartBeatEvent('PDF_PRINT');
   }
 
   public onRotationChange(event: any): void {
-    this.pdfPlayerService.pageSessionUpdate();
-    this.pdfPlayerService.raiseHeartBeatEvent('ROTATION_CHANGE');
-    this.pdfPlayerService.rotation = event;
+    this.viewerService.pageSessionUpdate();
+    this.viewerService.raiseHeartBeatEvent('ROTATION_CHANGE');
+    this.viewerService.rotation = event;
   }
 
   // On Page next and previous or scroll
   public onPageChange(event: any): void {
-    this.pdfPlayerService.pageSessionUpdate();
-    this.pdfPlayerService.currentPagePointer = event.pageNumber;
-    this.pdfPlayerService.raiseHeartBeatEvent('PAGE_CHANGE');
-  }
-
-  public performAction(action: any) {
-    if ((window as any).PDFViewerApplication) {
-        (window as any).PDFViewerApplication.eventBus.dispatch(action);
-    }
+    this.viewerService.pageSessionUpdate();
+    this.viewerService.currentPagePointer = event.pageNumber;
+    this.viewerService.raiseHeartBeatEvent('PAGE_CHANGE');
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.action) {
-      this.performAction(changes.action);
+      this.viewerActions.emit({type: changes.action});
     }
   }
 
   public viewerEvent({type, data}) {
     if (type === 'progress') {
-      this.pdfPlayerService.loadingProgress = data;
+      this.viewerService.loadingProgress = data;
     } else if (type === 'pagesloaded') {
       this.onPdfLoaded(data);
     } else if (type === 'pagechanging') {
       this.onPageChange(data);
-    } else if (type === 'pageend') {
-      this.pdfPlayerService.raiseEndEvent();
+    } else if (type === 'rotatecw') {
+      this.onRotationChange(data);
+    }  else if (type === 'pageend') {
+      this.viewerService.raiseEndEvent();
+      this.viewerService.endPageSeen = true;
       this.viewState = 'end';
     } else if (type === 'error') {
       this.onPdfLoadFailed(data);
@@ -159,8 +156,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   @HostListener('window:beforeunload')
   ngOnDestroy() {
-    this.pdfPlayerService.pageSessionUpdate();
-    this.pdfPlayerService.raiseEndEvent();
+    this.viewerService.pageSessionUpdate();
+    this.viewerService.raiseEndEvent();
     this.subscription.unsubscribe();
     this.unlistenMouseEnter();
     this.unlistenMouseLeave();

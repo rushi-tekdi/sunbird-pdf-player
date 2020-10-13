@@ -6,7 +6,6 @@
   },
   "whitelistedNonPeerDependencies": [
     "@project-sunbird/sunbird-player-sdk",
-    "@project-sunbird/client-services",
-    "lodash"
+    "@project-sunbird/client-services"
   ]
 }
