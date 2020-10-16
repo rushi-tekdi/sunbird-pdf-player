@@ -4,7 +4,7 @@ import { AfterViewInit, Component, ElementRef,
 @Component({
   selector: 'pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
-  styleUrls: ['./pdf-viewer.component.css']
+  styleUrls: ['./pdf-viewer.component.scss']
 })
 export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
