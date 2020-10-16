@@ -8,7 +8,8 @@
     "build-lib": "ng build sunbird-pdf-player",
     "postbuild-lib": "node assets-copy.js",
     "create-package": "ng build sunbird-pdf-player && node assets-copy.js && cd dist/sunbird-pdf-player && npm pack && cd ../..  && npm i dist/sunbird-pdf-player/sunbird-pdf-player-0.0.13.tgz",
-    "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json"
+    "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json",
+    "test": "ng test sunbird-pdf-player"
   },
   "private": true,
   "dependencies": {
