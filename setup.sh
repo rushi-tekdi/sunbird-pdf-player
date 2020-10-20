@@ -1,4 +1,4 @@
-#bin/bash
+#!/bin/sh
 
 npm i
 cd projects/sunbird-pdf-player
