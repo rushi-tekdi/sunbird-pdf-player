@@ -80,13 +80,13 @@ pdf-menu {
 
 }
 
-
+:host {
 .sb-pdf-reading-status {
   color: var(--gray-800);
   font-size: 0.75rem;
   position: absolute;
   left: 1rem;
-  bottom: 1rem;
+  bottom: 0.75rem;
   display: flex;
   align-items: center;
   background: var(--white);
@@ -139,7 +139,7 @@ pdf-menu {
     }
   }
 }
-
+}
 .sbt-pdf-footer {
   background: var(--white);
   position: absolute;
@@ -173,6 +173,11 @@ pdf-menu {
 
     .visible-only-potrait {
       display: block;
+      .sbt-pdf-footer {
+        button.navigation-arrows:hover {
+          border: 1px solid transparent;
+        }
+      }
     }
 
     .file-download__popup {
