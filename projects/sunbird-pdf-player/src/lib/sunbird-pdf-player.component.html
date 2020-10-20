@@ -22,8 +22,8 @@
       *ngIf="viewState ==='player'">
       <div class="sbt-pdf-footer">
         <div class="d-flex pdf-slides" style="float: right;">
-          <sb-player-previous-navigation (previousAction)="headerActions($event)"></sb-player-previous-navigation>
-          <sb-player-next-navigation (nextAction)="headerActions($event)"></sb-player-next-navigation>
+          <sb-player-previous-navigation class="d-flex flex-ai-center flex-jc-center" (previousAction)="headerActions($event)"></sb-player-previous-navigation>
+          <sb-player-next-navigation  class="d-flex flex-ai-center flex-jc-center" (nextAction)="headerActions($event)"></sb-player-next-navigation>
         </div>
       </div>
     </div>
