@@ -158,7 +158,9 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   ngOnDestroy() {
     this.viewerService.pageSessionUpdate();
     this.viewerService.raiseEndEvent();
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.unlistenMouseEnter();
     this.unlistenMouseLeave();
     // this.unlistenTouch();
