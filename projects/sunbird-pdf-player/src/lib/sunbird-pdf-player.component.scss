@@ -13,22 +13,30 @@ pdf-menu {
   left: 0px;
   z-index: 99;
 }
-.notVisible,.BtmNotVisible {
-  transition: all .3s ease-in-out;position: absolute;
+
+.notVisible,
+.BtmNotVisible {
+  transition: all .3s ease-in-out;
+  position: absolute;
   width: 100%;
 }
+
 .notVisible {
-  top:-10rem;
+  top: -10rem;
+
   &.isVisible {
-    top:0rem;
+    top: 0rem;
   }
 }
+
 .BtmNotVisible {
-  bottom:-10rem;
+  bottom: -10rem;
+
   &.isVisible {
-    bottom:0rem;
+    bottom: 0rem;
   }
 }
+
 ::ng-deep {
 
   .pdfViewer .page {
@@ -66,7 +74,8 @@ pdf-menu {
   .zoom {
     min-height: inherit !important;
   }
-  html[dir=rtl] .sb-pdf-reading-status{
+
+  html[dir=rtl] .sb-pdf-reading-status {
     left: auto;
     right: 1rem;
   }
@@ -74,65 +83,34 @@ pdf-menu {
 }
 
 :host {
-.sb-pdf-reading-status {
-  color: var(--gray-800);
-  font-size: 0.75rem;
-  position: absolute;
-  left: 1rem;
-  bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  background: var(--white);
-  border-radius: 0.5rem;
-  padding: 0.25em 0.5rem;
-  z-index: 5;
-  line-height: normal;
+  .sb-pdf-reading-status {
+    color: var(--gray-800);
+    font-size: 0.75rem;
+    position: absolute;
+    left: 1rem;
+    bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-radius: 0.5rem;
+    padding: 0.25em 0.5rem;
+    z-index: 5;
+    line-height: normal;
 
-  @include respond-above(sm) {
-    font-size: .95rem;
-  }
 
-  .PlayerMediaQueryClass & {
-    @include respond-above(md) {
-      font-size: 1.2rem;
-    }
+    span {
+      background: var(--gray-800);
+      width: 0.25rem;
+      height: 0.25rem;
+      display: block;
+      margin: 0px 0.5rem;
+      border-radius: 50%;
 
-    @include respond-above(xl) {
-      font-size: 1.4rem;
-    }
 
-    @include respond-above(xxxl) {
-      font-size: 1.6rem;
-    }
-  }
-
-  span {
-    background: var(--gray-800);
-    width: 0.25rem;
-    height: 0.25rem;
-    display: block;
-    margin: 0px 0.5rem;
-    border-radius: 50%;
-
-    @include respond-above(sm) {
-      width: .45rem;
-      height: .45rem;
-    }
-
-    .PlayerMediaQueryClass & {
-      @include respond-above(md) {
-        width: .5rem;
-        height: .5rem;
-      }
-
-      @include respond-above(xxxl) {
-        width: .7rem;
-        height: .7rem;
-      }
     }
   }
 }
-}
+
 .sbt-pdf-footer {
   background: var(--white);
   position: absolute;
@@ -166,6 +144,7 @@ pdf-menu {
 
     .visible-only-potrait {
       display: block;
+
       .sbt-pdf-footer {
         button.navigation-arrows:hover {
           border: 1px solid transparent;
