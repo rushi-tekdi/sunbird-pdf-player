@@ -47,3 +47,7 @@
     height: calc(100vh - 50px) !important;
   }
 }
+
+html.PlayerMediaQueryClass {
+  font-size: calc(12px + (32 - 12) * ((100vw - 320px) / (1920 - 320)));
+}
