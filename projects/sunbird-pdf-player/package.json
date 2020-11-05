@@ -1,17 +1,17 @@
 {
   "name": "@project-sunbird/sunbird-pdf-player",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0",
-    "@project-sunbird/client-services": "^3.3.27",
+    "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7"
   },
   "dependencies": {
-    "@project-sunbird/sunbird-player-sdk": "0.0.5"
+    "@project-sunbird/sunbird-player-sdk": "0.0.6"
   },
   "devDependencies": {
-    "@project-sunbird/client-services": "^3.3.27",
+    "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7"
   }
 }

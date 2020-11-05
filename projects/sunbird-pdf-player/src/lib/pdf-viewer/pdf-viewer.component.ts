@@ -32,9 +32,11 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.iframeRef.nativeElement.src = `${this.src}${this.pdfURL}#pagemode=none`;
     this.unListenLoadEvent = this.renderer.listen(this.iframeRef.nativeElement, 'load', () => {
+
       this.iframeWindow = this.iframeRef.nativeElement.contentWindow;
       this.viewerApp = this.iframeWindow.PDFViewerApplication;
-      let progress;
+
+      let progress, loadingPromiseCheck = false;
       this.progressInterval = setInterval(() => {
         if (this.viewerApp && (progress !== this.viewerApp.loadingBar.percent || this.viewerApp.loadingBar.percent === 100)) {
           progress = this.viewerApp.loadingBar.percent;
@@ -46,6 +48,17 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
           !this.isRegisteredForEvents) {
           this.registerForEvents();
         }
+        if ( this.viewerApp && 
+          this.viewerApp.pdfLoadingTask &&
+          this.viewerApp.pdfLoadingTask.promise &&
+          !loadingPromiseCheck) {
+            this.viewerApp.pdfLoadingTask.promise.catch((error) => {
+              
+              this.viewerEvent.emit({ type: 'error', data:  
+              (navigator.onLine ?  `Internet available but unable to fetch the url ${this.pdfURL} ` : `No internet to load pdf with url ${this.pdfURL} `)  + (error ? error.toString() : '' )  });
+            });
+            loadingPromiseCheck = true;
+          }
       }, 100);
     });
 

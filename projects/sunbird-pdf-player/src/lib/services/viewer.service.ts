@@ -35,7 +35,7 @@ export class ViewerService {
     this.totalNumberOfPages = 0;
     this.currentPagePointer = (config && config.startFromPage) || 1;
     this.contentName = metadata.name;
-    this.src = metadata.artifactUrl;
+    this.src =  metadata.streamingUrl || metadata.artifactUrl;
     if (context.userData) {
       const { userData: { firstName, lastName } } = context;
       this.userName = firstName === lastName ? firstName : `${firstName} ${lastName}`;

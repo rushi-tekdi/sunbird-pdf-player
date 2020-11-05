@@ -9,6 +9,8 @@
     "postbuild-lib": "node assets-copy.js",
     "create-package": "ng build sunbird-pdf-player && node assets-copy.js && cd dist/sunbird-pdf-player && npm pack && cd ../..  && npm i dist/sunbird-pdf-player/sunbird-pdf-player-0.0.13.tgz",
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json",
+    "create-player-link": "cd dist/sunbird-pdf-player && npm link && cd ../..",
+    "link-player": "npm link @project-sunbird/sunbird-pdf-player",
     "test": "ng test sunbird-pdf-player"
   },
   "private": true,
@@ -21,7 +23,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@project-sunbird/client-services": "^3.3.27",
+    "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
     "@project-sunbird/sunbird-pdf-player": "0.0.1",
     "@project-sunbird/telemetry-sdk": "0.0.26",
