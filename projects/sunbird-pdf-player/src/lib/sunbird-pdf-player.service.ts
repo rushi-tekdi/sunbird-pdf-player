@@ -24,27 +24,29 @@ export class SunbirdPdfPlayerService {
 
     if (!CsTelemetryModule.instance.isInitialised) {
       CsTelemetryModule.instance.init({});
-      CsTelemetryModule.instance.telemetryService.initTelemetry(
-        {
-          config: {
-            pdata: context.pdata,
-            env: 'ContentPlayer',
-            channel: context.channel,
-            did: context.did,
-            authtoken: context.authToken || '',
-            uid: context.uid || '',
-            sid: context.sid,
-            batchsize: 20,
-            mode: context.mode,
-            host: context.host || '',
-            endpoint: context.endpoint || '/data/v3/telemetry',
-            tags: context.tags,
-            cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
-            { id: this.playSessionId, type: 'PlaySession' }]
-          },
-          userOrgDetails: {}
-        }
-      );
+      const telemetryConfig: any =  {
+        config: {
+          pdata: context.pdata,
+          env: 'ContentPlayer',
+          channel: context.channel,
+          did: context.did,
+          authtoken: context.authToken || '',
+          uid: context.uid || '',
+          sid: context.sid,
+          batchsize: 20,
+          mode: context.mode,
+          host: context.host || '',
+          endpoint: context.endpoint || '/data/v3/telemetry',
+          tags: context.tags,
+          cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
+          { id: this.playSessionId, type: 'PlaySession' }],
+        },
+        userOrgDetails: {}
+      };
+      if(context.dispatcher) {
+        telemetryConfig.config.dispatcher = context.dispatcher
+      }
+      CsTelemetryModule.instance.telemetryService.initTelemetry(telemetryConfig);
     }
 
     this.telemetryObject = {

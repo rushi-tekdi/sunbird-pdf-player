@@ -29,6 +29,12 @@ export class AppComponent implements OnInit {
       userData: {
         firstName: 'Harish Kumar',
         lastName: 'Gangula'
+      },
+      // if the dispatcher is provided then player won't send the event to backend container need to send it
+      dispatcher: {
+        dispatch: function(event){
+          console.log(`Events from dispatcher: ${JSON.stringify(event)}`)
+      }
       }
     },
     config: {

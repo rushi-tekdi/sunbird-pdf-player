@@ -39,6 +39,7 @@ export interface Context {
     objectRollup?: ObjectRollup;
     host?: string;
     endpoint?: string;
+    dispatcher?: object;
     userData?: {
         firstName: string;
         lastName: string;
