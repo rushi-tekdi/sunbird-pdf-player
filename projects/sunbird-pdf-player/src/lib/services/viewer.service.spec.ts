@@ -28,7 +28,7 @@ describe('ViewerService', () => {
     const service = TestBed.get(ViewerService);
     service.initialize(mockData.playerConfig);
     service.pageSessionUpdate();
-    expect(service['metaData'].pagesHistory.length).toEqual(1);
+    expect(service['metaData'].pagesVisited.length).toEqual(1);
   });
 
   it('should raise Start event ', () => {

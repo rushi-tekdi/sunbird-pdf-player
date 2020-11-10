@@ -8,7 +8,7 @@ import { UtilService } from './util.service';
 })
 export class ViewerService {
 
-  public zoom = 'auto';
+  public zoom: any = 'auto';
   public rotation = 0;
   public currentPagePointer = 0;
   public totalNumberOfPages = 0;
@@ -29,8 +29,8 @@ export class ViewerService {
     private utilService: UtilService) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
-    this.zoom = 'auto';
-    this.rotation = 0;
+    this.zoom = config.zoom || 'auto';
+    this.rotation = config.rotation ||  0;
     this.pdfPlayerStartTime = this.pdfLastPageTime = new Date().getTime();
     this.totalNumberOfPages = 0;
     this.currentPagePointer = (config && config.startFromPage) || 1;
@@ -41,7 +41,7 @@ export class ViewerService {
       this.userName = firstName === lastName ? firstName : `${firstName} ${lastName}`;
     }
     this.metaData = {
-      pagesHistory: [],
+      pagesVisited: [],
       totalPages: 0,
       duration: [],
       zoom: [],
@@ -61,7 +61,7 @@ export class ViewerService {
 
 
   public pageSessionUpdate() {
-    this.metaData.pagesHistory.push(this.currentPagePointer);
+    this.metaData.pagesVisited.push(this.currentPagePointer);
     this.metaData.duration.push(new Date().getTime() - this.pdfLastPageTime);
     this.metaData.zoom.push(this.zoom);
     this.metaData.rotation.push(this.rotation);
@@ -89,6 +89,7 @@ export class ViewerService {
   }
 
   raiseEndEvent() {
+    this.pageSessionUpdate();
     const duration = new Date().getTime() - this.pdfPlayerStartTime;
     const endEvent = {
       eid: 'END',
@@ -102,7 +103,7 @@ export class ViewerService {
       metaData: this.metaData
     };
     this.playerEvent.emit(endEvent);
-    const visitedlength = (this.metaData.pagesHistory.filter((v, i, a) => a.indexOf(v) === i)).length;
+    const visitedlength = (this.metaData.pagesVisited.filter((v, i, a) => a.indexOf(v) === i)).length;
     this.timeSpent = this.utilService.getTimeSpentText(this.pdfPlayerStartTime);
     this.sunbirdPdfPlayerService.end(duration,
       this.currentPagePointer, this.totalNumberOfPages, visitedlength, this.endPageSeen);
