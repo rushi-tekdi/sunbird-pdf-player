@@ -118,7 +118,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
   private ListenToPageScroll() {
     this.iframeWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+      if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight) {
         this.viewerEvent.emit({ type: 'pageend' });
       }
     };
