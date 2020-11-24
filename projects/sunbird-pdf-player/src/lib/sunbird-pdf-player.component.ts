@@ -51,7 +51,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   ngOnInit() {
     this.viewState = 'start';
-    this.playerConfig.context.pdata.pid = 'sunbird.app.contentplayer';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.pdfPlayerService.initialize(this.playerConfig);
