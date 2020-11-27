@@ -52,7 +52,7 @@ export class SunbirdPdfPlayerService {
     this.telemetryObject = {
       id: metadata.identifier,
       type: 'Content',
-      ver: metadata.pkgVersion + '',
+      ver: metadata.pkgVersion + '' || '1.0',
       rollup: context.objectRollup || {}
     };
   }
