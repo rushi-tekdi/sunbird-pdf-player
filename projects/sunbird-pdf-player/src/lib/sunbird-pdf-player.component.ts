@@ -52,14 +52,15 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
-    if (_.get(this.playerConfig, 'metadata.compatibilityLevel') > this.defaultCompatibilityLevel) {
-      const compatibleEmitEvent = {
-        defaultCompatibilityLevel: this.defaultCompatibilityLevel,
-        contentCompatibilityLevel: _.get(this.playerConfig, 'metadata.compatibilityLevel'),
-        isCompatible: false
-      };
-      this.playerEvent.emit(compatibleEmitEvent);
+    if (this.playerConfig.metadata['compatibilityLevel']) {
+    if (this.playerConfig.metadata.compatibilityLevel > this.defaultCompatibilityLevel) {
+      const  compatibilityError = new Error();
+      compatibilityError.message = `player supports ${this.defaultCompatibilityLevel} and content is compatibility is ${this.playerConfig.metadata.compatibilityLevel}`;
+      compatibilityError.name = 'contentCompatibily';
+
+      this.viewerService.raiseErrorEvent(compatibilityError, 'compatibility-error');
     }
+  }
     this.viewState = 'start';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
@@ -116,6 +117,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   public onPdfLoadFailed(error: Error): void {
+    console.log('error', error);
     this.viewerService.raiseErrorEvent(error);
     this.viewState = 'player';
   }
