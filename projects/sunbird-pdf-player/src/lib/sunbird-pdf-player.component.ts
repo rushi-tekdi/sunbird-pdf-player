@@ -11,6 +11,7 @@ import {
 import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
+import * as _ from 'lodash';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
@@ -37,6 +38,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
   // private unlistenTouch: () => void;
+  defaultCompatibilityLevel = 4;
 
   constructor(public pdfPlayerService: SunbirdPdfPlayerService, public viewerService: ViewerService,
     private cdRef: ChangeDetectorRef, private renderer2: Renderer2) {
@@ -50,6 +52,14 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
+    if (_.get(this.playerConfig, 'metadata.compatibilityLevel') > this.defaultCompatibilityLevel) {
+      const compatibleEmitEvent = {
+        defaultCompatibilityLevel: this.defaultCompatibilityLevel,
+        contentCompatibilityLevel: _.get(this.playerConfig, 'metadata.compatibilityLevel'),
+        isCompatible: false
+      };
+      this.playerEvent.emit(compatibleEmitEvent);
+    }
     this.viewState = 'start';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
