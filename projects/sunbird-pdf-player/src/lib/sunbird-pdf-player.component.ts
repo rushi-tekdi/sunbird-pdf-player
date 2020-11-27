@@ -117,7 +117,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   public onPdfLoadFailed(error: Error): void {
-    console.log('error', error);
     this.viewerService.raiseErrorEvent(error);
     this.viewState = 'player';
   }
