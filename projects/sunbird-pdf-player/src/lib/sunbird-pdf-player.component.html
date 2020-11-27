@@ -30,5 +30,4 @@
     <sb-player-end-page [contentName]="viewerService.contentName"  [outcomeLabel]="'Pages read:'" [outcome]="viewerService.currentPagePointer"
       [userName]="viewerService.userName" [timeSpentLabel]="viewerService.timeSpent"
       (replayContent)="replayContent($event)" *ngIf="viewState === 'end'"></sb-player-end-page>
-    <sb-player-offline-alert></sb-player-offline-alert>
 </div>
