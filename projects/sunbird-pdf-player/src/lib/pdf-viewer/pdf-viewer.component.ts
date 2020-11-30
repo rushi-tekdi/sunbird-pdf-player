@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, 
   Renderer2, ViewChild, OnDestroy, EventEmitter,
    Output, Input } from '@angular/core';
+import { ViewerService } from '../services/viewer.service';
+
 @Component({
   selector: 'pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
@@ -26,7 +28,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
     ['DOWNLOAD', 'download']
   ])
 
-  constructor(private renderer: Renderer2) { }
+  constructor( private viewerService: ViewerService, private renderer: Renderer2) { }
 
 
   ngAfterViewInit() {
@@ -104,7 +106,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
   private ListenToPageScroll() {
     this.iframeWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
         this.viewerEvent.emit({ type: 'pageend' });
       }
     };
