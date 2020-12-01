@@ -29,7 +29,6 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
   constructor(private renderer: Renderer2,  private viewerService: ViewerService) { }
 
-
   ngAfterViewInit() {
     this.iframeRef.nativeElement.src = 
     `${this.src}${this.pdfURL}#pagemode=none&page=${this.viewerService.currentPagePointer}&zoom=${this.viewerService.zoom}`;
@@ -118,7 +117,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
   private ListenToPageScroll() {
     this.iframeWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight) {
+      if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
         this.viewerEvent.emit({ type: 'pageend' });
       }
     };
