@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef,
   Renderer2, ViewChild, OnDestroy, EventEmitter,
    Output, Input } from '@angular/core';
 import { ViewerService } from '../services/viewer.service';
-
 @Component({
   selector: 'pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
@@ -28,11 +27,11 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
     ['DOWNLOAD', 'download']
   ])
 
-  constructor( private viewerService: ViewerService, private renderer: Renderer2) { }
-
+  constructor(private renderer: Renderer2,  private viewerService: ViewerService) { }
 
   ngAfterViewInit() {
-    this.iframeRef.nativeElement.src = `${this.src}${this.pdfURL}#pagemode=none`;
+    this.iframeRef.nativeElement.src = 
+    `${this.src}${this.pdfURL}#pagemode=none&page=${this.viewerService.currentPagePointer}&zoom=${this.viewerService.zoom}`;
     this.unListenLoadEvent = this.renderer.listen(this.iframeRef.nativeElement, 'load', () => {
 
       this.iframeWindow = this.iframeRef.nativeElement.contentWindow;
@@ -69,8 +68,16 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
         this.iframeRef.nativeElement.contentDocument.location.reload(true);
         this.isRegisteredForEvents = false;
       } else if (type === 'ZOOM_IN' && this.viewerApp.pdfViewer.currentScale < 3) {
-          this.viewerApp.zoomIn();
-      } if (type === 'NAVIGATE_TO_PAGE') {
+        this.viewerService.pageSessionUpdate();
+        this.viewerApp.zoomIn();
+        this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100)
+      }
+      else if (type === 'ZOOM_OUT') {
+        this.viewerService.pageSessionUpdate();
+        this.viewerApp.zoomOut();
+        this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100)
+      } else
+      if (type === 'NAVIGATE_TO_PAGE') {
         this.viewerApp.page = data;
       } else if (this.actionsMap.has(type)) {
         this.viewerApp.eventBus.dispatch(this.actionsMap.get(type));
@@ -78,10 +85,14 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+
   registerForEvents() {
     this.isRegisteredForEvents = true;
     if (this.iframeWindow.PDFViewerApplication) {
       this.viewerApp.eventBus.on('pagesloaded', (data) => {
+        setTimeout(() => {
+          this.viewerApp.rotatePages(this.viewerService.rotation);
+        },500)
         this.pagesLoadedCallback(data);
       });
       this.viewerApp.eventBus.on('pagechanging', (data) => {
@@ -92,7 +103,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
         this.viewerEvent.emit({ type: 'rotatecw', data: this.viewerApp.pdfViewer.pagesRotation });
       });
     }
-
+    
     this.ListenToPageScroll();
   }
 
@@ -106,7 +117,7 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
 
   private ListenToPageScroll() {
     this.iframeWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
+      if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
         this.viewerEvent.emit({ type: 'pageend' });
       }
     };

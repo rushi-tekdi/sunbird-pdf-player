@@ -8,7 +8,7 @@ import { UtilService } from './util.service';
 })
 export class ViewerService {
 
-  public zoom = 'auto';
+  public zoom: any = 'auto';
   public rotation = 0;
   public currentPagePointer = 0;
   public totalNumberOfPages = 0;
@@ -29,19 +29,24 @@ export class ViewerService {
     private utilService: UtilService) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
-    this.zoom = 'auto';
-    this.rotation = 0;
+    this.zoom = config.zoom || 'auto';
+    this.rotation = config.rotation ||  0;
     this.pdfPlayerStartTime = this.pdfLastPageTime = new Date().getTime();
     this.totalNumberOfPages = 0;
     this.currentPagePointer = (config && config.startFromPage) || 1;
     this.contentName = metadata.name;
-    this.src =  metadata.streamingUrl || metadata.artifactUrl;
+    if(metadata.isAvailableLocally) {
+      const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
+      this.src = `${basePath}/${metadata.artifactUrl}`;
+    } else {
+      this.src =  metadata.streamingUrl || metadata.artifactUrl;
+    }
     if (context.userData) {
       const { userData: { firstName, lastName } } = context;
       this.userName = firstName === lastName ? firstName : `${firstName} ${lastName}`;
     }
     this.metaData = {
-      pagesHistory: [],
+      pagesVisited: [],
       totalPages: 0,
       duration: [],
       zoom: [],
@@ -61,7 +66,7 @@ export class ViewerService {
 
 
   public pageSessionUpdate() {
-    this.metaData.pagesHistory.push(this.currentPagePointer);
+    this.metaData.pagesVisited.push(this.currentPagePointer);
     this.metaData.duration.push(new Date().getTime() - this.pdfLastPageTime);
     this.metaData.zoom.push(this.zoom);
     this.metaData.rotation.push(this.rotation);
@@ -89,6 +94,7 @@ export class ViewerService {
   }
 
   raiseEndEvent() {
+    this.pageSessionUpdate();
     const duration = new Date().getTime() - this.pdfPlayerStartTime;
     const endEvent = {
       eid: 'END',
@@ -102,7 +108,7 @@ export class ViewerService {
       metaData: this.metaData
     };
     this.playerEvent.emit(endEvent);
-    const visitedlength = (this.metaData.pagesHistory.filter((v, i, a) => a.indexOf(v) === i)).length;
+    const visitedlength = (this.metaData.pagesVisited.filter((v, i, a) => a.indexOf(v) === i)).length;
     this.timeSpent = this.utilService.getTimeSpentText(this.pdfPlayerStartTime);
     this.sunbirdPdfPlayerService.end(duration,
       this.currentPagePointer, this.totalNumberOfPages, visitedlength, this.endPageSeen);
@@ -135,18 +141,19 @@ export class ViewerService {
 
   }
 
-  raiseErrorEvent(error: Error) {
+  raiseErrorEvent(error: Error, type?: string) {
     const errorEvent = {
       eid: 'ERROR',
       ver: this.version,
       edata: {
-        type: 'ERROR',
+        type: type || 'ERROR',
         stacktrace: error ? error.toString() : ''
       },
       metaData: this.metaData
     };
     this.playerEvent.emit(errorEvent);
+    if (!type) {
     this.sunbirdPdfPlayerService.error(error);
+    }
   }
-
 }
