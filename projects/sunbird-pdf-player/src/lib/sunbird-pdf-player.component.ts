@@ -58,10 +58,11 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
-    if (this.playerConfig.metadata['compatibilityLevel'] &&
-      !this.contentCompabilityService.checkContentCompatibility(this.playerConfig.metadata['compatibilityLevel'])['isCompitable']) {
+    const isCompitable = this.contentCompabilityService.
+    checkContentCompatibility(this.playerConfig.metadata['compatibilityLevel'])['isCompitable'];
+    if (this.playerConfig.metadata['compatibilityLevel'] && !isCompitable) {
       const compatibilityError = this.contentCompabilityService.checkContentCompatibility
-                                  (this.playerConfig.metadata['compatibilityLevel'])['error'];
+      (this.playerConfig.metadata['compatibilityLevel'])['error'];
       this.viewerService.raiseErrorEvent(compatibilityError, 'compatibility-error');
     }
     this.viewState = 'start';
