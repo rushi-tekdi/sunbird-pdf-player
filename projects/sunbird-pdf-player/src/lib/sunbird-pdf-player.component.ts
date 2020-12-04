@@ -12,6 +12,7 @@ import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import * as _ from 'lodash';
+import { ContentCompabilityService } from '@project-sunbird/sunbird-player-sdk';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
@@ -40,8 +41,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   // private unlistenTouch: () => void;
   defaultCompatibilityLevel = 4;
 
-  constructor(public pdfPlayerService: SunbirdPdfPlayerService, public viewerService: ViewerService,
-    private cdRef: ChangeDetectorRef, private renderer2: Renderer2) {
+  constructor(
+    public pdfPlayerService: SunbirdPdfPlayerService,
+    public viewerService: ViewerService,
+    private cdRef: ChangeDetectorRef,
+    private renderer2: Renderer2,
+    public contentCompabilityService: ContentCompabilityService
+  ) {
 
     this.playerEvent = this.viewerService.playerEvent;
   }
@@ -52,15 +58,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
-    if (this.playerConfig.metadata['compatibilityLevel']) {
-    if (this.playerConfig.metadata.compatibilityLevel > this.defaultCompatibilityLevel) {
-      const  compatibilityError = new Error();
-      compatibilityError.message = `player supports ${this.defaultCompatibilityLevel} and content is compatibility is ${this.playerConfig.metadata.compatibilityLevel}`;
-      compatibilityError.name = 'contentCompatibily';
-
-      this.viewerService.raiseErrorEvent(compatibilityError, 'compatibility-error');
+    const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
+    if (contentCompabilityLevel) {
+      const checkContentCompatible = this.contentCompabilityService.checkContentCompatibility(contentCompabilityLevel);
+      if (!checkContentCompatible['isCompitable']) {
+        this.viewerService.raiseErrorEvent( checkContentCompatible['error'] , 'compatibility-error');
+      }
     }
-  }
     this.viewState = 'start';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
