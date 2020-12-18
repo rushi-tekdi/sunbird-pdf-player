@@ -12,7 +12,7 @@ import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import * as _ from 'lodash';
-import { ContentCompabilityService } from '@project-sunbird/sunbird-player-sdk';
+import { ContentCompabilityService, errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
@@ -24,6 +24,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   private subscription;
   public viewState = 'start';
   public showControls = true;
+  public traceId: string;
+
   @ViewChild('pdfPlayer') pdfPlayerRef: ElementRef;
   sideMenuConfig = {
     showShare: true,
@@ -58,11 +60,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
+    this.traceId = this.playerConfig.config.traceId;
     const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.contentCompabilityService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible['isCompitable']) {
         this.viewerService.raiseErrorEvent( checkContentCompatible['error'] , 'compatibility-error');
+        this.viewerService.raiseExceptionLog( errorCode.contentCompatibility , errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
       }
     }
     this.viewState = 'start';
@@ -122,6 +126,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   public onPdfLoadFailed(error: Error): void {
     this.viewerService.raiseErrorEvent(error);
+    this.viewerService.raiseExceptionLog(errorCode.contentLoadFails , errorMessage.contentLoadFails, error , this.traceId);
     this.viewState = 'player';
   }
 
