@@ -12,7 +12,7 @@ import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import * as _ from 'lodash';
-import { ContentCompabilityService, errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk';
+import { ContentCompabilityService, errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
@@ -26,7 +26,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   public showControls = true;
   public traceId: string;
 
-  @ViewChild('pdfPlayer') pdfPlayerRef: ElementRef;
+  @ViewChild('pdfPlayer', {static: true}) pdfPlayerRef: ElementRef;
   sideMenuConfig = {
     showShare: true,
     showDownload: true,
