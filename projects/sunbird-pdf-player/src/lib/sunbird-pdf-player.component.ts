@@ -12,7 +12,7 @@ import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import * as _ from 'lodash';
-import { ContentCompabilityService, errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk';
+import { ErrorService , errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk';
 @Component({
   selector: 'sunbird-pdf-player',
   templateUrl: './sunbird-pdf-player.component.html',
@@ -48,7 +48,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     public viewerService: ViewerService,
     private cdRef: ChangeDetectorRef,
     private renderer2: Renderer2,
-    public contentCompabilityService: ContentCompabilityService
+    public errorService: ErrorService
   ) {
 
     this.playerEvent = this.viewerService.playerEvent;
@@ -61,9 +61,14 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   ngOnInit() {
     this.traceId = this.playerConfig.config['traceId'];
+    // Log event when internet is not available
+    this.errorService.getInternetConnectivityError.subscribe(event => {
+      this.viewerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)
+    });
+    
     const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
     if (contentCompabilityLevel) {
-      const checkContentCompatible = this.contentCompabilityService.checkContentCompatibility(contentCompabilityLevel);
+      const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible['isCompitable']) {
         this.viewerService.raiseErrorEvent( checkContentCompatible['error'] , 'compatibility-error');
         this.viewerService.raiseExceptionLog( errorCode.contentCompatibility , errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
