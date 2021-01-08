@@ -1,6 +1,6 @@
 {
   "name": "@project-sunbird/sunbird-pdf-player-v8",
-  "version": "0.0.1",
+  "version": "3.6.0",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
@@ -8,7 +8,7 @@
     "@project-sunbird/sb-styles": "0.0.7"
   },
   "dependencies": {
-    "@project-sunbird/sunbird-player-sdk-v8": "0.0.1"
+    "@project-sunbird/sunbird-player-sdk-v8": "3.6.0"
   },
   "devDependencies": {
     "@project-sunbird/client-services": "^3.4.8",
