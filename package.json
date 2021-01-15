@@ -25,7 +25,7 @@
     "@angular/router": "^8.0.0",
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
-    "@project-sunbird/sunbird-player-sdk-v8": "0.0.1",
+    "@project-sunbird/sunbird-player-sdk-v8": "3.6.0",
     "@project-sunbird/telemetry-sdk": "0.0.26",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
