@@ -32,7 +32,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     showShare: true,
     showDownload: true,
     showReplay: true,
-    showExit: false
+    showExit: false,
+    showPrint: true
   };
   @Input() playerConfig: PlayerConfig;
   @Input() action: string;
