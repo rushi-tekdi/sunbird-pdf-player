@@ -133,7 +133,7 @@ export class ViewerService {
     const interactItems = ['CLOSE_DOWNLOAD', 'DOWNLOAD', 'ZOOM_IN',
       'ZOOM_OUT', 'NAVIGATE_TO_PAGE',
       'NEXT', 'OPEN_MENU', 'PREVIOUS', 'CLOSE_MENU', 'DOWNLOAD_MENU',
-      'SHARE', 'ROTATION_CHANGE', 'REPLAY'
+      'SHARE', 'ROTATION_CHANGE', 'REPLAY' , 'PRINT'
     ];
     if (interactItems.includes(type)) {
       this.sunbirdPdfPlayerService.interact(type.toLowerCase(), this.currentPagePointer);
