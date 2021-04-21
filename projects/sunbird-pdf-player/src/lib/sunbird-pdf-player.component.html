@@ -28,6 +28,6 @@
       </div>
     </div>
     <sb-player-end-page [contentName]="viewerService.contentName"  [outcomeLabel]="'Pages read:'" [outcome]="viewerService.currentPagePointer"
-      [userName]="viewerService.userName" [timeSpentLabel]="viewerService.timeSpent"
-      (replayContent)="replayContent($event)" *ngIf="viewState === 'end'"></sb-player-end-page>
+      [userName]="viewerService.userName" [nextContent]="nextContent" [timeSpentLabel]="viewerService.timeSpent"
+      (replayContent)="replayContent($event)" (playNextContent)="playNextContent.emit({'playNextContent': true})" [showExit]="sideMenuConfig.showExit" *ngIf="viewState === 'end'"></sb-player-end-page>
 </div>

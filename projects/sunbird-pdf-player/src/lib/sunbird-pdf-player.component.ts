@@ -26,6 +26,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   public viewState = 'start';
   public showControls = true;
   public traceId: string;
+  public nextContent: any;
 
   @ViewChild('pdfPlayer', {static: true}) pdfPlayerRef: ElementRef;
   sideMenuConfig = {
@@ -39,6 +40,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() playNextContent: EventEmitter<any> = new EventEmitter<any>();
   @Output() viewerActions: EventEmitter<any> = new EventEmitter<any>();
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
@@ -62,6 +64,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
+    this.nextContent = this.playerConfig.config.nextContent;
     this.traceId = this.playerConfig.config['traceId'];
     // Log event when internet is not available
     this.errorService.getInternetConnectivityError.subscribe(event => {
