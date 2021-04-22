@@ -115,7 +115,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   playContent(event){
-  this.viewerService.raiseHeartBeatEvent(event.name);
+  this.viewerService.raiseHeartBeatEvent(event.type);
   }
 
   sideBarEvents(event) {
