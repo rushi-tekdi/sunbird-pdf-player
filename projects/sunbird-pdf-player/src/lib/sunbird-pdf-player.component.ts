@@ -40,7 +40,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
-  @Output() playNextContent: EventEmitter<any> = new EventEmitter<any>();
   @Output() viewerActions: EventEmitter<any> = new EventEmitter<any>();
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
@@ -113,6 +112,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     this.viewerActions.emit({ type, data });
     this.viewerService.raiseHeartBeatEvent(type);
 
+  }
+
+  playContent(event){
+  this.viewerService.raiseHeartBeatEvent(event.name);
   }
 
   sideBarEvents(event) {
