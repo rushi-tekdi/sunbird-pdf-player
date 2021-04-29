@@ -27,6 +27,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   public showControls = true;
   public traceId: string;
   public nextContent: any;
+  public validPage = true;
 
   @ViewChild('pdfPlayer', {static: true}) pdfPlayerRef: ElementRef;
   sideMenuConfig = {
@@ -187,6 +188,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.onPdfLoaded(data);
     } else if (type === 'pagechanging') {
       this.onPageChange(data);
+      this.validPage = true;
     } else if (type === 'rotatecw') {
       this.onRotationChange(data);
     } else if (type === 'pageend') {
@@ -195,6 +197,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.viewState = 'end';
     } else if (type === 'error') {
       this.onPdfLoadFailed(data);
+    } else if (type === 'INVALID_PAGE_ERROR') {
+      this.validPage = data;
     }
     this.cdRef.detectChanges();
   }
