@@ -188,7 +188,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.onPdfLoaded(data);
     } else if (type === 'pagechanging') {
       this.onPageChange(data);
-      this.validPage = true;
     } else if (type === 'rotatecw') {
       this.onRotationChange(data);
     } else if (type === 'pageend') {
@@ -199,8 +198,16 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.onPdfLoadFailed(data);
     } else if (type === 'INVALID_PAGE_ERROR') {
       this.validPage = data;
+      this.resetValidPage();
     }
     this.cdRef.detectChanges();
+  }
+
+  resetValidPage() {
+    setTimeout(() => {
+      this.validPage = true;
+      this.cdRef.detectChanges();
+    }, 5000)
   }
 
   @HostListener('window:beforeunload')
