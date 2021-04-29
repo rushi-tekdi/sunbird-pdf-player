@@ -76,11 +76,13 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
         this.viewerService.pageSessionUpdate();
         this.viewerApp.zoomOut();
         this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100)
-      } else
-      if (type === 'NAVIGATE_TO_PAGE') {
+      } else if (type === 'NAVIGATE_TO_PAGE') {
+        this.viewerEvent.emit({ type: 'INVALID_PAGE_ERROR', data: true })
         this.viewerApp.page = data;
       } else if (this.actionsMap.has(type)) {
         this.viewerApp.eventBus.dispatch(this.actionsMap.get(type));
+      } else if (type === 'INVALID_PAGE_ERROR') {
+        this.viewerEvent.emit({ type: 'INVALID_PAGE_ERROR', data: false });
       }
     });
   }
