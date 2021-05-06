@@ -453,6 +453,7 @@ See https://github.com/adobe-type-tools/cmap-resources
   </div> <!-- outerContainer -->
   <div id="printContainer"></div>
   <script>
+
     let pinchZoomEnabled = false;
     function enablePinchZoom(pdfViewer) {
       let startX = 0, startY = 0;
@@ -495,7 +496,7 @@ See https://github.com/adobe-type-tools/cmap-resources
         reset();
       });
     }
-    document.addEventListener('webviewerloaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       if (!pinchZoomEnabled) {
         pinchZoomEnabled = true;
         enablePinchZoom();

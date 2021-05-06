@@ -11,7 +11,8 @@
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json",
     "create-player-link": "cd dist/sunbird-pdf-player && npm link && cd ../..",
     "link-player": "npm link @project-sunbird/sunbird-pdf-player",
-    "test": "ng test sunbird-pdf-player"
+    "test": "ng test sunbird-pdf-player",
+    "build-lib-link": "npm run build-lib && npm i ./dist/sunbird-pdf-player"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +26,7 @@
     "@angular/router": "^8.0.0",
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
-    "@project-sunbird/sunbird-pdf-player-v8": "3.6.1",
+    "@project-sunbird/sunbird-pdf-player-v8": "file:dist/sunbird-pdf-player",
     "@project-sunbird/telemetry-sdk": "0.0.26",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
@@ -52,7 +53,6 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^5.1.0",
     "protractor": "~5.4.0",
-    "puppeteer": "^1.19.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslib": "^1.9.0",
