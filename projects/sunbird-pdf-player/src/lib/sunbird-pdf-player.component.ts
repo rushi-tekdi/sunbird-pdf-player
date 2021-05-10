@@ -12,7 +12,7 @@ import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import * as _ from 'lodash';
-import { ErrorService , errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
+import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
 
 @Component({
   selector: 'sunbird-pdf-player',
@@ -29,7 +29,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   public nextContent: any;
   public validPage = true;
 
-  @ViewChild('pdfPlayer', {static: true}) pdfPlayerRef: ElementRef;
+  @ViewChild('pdfPlayer', { static: true }) pdfPlayerRef: ElementRef;
   sideMenuConfig = {
     showShare: true,
     showDownload: true,
@@ -87,12 +87,12 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
 
     this.traceId = this.playerConfig.config['traceId'];
-    
+
     const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible['isCompitable']) {
-        this.viewerService.raiseExceptionLog( errorCode.contentCompatibility , errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
+        this.viewerService.raiseExceptionLog(errorCode.contentCompatibility, errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
       }
     }
   }
@@ -112,8 +112,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   }
 
-  playContent(event){
-  this.viewerService.raiseHeartBeatEvent(event.type);
+  playContent(event) {
+    this.viewerService.raiseHeartBeatEvent(event.type);
   }
 
   sideBarEvents(event) {
@@ -140,7 +140,17 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   public onPdfLoadFailed(error: Error): void {
-    this.viewerService.raiseExceptionLog(errorCode.contentLoadFails , errorMessage.contentLoadFails, error , this.traceId);
+    let code = errorCode.contentLoadFails,
+      message = errorMessage.contentLoadFails;
+    if (!navigator.onLine) {
+      code = errorCode.internetConnectivity;
+      message = errorMessage.internetConnectivity;
+    }
+    if (this.viewerService.isAvailableLocally) {
+      code = errorCode.contentLoadFails;
+      message = errorMessage.contentLoadFails;
+    }
+    this.viewerService.raiseExceptionLog(code, message, error, this.traceId);
   }
 
   public onZoomChange(event: any): void {
