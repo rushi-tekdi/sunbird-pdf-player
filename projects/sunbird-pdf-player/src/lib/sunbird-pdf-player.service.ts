@@ -39,7 +39,7 @@ export class SunbirdPdfPlayerService {
           endpoint: context.endpoint || '/data/v3/telemetry',
           tags: context.tags,
           cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
-          { id: this.playSessionId, type: 'PlaySession' }],
+          { id: this.playSessionId, type: 'PlaySession' }]
         },
         userOrgDetails: {}
       };
@@ -120,12 +120,12 @@ export class SunbirdPdfPlayerService {
     });
   }
 
-  public error(error: Error, edata?: { err: string, errtype: string }) {
+  public error(error: any, data: { err: string, errtype: string }) {
     CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
       edata: {
-        err: (edata && edata.err) || 'LOAD',
-        errtype: (edata && edata.errtype) || 'content',
-        stacktrace: (error && error.toString()) || ''
+        err: data.err,
+        errtype: data.errtype,
+        stacktrace: error.toString() || ''
       }
     });
   }

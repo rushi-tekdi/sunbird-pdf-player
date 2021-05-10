@@ -96,7 +96,7 @@ describe('ViewerService', () => {
     spyOn(service.playerEvent, 'emit');
     sunbirdPdfPlayerService.initialize(mockData.playerConfig);
     service.initialize(mockData.playerConfig);
-    service.raiseErrorEvent('');
+    service.raiseExceptionLog('');
     expect(service.playerEvent.emit).toHaveBeenCalled();
     expect(sunbirdPdfPlayerService.error).toHaveBeenCalled();
   });

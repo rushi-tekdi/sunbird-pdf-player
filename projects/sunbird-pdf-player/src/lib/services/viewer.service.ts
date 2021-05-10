@@ -141,22 +141,6 @@ export class ViewerService {
 
   }
 
-  raiseErrorEvent(error: Error, type?: string) {
-    const errorEvent = {
-      eid: 'ERROR',
-      ver: this.version,
-      edata: {
-        type: type || 'ERROR',
-        stacktrace: error ? error.toString() : ''
-      },
-      metaData: this.metaData
-    };
-    this.playerEvent.emit(errorEvent);
-    if (!type) {
-    this.sunbirdPdfPlayerService.error(error);
-    }
-  }
-
   raiseExceptionLog(errorCode: string , errorType: string , stacktrace , traceId ) {
     const exceptionLogEvent = {
       eid: "ERROR",
@@ -164,7 +148,7 @@ export class ViewerService {
           err: errorCode,
           errtype: errorType,
           requestid: traceId || '',
-          stacktrace: stacktrace || '',
+          stacktrace: (stacktrace && stacktrace.toString())|| '',
       }
     }
     this.playerEvent.emit(exceptionLogEvent)

@@ -65,20 +65,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
 
   ngOnInit() {
     this.nextContent = this.playerConfig.config.nextContent;
-    this.traceId = this.playerConfig.config['traceId'];
-    // Log event when internet is not available
-    this.errorService.getInternetConnectivityError.subscribe(event => {
-      this.viewerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)
-    });
-    
-    const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
-    if (contentCompabilityLevel) {
-      const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
-      if (!checkContentCompatible['isCompitable']) {
-        this.viewerService.raiseErrorEvent( checkContentCompatible['error'] , 'compatibility-error');
-        this.viewerService.raiseExceptionLog( errorCode.contentCompatibility , errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
-      }
-    }
     this.viewState = 'start';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
@@ -98,6 +84,17 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     // this.unlistenTouch = this.renderer2.listen(pdfPlayerElement, 'touchstart', () => {
     //   this.showControls = !this.showControls;
     // });
+
+
+    this.traceId = this.playerConfig.config['traceId'];
+    
+    const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
+    if (contentCompabilityLevel) {
+      const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
+      if (!checkContentCompatible['isCompitable']) {
+        this.viewerService.raiseExceptionLog( errorCode.contentCompatibility , errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
+      }
+    }
   }
 
   headerActions({ type, data }) {
@@ -143,9 +140,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   public onPdfLoadFailed(error: Error): void {
-    this.viewerService.raiseErrorEvent(error);
     this.viewerService.raiseExceptionLog(errorCode.contentLoadFails , errorMessage.contentLoadFails, error , this.traceId);
-    this.viewState = 'player';
   }
 
   public onZoomChange(event: any): void {

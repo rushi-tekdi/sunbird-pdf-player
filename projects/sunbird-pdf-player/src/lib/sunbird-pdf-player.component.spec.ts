@@ -122,7 +122,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(viewerService, 'raiseErrorEvent');
     component.onPdfLoadFailed(new Error());
     expect(component.viewState).toEqual('player');
-    expect(viewerService.raiseErrorEvent).toHaveBeenCalled();
+    expect(viewerService.raiseExceptionLog).toHaveBeenCalled();
   });
 
   it('should call onZoomChange', () => {

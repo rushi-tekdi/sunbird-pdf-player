@@ -35,19 +35,21 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
     this.viewerApp = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
     this.viewerApp.initializedPromise.then(() => {
 
-      let progress;
+      let progress, isRegistredWithLoadingTask = false;
       this.progressInterval = setInterval(() => {
         if (this.viewerApp && (progress !== this.viewerApp.loadingBar.percent || this.viewerApp.loadingBar.percent === 100)) {
           progress = this.viewerApp.loadingBar.percent;
           this.viewerEvent.emit({ type: 'progress', data: this.viewerApp.loadingBar.percent });
         }
-        if (this.viewerApp.pdfLoadingTask) {
+        if (this.viewerApp.pdfLoadingTask && !isRegistredWithLoadingTask) {
           this.viewerApp.pdfLoadingTask.promise.catch((error) => {
+            clearInterval(this.progressInterval)
             this.viewerEvent.emit({
               type: 'error', data:
                 (navigator.onLine ? `Internet available but unable to fetch the url ${this.pdfURL} ` : `No internet to load pdf with url ${this.pdfURL} `) + (error ? error.toString() : '')
             });
           });
+          isRegistredWithLoadingTask = true
         }
       }, 50);
 
