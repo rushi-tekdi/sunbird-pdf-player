@@ -122,6 +122,7 @@ export class SunbirdPdfPlayerService {
 
   public error(error: any, data: { err: string, errtype: string }) {
     CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
+      options: this.getEventOptions(),
       edata: {
         err: data.err,
         errtype: data.errtype,
