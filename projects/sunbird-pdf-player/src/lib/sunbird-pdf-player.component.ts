@@ -44,6 +44,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   @Output() viewerActions: EventEmitter<any> = new EventEmitter<any>();
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
+  showContentError: boolean;
   // private unlistenTouch: () => void;
   defaultCompatibilityLevel = 4;
 
@@ -149,6 +150,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     if (this.viewerService.isAvailableLocally) {
       code = errorCode.contentLoadFails;
       message = errorMessage.contentLoadFails;
+    }
+
+    if (code === errorCode.contentLoadFails) {
+      this.showContentError = true;
     }
     this.viewerService.raiseExceptionLog(code, message, error, this.traceId);
   }
