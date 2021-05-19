@@ -1,19 +1,21 @@
-# Sunbird Pdf Player
+# Sunbird PDF Player
+Player for playing pdf contents for sunbird applications
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.10.
-Node version 12
+## prerequisite
+
+  Node version > 12
 
 ## Usage
 
 
 Quick start
 
-`npm i @project-sunbird/sunbird-pdf-player`
+`npm i @project-sunbird/sunbird-pdf-player-v8`
 
 
 Add the module to the your player root module 
 
-`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player';`
+`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player-v8';`
 
 ```javascript
 @NgModule({
@@ -34,7 +36,7 @@ add the assets in angular.json file
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/@project-sunbird/sunbird-pdf-player/lib/assets/",
+                "input": "node_modules/@project-sunbird/sunbird-pdf-player-v8/lib/assets/",
                 "output": "/assets/"
               }
 
@@ -53,24 +55,22 @@ add the component selector in your component like below
 
 ```
 
-for playerConfig input refer
-
-https://github.com/project-sunbird/sunbird-pdf-player/blob/release-3.4.0/projects/sunbird-pdf-player/src/lib/playerInterfaces.ts
-
-
 ## Development
 
-check out this repo
+  check out this repo with latest release version branch
 
-open terminal and run  `sh setup.sh`
+  cd to {repo_path} in terminal
 
-above script installs the dependecies and link the pdf player library project to demo app
+  run  `sh setup.sh`
 
-open two terminal windows 
+  above script installs the dependecies and link the pdf player library project to demo app
 
-RUN `npm run start-lib` this will build pdf player library and watch for changes
 
-in another terminal run `npm run start` which will run the player in demo app at http://localhost:4200
+  if you do any changes in library project run to get latest changes in demo app
+
+  `npm run build-lib-link`
+
+  once above command completed run `npm run start` which will run the player in demo app at http://localhost:4200
 
 
 
