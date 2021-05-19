@@ -13,5 +13,8 @@
   "devDependencies": {
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7"
-  }
+  },
+  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/tree/release-4.0.0/projects/sunbird-pdf-player#readme",
+  "keywords": "sunbird, pdf player, project-sunbird",
+  "license" : "MIT"
 }
