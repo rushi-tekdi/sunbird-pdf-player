@@ -8,8 +8,6 @@ Player for playing pdf contents for sunbird applications
 ## Usage
 
 
-Quick start
-
 `npm i @project-sunbird/sunbird-pdf-player-v8`
 
 
@@ -44,6 +42,9 @@ add the assets in angular.json file
 
 ```
 
+add peer dependecies of the player as dependecies in your project
+ 
+
 add the component selector in your component like below
 
 ```html
@@ -54,6 +55,8 @@ add the component selector in your component like below
             ></sunbird-pdf-player>
 
 ```
+
+Still facing issues please refer the demo project in this repo as example
 
 ## Development
 
