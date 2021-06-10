@@ -1,6 +1,6 @@
 # Sunbird Pdf Player
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.10.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12
 Node version 12
 
 ## Usage
@@ -8,12 +8,12 @@ Node version 12
 
 Quick start
 
-`npm i @project-sunbird/sunbird-pdf-player`
+`npm i @project-sunbird/sunbird-pdf-player-v9`
 
 
 Add the module to the your player root module 
 
-`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player';`
+`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player-v9';`
 
 ```javascript
 @NgModule({
@@ -34,7 +34,7 @@ add the assets in angular.json file
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/@project-sunbird/sunbird-pdf-player/lib/assets/",
+                "input": "node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
                 "output": "/assets/"
               }
 
