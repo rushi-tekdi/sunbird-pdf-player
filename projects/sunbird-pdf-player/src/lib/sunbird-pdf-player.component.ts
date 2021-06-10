@@ -12,7 +12,7 @@ import { Config, PlayerConfig } from './playerInterfaces';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import * as _ from 'lodash';
-import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
+import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v9';
 
 @Component({
   selector: 'sunbird-pdf-player',
