@@ -1,6 +1,6 @@
 import {
   AfterViewInit, Component, ElementRef,
-  Renderer2, ViewChild, OnDestroy, EventEmitter,
+  Renderer2, ViewChild, EventEmitter,
   Output, Input, HostListener
 } from '@angular/core';
 import { ViewerService } from '../services/viewer.service';
@@ -9,13 +9,12 @@ import { ViewerService } from '../services/viewer.service';
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss']
 })
-export class PdfViewerComponent implements AfterViewInit, OnDestroy {
+export class PdfViewerComponent implements AfterViewInit {
 
   public src = './../assets/pdfjs/web/viewer.html?file=';
   @ViewChild('iframe', { static: true }) iframeRef: ElementRef;
   @Input() pdfURL: string;
   @Input() actions = new EventEmitter<any>();
-  private unListenLoadEvent: () => void;
   private progressInterval;
   private viewerApp;
   private iframeWindow;
@@ -124,9 +123,5 @@ export class PdfViewerComponent implements AfterViewInit, OnDestroy {
         this.viewerEvent.emit({ type: 'pageend' });
       }
     };
-  }
-
-  ngOnDestroy() {
-    this.unListenLoadEvent();
   }
 }
