@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve",
     "start-lib": "watch 'npm run build-lib' projects",
-    "build": "ng build",
+    "build": "ng build sunbird-pdf-player --watch=true",
     "build-lib": "ng build sunbird-pdf-player",
     "postbuild-lib": "node assets-copy.js",
     "create-package": "ng build sunbird-pdf-player && node assets-copy.js && cd dist/sunbird-pdf-player && npm pack && cd ../..  && npm i dist/sunbird-pdf-player/sunbird-pdf-player-v8-0.0.1.tgz",
@@ -12,7 +12,9 @@
     "create-player-link": "cd dist/sunbird-pdf-player && npm link && cd ../..",
     "link-player": "npm link @project-sunbird/sunbird-pdf-player",
     "test": "ng test sunbird-pdf-player",
-    "build-lib-link": "npm run build-lib && npm i ./dist/sunbird-pdf-player"
+    "build-lib-link": "npm run build-lib && npm i ./dist/sunbird-pdf-player",
+    "mybuild": "npm run build",
+    "serve": "node assets-copy.js && npm link ./dist/sunbird-pdf-player && ng serve"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +28,7 @@
     "@angular/router": "9.1.12",
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
-    "@project-sunbird/sunbird-pdf-player-v8": "file:dist/sunbird-pdf-player",
+    "@project-sunbird/sunbird-pdf-player-v9": "4.1.0",
     "@project-sunbird/telemetry-sdk": "0.0.26",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
