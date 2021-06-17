@@ -8,12 +8,12 @@ Player for playing pdf contents for sunbird applications
 ## Usage
 
 
-`npm i @project-sunbird/sunbird-pdf-player-v8`
+`npm i @project-sunbird/sunbird-pdf-player-v9`
 
 
 Add the module to the your player root module 
 
-`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player-v8';`
+`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player-v9';`
 
 ```javascript
 @NgModule({
@@ -34,7 +34,7 @@ add the assets in angular.json file
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/@project-sunbird/sunbird-pdf-player-v8/lib/assets/",
+                "input": "node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
                 "output": "/assets/"
               }
 
