@@ -5,10 +5,11 @@ Contains PDF player library components powered by angular. These components are 
 For help getting started with a new Angular app, check out the Angular CLI.
 For existing apps, follow these steps to begin using .
 
-## Step 1: Install the package
+## Step 1: Install the packages
 
     npm install @project-sunbird/sunbird-pdf-player-v9 --save
     npm install @project-sunbird/sb-styles --save
+    npm install @project-sunbird/client-services --save
 
 ## Step 2: Include the sb-styles and assets in angular.json
     "styles": [
@@ -72,9 +73,12 @@ Import the NgModule where you want to use:
   
     export class TestAppModule { }
 
+## Step 4: Send input to render PDF player
 
+Use the mock config in your component to send input to PDF player
+Click to see the mock - [playerConfig](data.ts)
 
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
 |--|--|--|------------------------------------------------------------------------------------------|---|--|
-| PDF Player | Can be used to render pdf | sunbird-pdf-player| *`<sunbird-pdf-player><sunbird-pdf-player>`*|playerConfig|playerEvent, telemetryEvent|
+| PDF Player | Can be used to render pdf | sunbird-pdf-player| *`<sunbird-pdf-player [playerConfig]="playerConfig"><sunbird-pdf-player>`*|playerConfig|playerEvent, telemetryEvent|
