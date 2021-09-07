@@ -1,82 +1,84 @@
-# Sunbird PDF Player
-Player for playing pdf contents for sunbird applications
+# Pdf player library for Sunbird platform!
+Contains PDF player library components powered by angular. These components are designed to be used in sunbird consumption platforms *(mobile app, web portal, offline desktop app)* to drive reusability, maintainability hence reducing the redundant development effort significantly.
 
-## prerequisite
+# Getting Started
+For help getting started with a new Angular app, check out the Angular CLI.
+For existing apps, follow these steps to begin using .
 
-  Node version > 12
+## Step 1: Install the packages
 
-## Usage
+    npm install @project-sunbird/sunbird-pdf-player-v9 --save
+    npm install @project-sunbird/sb-styles --save
+    npm install @project-sunbird/client-services --save
 
+## Step 2: Include the sb-styles and assets in angular.json
+    "styles": [
+    ...
+    ...
+    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
+    ]
+  Add following under architect.build.assets
 
-`npm i @project-sunbird/sunbird-pdf-player-v9`
+     {
+	    ...
+	    "build": {
+	    
+	    "builder": "@angular-devkit/build-angular:browser",
+	    
+	    "options": {
+		    ...
+		    ...
+    
+		    "assets": [
+		    
+			   ...
+			   ...
+			    
+			    {
+				    "glob": "**/*.*",
+				    "input": "./node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
+				    "output": "/assets/"
+			    }
+		    
+		    ],
+    
+	    "styles": [
+	    
+	    ...
+	    
+	    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
+	    
+	    ],
+	    
+	    ...
+	    ...
+    
+    },
 
+  
 
-Add the module to the your player root module 
+## Step 3: Import the modules and components
+Import the NgModule where you want to use:
+       
+    import { SunbirdPdfPlayerModule } from '@project-sunbird/sunbird-pdf-player-v9';
+    
+    @NgModule({
+	    ...
+	    
+	    imports: [SunbirdPdfPlayerModule],
+	    
+	    ...
+    })
 
-`import { SunbirdPdfPlayerModule  } from '@project-sunbird/sunbird-pdf-player-v9';`
+  
+    export class TestAppModule { }
 
-```javascript
-@NgModule({
-  ...
-  imports: [
-    ...,
-    SunbirdPdfPlayerModule
-  ]
-})
-```
+## Step 4: Send input to render PDF player
 
-add the assets in angular.json file
+Use the mock config in your component to send input to PDF player
+Click to see the mock - [playerConfig](../../src/app/data.ts)
 
-```javascript
-....
- "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
-                "output": "/assets/"
-              }
-
-...
-
-```
-
-add peer dependecies of the player as dependecies in your project
- 
-
-add the component selector in your component like below
-
-```html
-
-            <sunbird-pdf-player 
-             [playerConfig]="pdfPlayerConfig" (playerEvent)="pdfEventHandler($event)"
-             (telemetryEvent)="telemetryEvent($event)"
-            ></sunbird-pdf-player>
-
-```
-
-Still facing issues please refer the demo project in this repo as example
-
-## Development
-
-  check out this repo with latest release version branch
-
-  cd to {repo_path} in terminal
-
-  run  `sh setup.sh`
-
-  above script installs the dependecies and link the pdf player library project to demo app
-
-
-  if you do any changes in library project run to get latest changes in demo app
-
-  `npm run build-lib-link`
-
-  once above command completed run `npm run start` which will run the player in demo app at http://localhost:4200
-
-
-
-## References
-
-https://github.com/mozilla/pdf.js/wiki/Debugging-PDF.js#url-parameters
+## Available components
+|Feature| Notes| Selector|Code|Input|Output
+|--|--|--|------------------------------------------------------------------------------------------|---|--|
+| PDF Player | Can be used to render pdf | sunbird-pdf-player| *`<sunbird-pdf-player [playerConfig]="playerConfig"><sunbird-pdf-player>`*|playerConfig|playerEvent, telemetryEvent|

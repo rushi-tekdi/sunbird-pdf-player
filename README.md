@@ -76,7 +76,7 @@ Import the NgModule where you want to use:
 ## Step 4: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](data.ts)
+Click to see the mock - [playerConfig](src/app/data.ts)
 
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
