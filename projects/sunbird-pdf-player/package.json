@@ -14,10 +14,10 @@
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7"
   },
-  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.3.0/README.md",
+  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.4.0/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/project-sunbird/sunbird-video-player.git"
+    "url": "https://github.com/project-sunbird/sunbird-pdf-player.git"
   },
   "keywords": [
     "sunbird, pdf player, project-sunbird"
