@@ -6,11 +6,11 @@ For help getting started with a new Angular app, check out the Angular CLI.
 For existing apps, follow these steps to begin using .
 
 ## Step 1: Install the packages
-		```bash
-    npm install @project-sunbird/sunbird-pdf-player-v9 --save
-    npm install @project-sunbird/sb-styles --save
-    npm install @project-sunbird/client-services --save
-		```
+```bash
+npm install @project-sunbird/sunbird-pdf-player-v9 --save
+npm install @project-sunbird/sb-styles --save
+npm install @project-sunbird/client-services --save
+```
 ## Step 2: Include the sb-styles and assets in angular.json
     "styles": [
     ...
