@@ -76,7 +76,7 @@ Import the NgModule where you want to use:
 ## Step 4: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.4.0/src/app/data.ts)
+Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
 
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
@@ -89,7 +89,7 @@ Any web application can use this library as a web component. It accepts couple o
 
 Follow below-mentioned steps to use it in plain javascript project:
 
-- Insert [library](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.4.0/web-component/sunbird-pdf-player.js) as below:
+- Insert [library](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/sunbird-pdf-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-pdf-player.js"></script>
 	```
@@ -122,7 +122,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 	const  myPlayer = document.getElementById("my-player");
 	myPlayer.appendChild(pdfPlayerElement);
 	```
-- Refer demo [example](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.4.0/web-component/index.html)
+- Refer demo [example](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/index.html)
 
 - To run the project, use the following command:
 	```bash
@@ -132,4 +132,4 @@ Follow below-mentioned steps to use it in plain javascript project:
 	open [http://127.0.0.1:8081/web-component/](http://127.0.0.1:8081/web-component/)
 	**Note:** There are some request for which we need to run this on server, so we need to run this on server for demo purpose we are using [http-server](https://www.npmjs.com/package/http-server).
 
-- ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.4.0/web-component/pdf-player-wc.png)
+- ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
