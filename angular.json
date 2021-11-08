@@ -178,6 +178,135 @@
           }
         }
       }
+    },
+    "pdf-player-wc": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/pdf-player-wc",
+      "sourceRoot": "projects/pdf-player-wc/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/pdf-player-wc",
+            "index": "projects/pdf-player-wc/src/index.html",
+            "main": "projects/pdf-player-wc/src/main.ts",
+            "polyfills": "projects/pdf-player-wc/src/polyfills.ts",
+            "tsConfig": "projects/pdf-player-wc/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/pdf-player-wc/src/favicon.ico",
+              "projects/pdf-player-wc/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "projects/pdf-player-wc/src/styles.scss",
+              "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
+            ],
+            "scripts": [
+              "node_modules/@project-sunbird/telemetry-sdk/index.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/pdf-player-wc/src/environments/environment.ts",
+                  "with": "projects/pdf-player-wc/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pdf-player-wc:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pdf-player-wc:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pdf-player-wc:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/pdf-player-wc/src/test.ts",
+            "polyfills": "projects/pdf-player-wc/src/polyfills.ts",
+            "tsConfig": "projects/pdf-player-wc/tsconfig.spec.json",
+            "karmaConfig": "projects/pdf-player-wc/karma.conf.js",
+            "assets": [
+              "projects/pdf-player-wc/src/favicon.ico",
+              "projects/pdf-player-wc/src/assets"
+            ],
+            "styles": [
+              "projects/pdf-player-wc/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/pdf-player-wc/tsconfig.app.json",
+              "projects/pdf-player-wc/tsconfig.spec.json",
+              "projects/pdf-player-wc/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/pdf-player-wc/e2e/protractor.conf.js",
+            "devServerTarget": "pdf-player-wc:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "pdf-player-wc:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "sunbird-pdf-player-app",

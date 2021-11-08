@@ -11,7 +11,7 @@ import { ViewerService } from '../services/viewer.service';
 })
 export class PdfViewerComponent implements AfterViewInit {
 
-  public src = './../assets/pdfjs/web/viewer.html?file=';
+  public src = 'assets/pdfjs/web/viewer.html?file=';
   @ViewChild('iframe', { static: true }) iframeRef: ElementRef;
   @Input() pdfURL: string;
   @Input() actions = new EventEmitter<any>();
