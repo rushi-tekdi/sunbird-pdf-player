@@ -127,6 +127,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     this.viewerService.raiseHeartBeatEvent(event.type)
     this.ngOnInit();
     this.viewerActions.emit({ type: 'REPLAY' });
+    this.viewerService.isEndEventRaised = false;
     this.cdRef.detectChanges();
   }
 
@@ -227,6 +228,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.viewerService.isEndEventRaised = false;
     this.unlistenMouseEnter();
     this.unlistenMouseLeave();
     // this.unlistenTouch();

@@ -26,7 +26,8 @@ export class ViewerService {
   public userName: string;
   private metaData: any;
   public isAvailableLocally = false;
-  defaultConfig;
+  public isEndEventRaised = false;
+  public defaultConfig = {};
 
   constructor(private sunbirdPdfPlayerService: SunbirdPdfPlayerService,
     private utilService: UtilService) { }
@@ -97,24 +98,27 @@ export class ViewerService {
   }
 
   raiseEndEvent() {
-    this.pageSessionUpdate();
-    const duration = new Date().getTime() - this.pdfPlayerStartTime;
-    const endEvent = {
-      eid: 'END',
-      ver: this.version,
-      edata: {
-        type: 'END',
-        currentPage: this.currentPagePointer,
-        totalPages: this.totalNumberOfPages,
-        duration
-      },
-      metaData: this.getMetadata()
-    };
-    this.playerEvent.emit(endEvent);
-    const visitedlength = (this.metaData.pagesVisited.filter((v, i, a) => a.indexOf(v) === i)).length;
-    this.timeSpent = this.utilService.getTimeSpentText(this.pdfPlayerStartTime);
-    this.sunbirdPdfPlayerService.end(duration,
-      this.currentPagePointer, this.totalNumberOfPages, visitedlength, this.endPageSeen);
+    if  (!this.isEndEventRaised) {
+      this.pageSessionUpdate();
+      const duration = new Date().getTime() - this.pdfPlayerStartTime;
+      const endEvent = {
+        eid: 'END',
+        ver: this.version,
+        edata: {
+          type: 'END',
+          currentPage: this.currentPagePointer,
+          totalPages: this.totalNumberOfPages,
+          duration
+        },
+        metaData: this.getMetadata()
+      };
+      this.playerEvent.emit(endEvent);
+      const visitedlength = (this.metaData.pagesVisited.filter((v, i, a) => a.indexOf(v) === i)).length;
+      this.timeSpent = this.utilService.getTimeSpentText(this.pdfPlayerStartTime);
+      this.sunbirdPdfPlayerService.end(duration,
+        this.currentPagePointer, this.totalNumberOfPages, visitedlength, this.endPageSeen);
+      this.isEndEventRaised = true;
+    }
   }
 
   getMetadata() {
