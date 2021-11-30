@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { PlayerConfig } from '../playerInterfaces';
 import { SunbirdPdfPlayerService } from '../sunbird-pdf-player.service';
 import { UtilService } from './util.service';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +26,17 @@ export class ViewerService {
   public userName: string;
   private metaData: any;
   public isAvailableLocally = false;
+  defaultConfig;
 
   constructor(private sunbirdPdfPlayerService: SunbirdPdfPlayerService,
     private utilService: UtilService) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
-    this.zoom = config.zoom || 'auto';
-    this.rotation = config.rotation ||  0;
+    this.zoom = _.last(config.zoom) || 'auto';
+    this.rotation = _.last(config.rotation) || 0;
     this.pdfPlayerStartTime = this.pdfLastPageTime = new Date().getTime();
     this.totalNumberOfPages = 0;
-    this.currentPagePointer = (config && config.startFromPage) || 1;
+    this.currentPagePointer = _.last(config.pagesVisited) || 1;
     this.contentName = metadata.name;
     this.isAvailableLocally = metadata.isAvailableLocally
     if(this.isAvailableLocally) {
@@ -58,14 +60,13 @@ export class ViewerService {
     this.showDownloadPopup = false;
     this.endPageSeen = false;
 
+    this.defaultConfig = {
+      startFromPage: _.last(config.pagesVisited) || 1,
+      zoom: this.zoom,
+      rotation: this.rotation
+    };
+
   }
-
-  defaultConfig = {
-    startFromPage: 1,
-    zoom: this.zoom,
-    rotation: this.rotation
-  };
-
 
   public pageSessionUpdate() {
     this.metaData.pagesVisited.push(this.currentPagePointer);
@@ -107,7 +108,7 @@ export class ViewerService {
         totalPages: this.totalNumberOfPages,
         duration
       },
-      metaData: this.metaData
+      metaData: this.getMetadata()
     };
     this.playerEvent.emit(endEvent);
     const visitedlength = (this.metaData.pagesVisited.filter((v, i, a) => a.indexOf(v) === i)).length;
@@ -116,6 +117,14 @@ export class ViewerService {
       this.currentPagePointer, this.totalNumberOfPages, visitedlength, this.endPageSeen);
   }
 
+  getMetadata() {
+    return { 
+      pagesVisited: this.metaData.pagesVisited.length ? (this.endPageSeen ? [0] : [_.last(this.metaData.pagesVisited)]) : [],
+      duration: this.metaData.duration.length ? [_.last(this.metaData.duration)] : [],
+      zoom: this.metaData.zoom.length ? [_.last(this.metaData.zoom)] : [],
+      rotation: this.metaData.rotation.length ? [_.last(this.metaData.rotation)] : []
+    }
+  }
 
   raiseHeartBeatEvent(type: string) {
     const hearBeatEvent = {
