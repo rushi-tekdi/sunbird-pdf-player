@@ -65,9 +65,6 @@ export class AppComponent implements OnInit {
     console.log(JSON.stringify(event));
     this.pdfMetadataEvents = event;
     if (event.eid === 'END') {
-      // this.config.startFromPage = event.metaData.pagesVisited[event.metaData.pagesVisited.length - 1];
-      // this.config.zoom = event.metaData.zoom[event.metaData.zoom.length - 1];
-      // this.config.rotation = event.metaData.rotation[event.metaData.rotation.length - 1];
       this.pdfMetaDataConfig = event.metaData;
       localStorage.setItem('config', JSON.stringify(this.pdfMetaDataConfig));
       this.pdfMetaDataConfig = JSON.parse(localStorage.getItem('config')) || {};
