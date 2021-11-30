@@ -96,8 +96,11 @@ export class PdfViewerComponent implements AfterViewInit {
       this.viewerApp.eventBus.on('pagesloaded', (data) => {
         setTimeout(() => {
           this.viewerApp.rotatePages(this.viewerService.rotation);
-        }, 500)
+        }, 500);
         this.pagesLoadedCallback(data);
+        if (this.viewerApp?.page && this.viewerService.currentPagePointer) {
+          this.viewerApp.page = this.viewerService.currentPagePointer;
+        }
       });
       this.viewerApp.eventBus.on('pagechanging', (data) => {
         this.viewerEvent.emit({ type: 'pagechanging', data });
@@ -113,7 +116,6 @@ export class PdfViewerComponent implements AfterViewInit {
   private pagesLoadedCallback(data: any) {
     this.viewerEvent.emit({ type: 'progress', data: 100 });
     clearInterval(this.progressInterval);
-    this.viewerApp.pdfViewer.currentScaleValue = 'page-width';
     this.viewerEvent.emit({ type: 'pagesloaded', data });
   }
 

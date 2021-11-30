@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "vendorSourceMap": true,
             "outputPath": "dist/sunbird-pdf-player-app",
             "index": "src/index.html",
             "main": "src/main.ts",

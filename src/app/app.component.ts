@@ -7,7 +7,18 @@ import { PlayerConfig } from 'projects/sunbird-pdf-player/src/lib/playerInterfac
 })
 export class AppComponent implements OnInit {
   title = 'sunbird-pdf-player-app';
-  config: any = JSON.parse(localStorage.getItem('config')) || {}
+  pdfMetaDataConfig: any = JSON.parse(localStorage.getItem('config')) || {};
+  config = {
+    ...{
+      traceId: 'afhjgh',
+      sideMenu: {
+        showShare: true,
+        showDownload: true,
+        showReplay: true,
+        showExit: true
+      }
+    }, ...this.pdfMetaDataConfig
+  };
   pdfMetadataEvents: object;
   pdfPlayerConfig: PlayerConfig = {
     context: {
@@ -54,10 +65,21 @@ export class AppComponent implements OnInit {
     console.log(JSON.stringify(event));
     this.pdfMetadataEvents = event;
     if (event.eid === 'END') {
-      this.config.startFromPage = event.metaData.pagesVisited[event.metaData.pagesVisited.length - 1];
-      this.config.zoom = event.metaData.zoom[event.metaData.zoom.length - 1];
-      this.config.rotation = event.metaData.rotation[event.metaData.rotation.length - 1];
-      localStorage.setItem('config', JSON.stringify(this.config));
+      this.pdfMetaDataConfig = event.metaData;
+      localStorage.setItem('config', JSON.stringify(this.pdfMetaDataConfig));
+      this.pdfMetaDataConfig = JSON.parse(localStorage.getItem('config')) || {};
+      this.config = {
+        ...{
+          traceId: 'afhjgh',
+          sideMenu: {
+            showShare: true,
+            showDownload: true,
+            showReplay: true,
+            showExit: true
+          }
+        }, ...this.pdfMetaDataConfig
+      };
+      this.pdfPlayerConfig.config = this.config;
     }
   }
   telemetryEvent(event) {

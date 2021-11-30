@@ -21,7 +21,6 @@ import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-
 })
 export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   public pdfConfig: Config;
-  public showPlayer = true;
   private subscription;
   public viewState = 'start';
   public showControls = true;
@@ -41,11 +40,11 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
-  @Output() viewerActions: EventEmitter<any> = new EventEmitter<any>();
+  
+  viewerActions: EventEmitter<any> = new EventEmitter<any>();
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
   showContentError: boolean;
-  // private unlistenTouch: () => void;
   defaultCompatibilityLevel = 4;
 
   constructor(
@@ -90,10 +89,6 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     this.unlistenMouseLeave = this.renderer2.listen(pdfPlayerElement, 'mouseleave', () => {
       this.showControls = false;
     });
-    // this.unlistenTouch = this.renderer2.listen(pdfPlayerElement, 'touchstart', () => {
-    //   this.showControls = !this.showControls;
-    // });
-
 
     this.traceId = this.playerConfig.config['traceId'];
 
@@ -107,14 +102,12 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   headerActions({ type, data }) {
-    if (type === 'NEXT') {
-      if (this.viewerService.currentPagePointer === this.viewerService.totalNumberOfPages) {
-        this.viewerService.raiseEndEvent();
-        this.viewState = 'end';
-        this.viewerService.endPageSeen = true;
-        this.cdRef.detectChanges();
-        return;
-      }
+    if (type === 'NEXT' && this.viewerService.currentPagePointer === this.viewerService.totalNumberOfPages) {
+      this.viewerService.raiseEndEvent();
+      this.viewState = 'end';
+      this.viewerService.endPageSeen = true;
+      this.cdRef.detectChanges();
+      return;
     }
     this.viewerActions.emit({ type, data });
     this.viewerService.raiseHeartBeatEvent(type);
@@ -134,6 +127,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     this.viewerService.raiseHeartBeatEvent(event.type)
     this.ngOnInit();
     this.viewerActions.emit({ type: 'REPLAY' });
+    this.viewerService.isEndEventRaised = false;
     this.cdRef.detectChanges();
   }
 
@@ -234,6 +228,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.viewerService.isEndEventRaised = false;
     this.unlistenMouseEnter();
     this.unlistenMouseLeave();
     // this.unlistenTouch();
