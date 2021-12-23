@@ -40,7 +40,14 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   @Input() action: string;
   @Output() playerEvent: EventEmitter<object>;
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
-  
+
+  config = {
+    rotation:true,
+    goto: true,
+    navigation: true,
+    zoom: true
+  }
+
   viewerActions: EventEmitter<any> = new EventEmitter<any>();
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
