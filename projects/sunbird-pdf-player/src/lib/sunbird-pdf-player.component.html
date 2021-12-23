@@ -3,7 +3,7 @@
     [progress]="viewerService.loadingProgress"></sb-player-start-page>
 
   <sb-player-header class="sb-pdf-main-header notVisible" [ngClass]="{'isVisible': showControls}"
-    *ngIf="viewState ==='player'" [pageNumber]="viewerService.currentPagePointer"
+    *ngIf="viewState ==='player'" [pageNumber]="viewerService.currentPagePointer" [config]="headerConfig"
     [totalPages]="viewerService.totalNumberOfPages" (actions)="headerActions($event)"></sb-player-header>
   <sb-player-side-menu-icon class="notVisible" (sidebarMenuEvent)="viewerService.raiseHeartBeatEvent($event)"
     *ngIf="viewState ==='player'" [ngClass]="{'isVisible': showControls}">
