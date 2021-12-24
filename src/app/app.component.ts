@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayerConfig } from 'projects/sunbird-pdf-player/src/lib/playerInterfaces';
+import { PlayerConfig } from '../../projects/sunbird-pdf-player/src/lib/playerInterfaces';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -80,6 +80,13 @@ export class AppComponent implements OnInit {
         }, ...this.pdfMetaDataConfig
       };
       this.pdfPlayerConfig.config = this.config;
+    }
+
+    if (event?.edata?.type === 'PRINT') {
+      const windowFrame = window.document.querySelector('pdf-viewer iframe');
+      if (windowFrame) {
+        windowFrame['contentWindow'].print();
+      }
     }
   }
   telemetryEvent(event) {
