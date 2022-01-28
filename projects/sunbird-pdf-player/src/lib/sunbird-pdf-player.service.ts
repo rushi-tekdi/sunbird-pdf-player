@@ -40,12 +40,12 @@ export class SunbirdPdfPlayerService {
           tags: context.tags,
           cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
           { id: this.playSessionId, type: 'PlaySession' },
-          {id: "2.0" , type: "PlayerVersion"}]
+          {id: '2.0' , type: 'PlayerVersion'}]
         },
         userOrgDetails: {}
       };
-      if(context.dispatcher) {
-        telemetryConfig.config.dispatcher = context.dispatcher
+      if (context.dispatcher) {
+        telemetryConfig.config.dispatcher = context.dispatcher;
       }
       CsTelemetryModule.instance.telemetryService.initTelemetry(telemetryConfig);
     }
@@ -143,7 +143,7 @@ export class SunbirdPdfPlayerService {
         uid: this.context.uid,
         cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
         { id: this.playSessionId, type: 'PlaySession' },
-        {id: "2.0" , type: "PlayerVersion"}],
+        {id: '2.0' , type: 'PlayerVersion'}],
         rollup: this.context.contextRollup || {}
       }
     });

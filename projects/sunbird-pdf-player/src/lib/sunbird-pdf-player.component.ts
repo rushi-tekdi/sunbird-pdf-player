@@ -42,11 +42,11 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
 
   headerConfig = {
-    rotation:true,
+    rotation: true,
     goto: true,
     navigation: true,
     zoom: true
-  }
+  };
 
   viewerActions: EventEmitter<any> = new EventEmitter<any>();
   private unlistenMouseEnter: () => void;
@@ -97,13 +97,14 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.showControls = false;
     });
 
-    this.traceId = this.playerConfig.config['traceId'];
+    this.traceId = this.playerConfig.config?.traceId;
 
-    const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
+    const contentCompabilityLevel = this.playerConfig.metadata.compatibilityLevel;
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
-      if (!checkContentCompatible['isCompitable']) {
-        this.viewerService.raiseExceptionLog(errorCode.contentCompatibility, errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
+      if (!checkContentCompatible.isCompitable) {
+        // tslint:disable-next-line:max-line-length
+        this.viewerService.raiseExceptionLog(errorCode.contentCompatibility, errorMessage.contentCompatibility, checkContentCompatible.error, this.traceId);
       }
     }
   }
@@ -131,7 +132,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   replayContent(event) {
-    this.viewerService.raiseHeartBeatEvent(event.type)
+    this.viewerService.raiseHeartBeatEvent(event.type);
     this.ngOnInit();
     this.viewerActions.emit({ type: 'REPLAY' });
     this.viewerService.isEndEventRaised = false;
@@ -139,7 +140,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   exitContent(event) {
-    this.viewerService.raiseHeartBeatEvent(event.type)
+    this.viewerService.raiseHeartBeatEvent(event.type);
   }
 
   public onPdfLoaded(event): void {
@@ -150,8 +151,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   public onPdfLoadFailed(error: Error): void {
-    let code = errorCode.contentLoadFails,
-      message = errorMessage.contentLoadFails;
+    let code = errorCode.contentLoadFails;
+    let message = errorMessage.contentLoadFails;
     if (!navigator.onLine) {
       code = errorCode.internetConnectivity;
       message = errorMessage.internetConnectivity;
@@ -226,7 +227,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     setTimeout(() => {
       this.validPage = true;
       this.cdRef.detectChanges();
-    }, 5000)
+    }, 5000);
   }
 
   @HostListener('window:beforeunload')
