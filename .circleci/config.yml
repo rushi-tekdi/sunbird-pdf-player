@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/sunbird-pdf-player
     docker:
-      - image: circleci/node:12.13.0-browsers
+      - image: circleci/node:12.20.2-browsers
     steps:
       - checkout:
           path: ~/sunbird-pdf-player
@@ -15,7 +15,9 @@ jobs:
             NG_CLI_ANALYTICS: "ci"
           command: npm install
       - run: cd projects/sunbird-pdf-player && sudo npm install
-      - run: sudo npm install
+      - run:
+          name: Node install
+          command: sudo npm install
       - run:
           name: Linting
           command: npm run lint
