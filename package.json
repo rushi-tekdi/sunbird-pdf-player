@@ -11,7 +11,7 @@
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json",
     "create-player-link": "cd dist/sunbird-pdf-player && npm link && cd ../..",
     "link-player": "npm link @project-sunbird/sunbird-pdf-player",
-    "test": "ng test sunbird-pdf-player --code-coverage --watch=false",
+    "test": "ng test --code-coverage --watch=false",
     "build-lib-link": "npm run build-lib && npm i ./dist/sunbird-pdf-player",
     "lint": "ng lint",
     "mybuild": "npm run build",
