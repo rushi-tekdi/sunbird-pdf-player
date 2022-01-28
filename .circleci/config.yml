@@ -10,6 +10,10 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
+      - run:
+          environment:
+            NG_CLI_ANALYTICS: "ci"
+          command: npm install
       - run: cd projects/sunbird-pdf-player && sudo npm install
       - run: sudo npm install
       - run:
@@ -18,10 +22,10 @@ jobs:
       - run:
           name: Testing
           command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      - run: 
+      - run:
           name: Install sonar scanner
           command: 'sudo npm install -i -g sonarqube-scanner'
-      - run: 
+      - run:
           name: Sonar scanner
           command: sonar-scanner -Dsonar.projectKey=project-sunbird_sunbird-pdf-player -Dsonar.organization=project-sunbird -Dsonar.host.url=https://sonarcloud.io -Dsonar.language=ts -Dsonar.sources=projects/sunbird-pdf-player/src -Dsonar.typescript.lcov.reportPaths=coverage/sunbird-pdf-player/lcov.info
 workflows:
