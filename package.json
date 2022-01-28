@@ -13,6 +13,7 @@
     "link-player": "npm link @project-sunbird/sunbird-pdf-player",
     "test": "ng test --code-coverage --watch=false",
     "build-lib-link": "npm run build-lib && npm i ./dist/sunbird-pdf-player",
+    "lint": "ng lint",
     "mybuild": "npm run build",
     "serve": "node assets-copy.js && npm link ./dist/sunbird-pdf-player && ng serve",
     "build-web-component": "npm run build-lib-link && ng build pdf-player-wc --output-hashing none && node ./build-wc.js"
