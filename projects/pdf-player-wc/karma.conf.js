@@ -17,7 +17,7 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../../coverage/pdf-player-wc'),
-      reports: ['html', 'lcovonly', 'text-summary'],
+      reports: ['text-summary', 'html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
