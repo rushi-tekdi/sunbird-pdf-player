@@ -25,7 +25,7 @@ export class PdfViewerComponent implements AfterViewInit {
     ['PREVIOUS', 'previouspage'],
     ['ROTATE_CW', 'rotatecw'],
     ['DOWNLOAD', 'download']
-  ])
+  ]);
 
   constructor(private renderer: Renderer2, private viewerService: ViewerService) { }
 
@@ -34,7 +34,8 @@ export class PdfViewerComponent implements AfterViewInit {
     this.viewerApp = this.iframeRef.nativeElement.contentWindow.PDFViewerApplication;
     this.viewerApp.initializedPromise.then(() => {
 
-      let progress, isRegistredWithLoadingTask = false;
+      let progress;
+      let isRegistredWithLoadingTask = false;
       this.progressInterval = setInterval(() => {
         if (this.viewerApp && (progress !== this.viewerApp.loadingBar.percent || this.viewerApp.loadingBar.percent === 100)) {
           progress = this.viewerApp.loadingBar.percent;
@@ -42,22 +43,24 @@ export class PdfViewerComponent implements AfterViewInit {
         }
         if (this.viewerApp.pdfLoadingTask && !isRegistredWithLoadingTask) {
           this.viewerApp.pdfLoadingTask.promise.catch((error) => {
-            clearInterval(this.progressInterval)
+            clearInterval(this.progressInterval);
             this.viewerEvent.emit({
               type: 'error', data:
+                // tslint:disable-next-line:max-line-length
                 (navigator.onLine ? `Internet available but unable to fetch the url ${this.pdfURL} ` : `No internet to load pdf with url ${this.pdfURL} `) + (error ? error.toString() : '')
             });
           });
-          isRegistredWithLoadingTask = true
+          isRegistredWithLoadingTask = true;
         }
       }, 50);
 
       // this.viewerApp.eventBus.on("documentloaded", () => {
-        this.registerForEvents();
+      this.registerForEvents();
       // });
     }).catch(error => {
       this.viewerEvent.emit({
         type: 'error', data:
+          // tslint:disable-next-line:max-line-length
           (navigator.onLine ? `Internet available but unable to fetch the url ${this.pdfURL} ` : `No internet to load pdf with url ${this.pdfURL} `) + (error ? error.toString() : '')
       });
     });
@@ -74,14 +77,13 @@ export class PdfViewerComponent implements AfterViewInit {
       } else if (type === 'ZOOM_IN' && this.viewerApp.pdfViewer.currentScale < 3) {
         this.viewerService.pageSessionUpdate();
         this.viewerApp.zoomIn();
-        this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100)
-      }
-      else if (type === 'ZOOM_OUT') {
+        this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100);
+      } else if (type === 'ZOOM_OUT') {
         this.viewerService.pageSessionUpdate();
         this.viewerApp.zoomOut();
-        this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100)
+        this.viewerService.zoom = (this.viewerApp.pdfViewer.currentScale * 100);
       } else if (type === 'NAVIGATE_TO_PAGE') {
-        this.viewerEvent.emit({ type: 'INVALID_PAGE_ERROR', data: true })
+        this.viewerEvent.emit({ type: 'INVALID_PAGE_ERROR', data: true });
         this.viewerApp.page = data;
       } else if (this.actionsMap.has(type)) {
         this.viewerApp.eventBus.dispatch(this.actionsMap.get(type));
@@ -110,7 +112,7 @@ export class PdfViewerComponent implements AfterViewInit {
         this.viewerEvent.emit({ type: 'rotatecw', data: this.viewerApp.pdfViewer.pagesRotation });
       });
 
-    this.ListenToPageScroll();
+      this.ListenToPageScroll();
   }
 
   private pagesLoadedCallback(data: any) {

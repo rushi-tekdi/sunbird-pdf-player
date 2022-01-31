@@ -30,7 +30,7 @@ export class ViewerService {
   public defaultConfig = {};
 
   constructor(private sunbirdPdfPlayerService: SunbirdPdfPlayerService,
-    private utilService: UtilService) { }
+              private utilService: UtilService) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
     this.zoom = _.last(config.zoom) || 'auto';
@@ -39,9 +39,9 @@ export class ViewerService {
     this.totalNumberOfPages = 0;
     this.currentPagePointer = _.last(config.pagesVisited) || 1;
     this.contentName = metadata.name;
-    this.isAvailableLocally = metadata.isAvailableLocally
-    if(this.isAvailableLocally) {
-      const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
+    this.isAvailableLocally = metadata.isAvailableLocally;
+    if (this.isAvailableLocally) {
+      const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir);
       this.src = `${basePath}/${metadata.artifactUrl}`;
     } else {
       this.src =  metadata.streamingUrl || metadata.artifactUrl;
@@ -122,12 +122,12 @@ export class ViewerService {
   }
 
   getMetadata() {
-    return { 
+    return {
       pagesVisited: this.metaData.pagesVisited.length ? (this.endPageSeen ? [0] : [_.last(this.metaData.pagesVisited)]) : [],
       duration: this.metaData.duration.length ? [_.last(this.metaData.duration)] : [],
       zoom: this.metaData.zoom.length ? [_.last(this.metaData.zoom)] : [],
       rotation: this.metaData.rotation.length ? [_.last(this.metaData.rotation)] : []
-    }
+    };
   }
 
   raiseHeartBeatEvent(type: string) {
@@ -143,7 +143,7 @@ export class ViewerService {
     this.playerEvent.emit(hearBeatEvent);
     this.sunbirdPdfPlayerService.heartBeat(hearBeatEvent);
     if (type === 'PAGE_CHANGE') {
-      this.sunbirdPdfPlayerService.impression(this.currentPagePointer); 
+      this.sunbirdPdfPlayerService.impression(this.currentPagePointer);
     }
     const interactItems = ['CLOSE_DOWNLOAD', 'DOWNLOAD', 'ZOOM_IN',
       'ZOOM_OUT', 'NAVIGATE_TO_PAGE',
@@ -158,15 +158,15 @@ export class ViewerService {
 
   raiseExceptionLog(errorCode: string , errorType: string , stacktrace , traceId ) {
     const exceptionLogEvent = {
-      eid: "ERROR",
+      eid: 'ERROR',
       edata: {
           err: errorCode,
           errtype: errorType,
           requestid: traceId || '',
-          stacktrace: (stacktrace && stacktrace.toString())|| '',
+          stacktrace: (stacktrace && stacktrace.toString()) || '',
       }
-    }
-    this.playerEvent.emit(exceptionLogEvent)
+    };
+    this.playerEvent.emit(exceptionLogEvent);
     this.sunbirdPdfPlayerService.error(stacktrace, { err: errorCode, errtype: errorType });
   }
 }
