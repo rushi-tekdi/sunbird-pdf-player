@@ -131,6 +131,7 @@ var previewObj = {
     "data": undefined // content body json object (from API response take -> response.result.content.body)
 }
 
+```
 ## Description
 |Property Name| Description| Default Value
 |--|------------|--|
