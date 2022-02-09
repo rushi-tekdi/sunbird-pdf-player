@@ -134,29 +134,17 @@ var previewObj = {
 ## Description
 |Property Name| Description| Default Value
 |--|--|--|
-
 | `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
-
 | `config` | It is an `object` it contains the `toolBar`,`sideMenu` etc., these will be used to configure the canvas  | ```{ toolBar: {"showZoomButtons": false,"showPagingButtons": false,"showSearchButton": false,"showRotateButton": false }, sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showPrint": true}}``` |
-
 | `mode` | It is an `string` to identify preview used by the user to play/edit/preview | ```play```|
-
 | `authToken` | It is an `string` and Auth key to make  api calls | ```''```|
-
 | `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.ekstep` |
-
 | `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.ekstep', 'ver':'1.0'}```|
-
 | `objectRollup` | It is an `object` which defines object rollup data | ```{}```|
-
 | `host` | It is a `string` which defines the from which domain content should be load|```window.location.origin```  |
-
 | `userData` | It is an `object` which defines user data | ```{}```|
-
 | `cdata` | It is an `array` which defines the correlation data | ```[]```|
-
 | `metadata` | It is an `object` which defines content metadata json object | ```{}```|
-
 | `data` | It is an `object` which defines content body json object | ```{}```|
 
 
