@@ -78,6 +78,88 @@ Import the NgModule where you want to use:
 Use the mock config in your component to send input to PDF player
 Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
 
+## Preview object
+
+var previewObj = {
+    "context": {
+        "mode": "preview/edit/play", // to identify preview used by the user to play/edit/preview
+        "authToken": "", // Auth key to make  api calls
+        "sid": "sdjfo8e-3ndofd3-3nhfo334", // User sessionid on portal or mobile
+        "did": "sdjfo8e-3ndofd3-3nhfo334", // Unique id to identify the device or browser 
+        "uid": "sdjfo8e-3ndofd3-3nhfo334", // Current logged in user id
+        "channel": "", // To identify the channel(Channel ID). Default value ""
+        "pdata": // Producer information. Generally the App which is creating the event, default value {}
+        {
+            "id": "", // Producer ID. For ex: For sunbird it would be "portal" or "genie"
+            "pid": "", // Optional. In case the component is distributed, then which instance of that component
+            "ver": "", // version of the App
+        },
+        "contextRollup": { // defines content roll up data
+			l1: ""
+		}, 
+        "tags": [""], //  tags
+		timeDiff: "",
+		objectRollup: {},
+		host: "",
+		endpoint: "",
+		userData: { // defines user data
+			firstName: "",
+			lastName: ""
+		}
+        "cdata": [{ //correlation data
+            "type": "", //Used to indicate action that is being correlated
+            "id": "" //The correlation ID value
+        }],
+    },
+    "config": {
+		"toolBar": {
+            "showZoomButtons": false,   // show/hide zoom buttons while playing content. default value is false
+            "showPagesButton": false,   // show/hide page button while playing content. default value is false
+            "showPagingButtons": false, // show/hide pagination buttons while playing content. default value is false
+            "showSearchButton": false,  // show/hide search button. default value is false
+            "showRotateButton": false   // show/hide rotate button while playing content. default value is false
+        };
+       sideMenu: {
+            "showShare": true,     // show/hide share button in side menu. default value is true
+            "showDownload": true,  // show/hide download button in side menu. default value is true
+            "showReplay": true,    // show/hide reply button in side menu. default value is true
+            "showExit": false,     // show/hide exit button in side menu. default value is false
+			"showPrint": true      // show/hide print button in side menu. default value is true
+        };
+    },
+    "metadata": {}, //content metadata json object (from API response take -> response.result.content)
+    "data": undefined // content body json object (from API response take -> response.result.content.body)
+}
+
+## Description
+|Property Name| Description| Default Value
+|--|--|--|
+
+| `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
+
+| `config` | It is an `object` it contains the `toolBar`,`sideMenu` etc., these will be used to configure the canvas  | ```{ toolBar: {"showZoomButtons": false,"showPagingButtons": false,"showSearchButton": false,"showRotateButton": false }, sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showPrint": true}}``` |
+
+| `mode` | It is an `string` to identify preview used by the user to play/edit/preview | ```play```|
+
+| `authToken` | It is an `string` and Auth key to make  api calls | ```''```|
+
+| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.ekstep` |
+
+| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.ekstep', 'ver':'1.0'}```|
+
+| `objectRollup` | It is an `object` which defines object rollup data | ```{}```|
+
+| `host` | It is a `string` which defines the from which domain content should be load|```window.location.origin```  |
+
+| `userData` | It is an `object` which defines user data | ```{}```|
+
+| `cdata` | It is an `array` which defines the correlation data | ```[]```|
+
+| `metadata` | It is an `object` which defines content metadata json object | ```{}```|
+
+| `data` | It is an `object` which defines content body json object | ```{}```|
+
+
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
 |--|--|--|------------------------------------------------------------------------------------------|---|--|
