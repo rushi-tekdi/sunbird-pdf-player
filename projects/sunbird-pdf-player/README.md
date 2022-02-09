@@ -82,69 +82,74 @@ Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbir
 ```js
 var previewObj = {
 		context: {
-		mode: 'play',  // to identify preview used by the user to play/edit/preview
-		authToken: '', // Auth key to make  api calls
-		sid: '7283cf2e-d215-9944-b0c5-269489c6fa56', // User sessionid on portal or mobile
-		did: '3c0a3724311fe944dec5df559cc4e006', // Unique id to identify the device or browser 
-		uid: 'anonymous', // Current logged in user id
-		channel: '505c7c48ac6dc1edc9b08f21db5a571d', // To identify the channel(Channel ID). Default value ""
+		mode: 'play',
+		authToken: '', 
+		sid: '7283cf2e-d215-9944-b0c5-269489c6fa56', 
+		did: '3c0a3724311fe944dec5df559cc4e006', 
+		uid: 'anonymous', 
+		channel: '505c7c48ac6dc1edc9b08f21db5a571d',
 		pdata: {
-			id: 'sunbird.portal', // Producer ID. For ex: For sunbird it would be "portal" or "genie"
-			ver: '3.2.12',        // version of the App 
-			pid: 'sunbird-portal.contentplayer' // Optional. In case the component is distributed, then which instance of that component
+			id: 'sunbird.portal',
+			ver: '3.2.12',        
+			pid: 'sunbird-portal.contentplayer' 
 		},
 		contextRollup: {
-			l1: '505c7c48ac6dc1edc9b08f21db5a571d' // Defined the content roll up data
+			l1: '505c7c48ac6dc1edc9b08f21db5a571d'
 		},
 		tags: [
 			''
 		],
-		cdata: [], //correlation data
+		cdata: [],
 		timeDiff: 0,
-		objectRollup: {}, // defines the object roll up data
+		objectRollup: {},
 		host: '',
 		endpoint: '',
-		userData: {    // defines the user data firstname/lastname
+		userData: {
 			firstName: '',
 			lastName: ''
 		}
 	},
-    "config": {
-		"toolBar": {
-            "showZoomButtons": false,   // show/hide zoom buttons while playing content. default value is false
-            "showPagesButton": false,   // show/hide page button while playing content. default value is false
-            "showPagingButtons": false, // show/hide pagination buttons while playing content. default value is false
-            "showSearchButton": false,  // show/hide search button. default value is false
-            "showRotateButton": false   // show/hide rotate button while playing content. default value is false
-        };
+    config: {
+		toolBar: {
+            showZoomButtons: false,  
+            showPagesButton: false,  
+            showPagingButtons: false, 
+            showSearchButton: false,  
+            showRotateButton: false   
+        },
        sideMenu: {
-            "showShare": true,     // show/hide share button in side menu. default value is true
-            "showDownload": true,  // show/hide download button in side menu. default value is true
-            "showReplay": true,    // show/hide reply button in side menu. default value is true
-            "showExit": false,     // show/hide exit button in side menu. default value is false
-			"showPrint": true      // show/hide print button in side menu. default value is true
-        };
+            showShare: true,     
+            showDownload: true,  
+            showReplay: true,   
+            showExit: false,     
+			showPrint: true   
+        }
     },
-    "metadata": {}, //content metadata json object (from API response take -> response.result.content)
-    "data": undefined // content body json object (from API response take -> response.result.content.body)
+    metadata: {}, 
+    data: undefined  
 }
 
 ```
 ## Description
 |Property Name| Description| Default Value
-|--|------------|--|
+|--|----------------------|--|
 | `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
 | `config` | It is an `object` it contains the `toolBar`,`sideMenu` etc., these will be used to configure the canvas  | ```{ toolBar: {"showZoomButtons": false,"showPagingButtons": false,"showSearchButton": false,"showRotateButton": false }, sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showPrint": true}}``` |
 | `mode` | It is an `string` to identify preview used by the user to play/edit/preview | ```play```|
 | `authToken` | It is an `string` and Auth key to make  api calls | ```''```|
+| `sid` | It is an `string` and User sessionid on portal or mobile | ```''```|
+| `did` | It is an `string` and Unique id to identify the device or browser| ```''```|
+| `uid` | It is an `string` and Current logged in user id| ```''```|
 | `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.ekstep` |
 | `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.ekstep', 'ver':'1.0'}```|
+| `contextRollup` | It is an `object` which defines content roll up data | ```{}```|
+| `tags` | It is an `array` which defines the tag data | ```[]```|
 | `objectRollup` | It is an `object` which defines object rollup data | ```{}```|
 | `host` | It is a `string` which defines the from which domain content should be load|```window.location.origin```  |
 | `userData` | It is an `object` which defines user data | ```{}```|
 | `cdata` | It is an `array` which defines the correlation data | ```[]```|
-| `metadata` | It is an `object` which defines content metadata json object | ```{}```|
-| `data` | It is an `object` which defines content body json object | ```{}```|
+| `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```|
+| `data` | It is an `object` which defines content body json object (from API response take -> response.result.content.body)| ```{}```|
 
 
 ## Available components
