@@ -79,7 +79,7 @@ Use the mock config in your component to send input to PDF player
 Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
 
 ## Preview object
-
+```js
 var previewObj = {
     "context": {
         "mode": "preview/edit/play", // to identify preview used by the user to play/edit/preview
@@ -133,7 +133,7 @@ var previewObj = {
 
 ## Description
 |Property Name| Description| Default Value
-|--|--|--|
+|--|------------|--|
 | `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
 | `config` | It is an `object` it contains the `toolBar`,`sideMenu` etc., these will be used to configure the canvas  | ```{ toolBar: {"showZoomButtons": false,"showPagingButtons": false,"showSearchButton": false,"showRotateButton": false }, sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showPrint": true}}``` |
 | `mode` | It is an `string` to identify preview used by the user to play/edit/preview | ```play```|
