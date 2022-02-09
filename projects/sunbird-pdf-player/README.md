@@ -81,36 +81,34 @@ Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbir
 ## Preview object
 ```js
 var previewObj = {
-    "context": {
-        "mode": "preview/edit/play", // to identify preview used by the user to play/edit/preview
-        "authToken": "", // Auth key to make  api calls
-        "sid": "sdjfo8e-3ndofd3-3nhfo334", // User sessionid on portal or mobile
-        "did": "sdjfo8e-3ndofd3-3nhfo334", // Unique id to identify the device or browser 
-        "uid": "sdjfo8e-3ndofd3-3nhfo334", // Current logged in user id
-        "channel": "", // To identify the channel(Channel ID). Default value ""
-        "pdata": // Producer information. Generally the App which is creating the event, default value {}
-        {
-            "id": "", // Producer ID. For ex: For sunbird it would be "portal" or "genie"
-            "pid": "", // Optional. In case the component is distributed, then which instance of that component
-            "ver": "", // version of the App
-        },
-        "contextRollup": { // defines content roll up data
-			l1: ""
-		}, 
-        "tags": [""], //  tags
-		timeDiff: "",
-		objectRollup: {},
-		host: "",
-		endpoint: "",
-		userData: { // defines user data
-			firstName: "",
-			lastName: ""
+		context: {
+		mode: 'play',  // to identify preview used by the user to play/edit/preview
+		authToken: '', // Auth key to make  api calls
+		sid: '7283cf2e-d215-9944-b0c5-269489c6fa56', // User sessionid on portal or mobile
+		did: '3c0a3724311fe944dec5df559cc4e006', // Unique id to identify the device or browser 
+		uid: 'anonymous', // Current logged in user id
+		channel: '505c7c48ac6dc1edc9b08f21db5a571d', // To identify the channel(Channel ID). Default value ""
+		pdata: {
+			id: 'sunbird.portal', // Producer ID. For ex: For sunbird it would be "portal" or "genie"
+			ver: '3.2.12',        // version of the App 
+			pid: 'sunbird-portal.contentplayer' // Optional. In case the component is distributed, then which instance of that component
+		},
+		contextRollup: {
+			l1: '505c7c48ac6dc1edc9b08f21db5a571d' // Defined the content roll up data
+		},
+		tags: [
+			''
+		],
+		cdata: [], //correlation data
+		timeDiff: 0,
+		objectRollup: {}, // defines the object roll up data
+		host: '',
+		endpoint: '',
+		userData: {    // defines the user data firstname/lastname
+			firstName: '',
+			lastName: ''
 		}
-        "cdata": [{ //correlation data
-            "type": "", //Used to indicate action that is being correlated
-            "id": "" //The correlation ID value
-        }],
-    },
+	},
     "config": {
 		"toolBar": {
             "showZoomButtons": false,   // show/hide zoom buttons while playing content. default value is false
