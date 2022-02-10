@@ -78,9 +78,9 @@ Import the NgModule where you want to use:
 Use the mock config in your component to send input to PDF player
 Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
 
-## Preview object
+## Player config
 ```js
-var previewObj = {
+var playerConfig = {
   "context": {
     "mode": "play",
     "authToken": "",
@@ -126,7 +126,7 @@ var previewObj = {
     }
   },
   "metadata": {},
-  "data": ""
+  "data": {}
 } 
 
 ```
