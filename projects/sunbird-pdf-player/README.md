@@ -113,7 +113,7 @@ var playerConfig = {
     "sideMenu": { 
       "showShare": true, // show/hide share button in side menu. default value is true
       "showDownload": true, // show/hide download button in side menu. default value is true
-      "showReplay": true, // show/hide reply button in side menu. default value is true
+      "showReplay": true, // show/hide replay button in side menu. default value is true
       "showExit": false, // show/hide exit button in side menu. default value is false
       "showPrint": true // show/hide print button in side menu. default value is true
     }
@@ -126,7 +126,7 @@ var playerConfig = {
 |Property Name| Description| Default Value
 |--|----------------------|--|
 | `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
-| `config` | It is an `object` it contains the `toolBar`,`sideMenu` etc., these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showPrint": true}}``` |
+| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` |
 | `config.sideMenu.showShare` | It is  `boolean` to show/hide share button in side menu| ```true```|
 | `config.sideMenu.showDownload` | It is  `boolean` to show/hide download button in side menu| ```true```|
 | `config.sideMenu.showReplay` | It is  `boolean` to show/hide replay button in side menu| ```true```|
