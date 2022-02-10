@@ -82,7 +82,7 @@ Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbir
 ```js
 var playerConfig = {
   "context": {
-    "mode": "play",  // to identify preview used by the user to play/edit/preview
+    "mode": "play",  // To identify preview used by the user to play/edit/preview
     "authToken": "", // Auth key to make  api calls
     "sid": "7283cf2e-d215-9944-b0c5-269489c6fa56", // User sessionid on portal or mobile 
     "did": "3c0a3724311fe944dec5df559cc4e006", // Unique id to identify the device or browser 
@@ -90,18 +90,18 @@ var playerConfig = {
     "channel": "505c7c48ac6dc1edc9b08f21db5a571d", // Unique id of the channel(Channel ID)
     "pdata": {
       "id": "sunbird.portal", // Producer ID. For ex: For sunbird it would be "portal" or "genie"
-      "ver": "3.2.12", // version of the App
+      "ver": "3.2.12", // Version of the App
       "pid": "sunbird-portal.contentplayer" // Optional. In case the component is distributed, then which instance of that component
     },
-    "contextRollup": { // Defined the content roll up data
+    "contextRollup": { // Defines the content roll up data
       "l1": "505c7c48ac6dc1edc9b08f21db5a571d"
     },
     "tags": [ // Defines the tags data
       ""
     ],
-    "cdata": [], // Correlation data
+    "cdata": [], // Defines correlation data
     "timeDiff": 0,  // Defines the time difference
-    "objectRollup": {}, // defines the object roll up data
+    "objectRollup": {}, // Defines the object roll up data
     "host": "", // Defines the from which domain content should be load
     "endpoint": "", // Defines the end point
     "userData": {  // Defines the user data firstname & lastname
