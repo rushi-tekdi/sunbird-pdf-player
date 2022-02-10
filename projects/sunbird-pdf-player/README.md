@@ -135,14 +135,14 @@ var playerConfig = {
 | `mode` | It is  `string` to identify preview used by the user to play/edit/preview | ```play```|
 | `authToken` | It is  `string` and Auth key to make  api calls | ```''```|
 | `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|
-| `did` | It is an `string` and Unique id to identify the device or browser| ```''```|
-| `uid` | It is an `string` and Current logged in user id| ```''```|
+| `did` | It is  `string` and Unique id to identify the device or browser| ```''```|
+| `uid` | It is  `string` and Current logged in user id| ```''```|
 | `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.ekstep` |
 | `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.ekstep', 'ver':'1.0'}```|
 | `contextRollup` | It is an `object` which defines content roll up data | ```{}```|
 | `tags` | It is an `array` which defines the tag data | ```[]```|
 | `objectRollup` | It is an `object` which defines object rollup data | ```{}```|
-| `host` | It is an `string` which defines the from which domain content should be load|```window.location.origin```  |
+| `host` | It is  `string` which defines the from which domain content should be load|```window.location.origin```  |
 | `userData` | It is an `object` which defines user data | ```{}```|
 | `cdata` | It is an `array` which defines the correlation data | ```[]```|
 | `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```|
