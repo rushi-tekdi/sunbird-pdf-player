@@ -122,16 +122,10 @@ var playerConfig = {
 } 
 
 ```
-## Description
+## Telemetry property description
 |Property Name| Description| Default Value
 |--|----------------------|--|
 | `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
-| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` |
-| `config.sideMenu.showShare` | It is  `boolean` to show/hide share button in side menu| ```true```|
-| `config.sideMenu.showDownload` | It is  `boolean` to show/hide download button in side menu| ```true```|
-| `config.sideMenu.showReplay` | It is  `boolean` to show/hide replay button in side menu| ```true```|
-| `config.sideMenu.showExit` | It is  `boolean` to show/hide exit button in side menu| ```false```|
-| `config.sideMenu.showPrint` | It is  `boolean` to show/hide print button in side menu| ```true```|
 | `mode` | It is  `string` to identify preview used by the user to play/edit/preview | ```play```|
 | `authToken` | It is  `string` and Auth key to make  api calls | ```''```|
 | `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|
@@ -145,8 +139,17 @@ var playerConfig = {
 | `host` | It is  `string` which defines the from which domain content should be load|```window.location.origin```  |
 | `userData` | It is an `object` which defines user data | ```{}```|
 | `cdata` | It is an `array` which defines the correlation data | ```[]```|
-| `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```|
 
+## Config property description
+|Property Name| Description| Default Value
+|--|----------------------|--|
+| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` |
+| `config.sideMenu.showShare` | It is  `boolean` to show/hide share button in side menu| ```true```|
+| `config.sideMenu.showDownload` | It is  `boolean` to show/hide download button in side menu| ```true```|
+| `config.sideMenu.showReplay` | It is  `boolean` to show/hide replay button in side menu| ```true```|
+| `config.sideMenu.showExit` | It is  `boolean` to show/hide exit button in side menu| ```false```|
+| `config.sideMenu.showPrint` | It is  `boolean` to show/hide print button in side menu| ```true```|
+| `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```|
 
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
