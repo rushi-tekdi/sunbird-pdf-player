@@ -226,17 +226,17 @@ Import the NgModule where you want to use:
   
     export class TestAppModule { }
 
+## Step 3: Import in component       
+ 
+    <sunbird-video-player [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
+    (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-video-player>  
+
 ## Step 4: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
 Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
 
-## Available components
-|Feature| Notes| Selector|Code|Input|Output
-|--|--|--|------------------------------------------------------------------------------------------|---|--|
-| PDF Player | Can be used to render pdf | sunbird-pdf-player| *`<sunbird-pdf-player [playerConfig]="playerConfig"><sunbird-pdf-player>`*|playerConfig|playerEvent, telemetryEvent|
-
-## Sample Github repo
+## Sample code
 Click to see the sample code - [sampleRepo](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app)
 
 ## Use as web components	
