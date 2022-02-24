@@ -184,7 +184,7 @@ Click to see the input data - [playerConfig](README.md#step-4-send-input-to-rend
 
 
 ## Sample code
-Click to see the sample code - [sampleRepo](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app)
+Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app)
 <br /><br />
 
 # Use as web components	
