@@ -166,7 +166,7 @@ Click to see the steps - [InstallPackages](README.md#step-1-install-the-packages
 
 ## Step 2: Include the sb-styles and assets in angular.json
 
-Click to see the steps - [IncludeStyles](README.md#step-2-include-the-styles-scripts-and-assets-in-angularjson)
+Click to see the steps - [IncludeStyles](README.md#step-2-include-the-sb-styles-and-assets-in-angularjson)
   
 ## Step 3: Import the modules and components
 
