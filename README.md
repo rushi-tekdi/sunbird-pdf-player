@@ -156,90 +156,38 @@ var playerConfig = {
 |--|--|--|------------------------------------------------------------------------------------------|---|--|
 | PDF Player | Can be used to render pdf | sunbird-pdf-player| *`<sunbird-pdf-player [playerConfig]="playerConfig"><sunbird-pdf-player>`*|playerConfig|playerEvent, telemetryEvent|
 
+<br /><br />
+
 # Mobile app integration steps 
 For existing apps, follow these steps to begin using.
+
 ## Step 1: Install the packages
-```bash
-npm install @project-sunbird/sunbird-pdf-player-v9 --save
-npm install @project-sunbird/sb-styles --save
-npm install @project-sunbird/client-services --save
-```
+Click to see the steps - [InstallPackages](README.md#step-1-install-the-packages)
+
 ## Step 2: Include the sb-styles and assets in angular.json
-    "styles": [
-    ...
-    ...
-    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
-    ]
-  Add following under architect.build.assets
 
-     {
-	    ...
-	    "build": {
-	    
-	    "builder": "@angular-devkit/build-angular:browser",
-	    
-	    "options": {
-		    ...
-		    ...
-    
-		    "assets": [
-		    
-			   ...
-			   ...
-			    
-			    {
-				    "glob": "**/*.*",
-				    "input": "./node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
-				    "output": "/assets/"
-			    }
-		    
-		    ],
-    
-	    "styles": [
-	    
-	    ...
-	    
-	    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
-	    
-	    ],
-	    
-	    ...
-	    ...
-    
-    },
-
+Click to see the steps - [IncludeStyles](README.md#step-2-include-the-styles-scripts-and-assets-in-angularjson)
   
-
 ## Step 3: Import the modules and components
-Import the NgModule where you want to use:
-       
-    import { SunbirdPdfPlayerModule } from '@project-sunbird/sunbird-pdf-player-v9';
-    
-    @NgModule({
-	    ...
-	    
-	    imports: [SunbirdPdfPlayerModule],
-	    
-	    ...
-    })
 
-  
-    export class TestAppModule { }
+Click to see the steps - [Import](README.md#step-3-import-the-modules-and-components)
 
-## Step 3: Import in component       
- 
+
+## Step 4: Import in component       
+
     <sunbird-video-player [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
     (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-video-player>  
 
-## Step 4: Send input to render PDF player
+## Step 5: Send input to render PDF player
 
-Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
+Click to see the input data - [playerConfig](README.md#step-4-send-input-to-render-pdf-player)
+
 
 ## Sample code
 Click to see the sample code - [sampleRepo](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app)
+<br /><br />
 
-## Use as web components	
+# Use as web components	
 
 Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
 
