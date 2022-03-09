@@ -2,78 +2,83 @@
 Contains PDF player library components powered by angular. These components are designed to be used in sunbird consumption platforms *(mobile app, web portal, offline desktop app)* to drive reusability, maintainability hence reducing the redundant development effort significantly.
 
 # Getting Started
-For help getting started with a new Angular app, check out the Angular CLI.
-For existing apps, follow these steps to begin using .
+For help getting started with a new Angular app, check out the [Angular CLI](https://angular.io/cli).
+If you have an Angular ≥ 9 CLI project, you could simply use our schematics to add sunbird-pdf-player library to it.
 
-## Step 1: Install the packages
-```bash
-npm install @project-sunbird/sunbird-pdf-player-v9 --save
-npm install @project-sunbird/sb-styles --save
-npm install @project-sunbird/client-services --save
+## Step 1: Installation
+
+Just run the following:
+```red
+ng add @project-sunbird/sunbird-pdf-player-v9
 ```
-## Step 2: Include the sb-styles and assets in angular.json
-    "styles": [
-    ...
-    ...
-    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
-    ]
-  Add following under architect.build.assets
 
-     {
-	    ...
-	    "build": {
-	    
-	    "builder": "@angular-devkit/build-angular:browser",
-	    
-	    "options": {
-		    ...
-		    ...
-    
-		    "assets": [
-		    
-			   ...
-			   ...
-			    
-			    {
-				    "glob": "**/*.*",
-				    "input": "./node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
-				    "output": "/assets/"
-			    }
-		    
-		    ],
-    
-	    "styles": [
-	    
-	    ...
-	    
-	    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
-	    
-	    ],
-	    
-	    ...
-	    ...
-    
-    },
+It will install ng-bootstrap for the default application specified in your `angular.json`. If you have multiple projects and you want to target a specific application, you could specify the `--project` option
 
+```red
+ng add @project-sunbird/sunbird-pdf-player-v9 --project myProject
+```
+### Manual installation
+If you prefer not to use schematics or want to add `sunbird-pdf-player-v9` to an older project, you'll need to do the following:
+
+<details>
+  <summary>Click here to show detailed instructions!</summary>
+  
+  #### 1. Install the packages:
+
+  ```bash
+  npm install @project-sunbird/sunbird-pdf-player-v9 --save
+  npm install @project-sunbird/sb-styles --save
+  npm install @project-sunbird/client-services --save
+  ```
+
+  #### 2. Include the sb-styles and assets in angular.json configuration:
+    
+  Add following under architect.build.assets and styles
+  
+  ```diff
+  {
+    ...
+    "build": {
+    "builder": "@angular-devkit/build-angular:browser",
+    "options": {
+      ...
+      "assets": [
+      ...
+  +   {
+  +    "glob": "**/*.*",
+  +    "input": "./node_modules/@project-sunbird/sunbird-pdf-player-v9/lib/assets/",
+  +    "output": "/assets/"
+  +   }	
+      ...    
+      ],
+      "styles": [
+      ...
+  +   "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"    
+      ...
+      ],
+      ...
+    }
+  ```
   
 
-## Step 3: Import the modules and components
-Import the NgModule where you want to use:
-       
-    import { SunbirdPdfPlayerModule } from '@project-sunbird/sunbird-pdf-player-v9';
-    
-    @NgModule({
-	    ...
-	    
-	    imports: [SunbirdPdfPlayerModule],
-	    
-	    ...
-    })
+  #### 3. Import the modules and components:
 
+  Import the NgModule where you want to use:
+
+  ```diff
++  import { SunbirdPdfPlayerModule } from '@project-sunbird/sunbird-pdf-player-v9';
+  @NgModule({
+    ...
++    imports: [SunbirdPdfPlayerModule],
+    ...
+  })
+  export class YourAppModule { }
   
-    export class TestAppModule { }
+  ```
 
-## Step 4: Send input to render PDF player
+</details>
+
+## Step 2: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
 Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
