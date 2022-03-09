@@ -7,7 +7,7 @@
     "build": "ng build sunbird-pdf-player --watch=true",
     "build-lib": "ng build sunbird-pdf-player",
     "postbuild-lib": "node assets-copy.js",
-    "create-package": "ng build sunbird-pdf-player && node assets-copy.js && cd dist/sunbird-pdf-player && npm pack && cd ../..  && npm i dist/sunbird-pdf-player/sunbird-pdf-player-v8-0.0.1.tgz",
+    "create-package": "ng build sunbird-pdf-player && node assets-copy.js && npm run schematics:build && cd dist/sunbird-pdf-player && npm pack && cd ../..  && npm i dist/sunbird-pdf-player/sunbird-pdf-player-v8-0.0.1.tgz",
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/sunbird-pdf-player-app/stats.json",
     "create-player-link": "cd dist/sunbird-pdf-player && npm link && cd ../..",
     "link-player": "npm link @project-sunbird/sunbird-pdf-player",
