@@ -12,7 +12,7 @@ Just run the following:
 ng add @project-sunbird/sunbird-pdf-player-v9
 ```
 
-It will install ng-bootstrap for the default application specified in your `angular.json`. If you have multiple projects and you want to target a specific application, you could specify the `--project` option
+It will install sunbird-pdf-player for the default application specified in your `angular.json`. If you have multiple projects and you want to target a specific application, you could specify the `--project` option
 
 ```red
 ng add @project-sunbird/sunbird-pdf-player-v9 --project myProject
