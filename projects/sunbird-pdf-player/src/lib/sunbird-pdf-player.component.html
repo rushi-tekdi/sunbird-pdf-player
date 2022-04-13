@@ -15,7 +15,7 @@
     <sb-player-sidebar *ngIf="viewState ==='player'" [title]="viewerService.contentName"
       (sidebarEvent)="sideBarEvents($event)" [config]="sideMenuConfig"></sb-player-sidebar>
 
-    <div class="sb-pdf-reading-status" *ngIf="viewState ==='player'">Location {{viewerService.currentPagePointer}} of
+    <div class="sb-pdf-reading-status" *ngIf="viewState ==='player'">Page {{viewerService.currentPagePointer}} of
       {{viewerService.totalNumberOfPages}} <span></span>
       {{((viewerService.currentPagePointer/viewerService.totalNumberOfPages) * 100).toFixed(0)}}%</div>
     <div class="visible-only-potrait BtmNotVisible" [ngClass]="{'isVisible': showControls}"
