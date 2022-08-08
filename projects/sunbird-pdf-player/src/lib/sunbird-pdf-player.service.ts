@@ -8,8 +8,8 @@ import { UtilService } from './services/util.service';
 export class SunbirdPdfPlayerService {
 
   private contentSessionId: string;
-  public playSessionId: string;
-  public telemetryObject: any;
+  private playSessionId: string;
+  private telemetryObject: any;
   private context;
   public config;
 

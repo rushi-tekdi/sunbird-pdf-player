@@ -14,9 +14,9 @@ describe('SunbirdPdfPlayerService', () => {
   it('should initialize player config', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
-    expect(service.playSessionId).toBeDefined();
+    expect(service['playSessionId']).toBeDefined();
     expect(CsTelemetryModule.instance.isInitialised).toBeTruthy();
-    expect(service.telemetryObject).toBeDefined();
+    expect(service['telemetryObject']).toBeDefined();
   });
 
   it('should raise start telemetry event', () => {
