@@ -119,7 +119,6 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   xit('should call on pdf load fail and raise error event', () => {
     const viewerService = TestBed.inject(ViewerService);
-    spyOn(viewerService, 'raiseErrorEvent');
     component.onPdfLoadFailed(new Error());
     expect(component.viewState).toEqual('player');
     expect(viewerService.raiseExceptionLog).toHaveBeenCalled();
@@ -168,8 +167,8 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   it('should call viewer events', () => {
     const viewerService = TestBed.inject(ViewerService);
-    component.viewerEvent({type: 'progress', data: ''});
-    expect(viewerService.loadingProgress).toEqual('');
+    component.viewerEvent({type: 'progress', data: 0});
+    expect(viewerService.loadingProgress).toEqual(0);
   });
 
   it('should call viewer events for pagesloaded', () => {

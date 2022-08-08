@@ -24,7 +24,7 @@ export class ViewerService {
   public showDownloadPopup: boolean;
   public src: string;
   public userName: string;
-  private metaData: any;
+  public metaData: any;
   public isAvailableLocally = false;
   public isEndEventRaised = false;
   public defaultConfig = {};

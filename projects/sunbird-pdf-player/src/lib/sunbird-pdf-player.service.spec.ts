@@ -63,7 +63,7 @@ describe('SunbirdPdfPlayerService', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseErrorTelemetry');
-    service.error({});
+    service.error({}, { err: '', errtype: '' });
     expect(CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry).toHaveBeenCalled();
   });
 
