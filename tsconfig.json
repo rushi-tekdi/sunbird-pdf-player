@@ -24,7 +24,7 @@
     "paths": {
       "@project-sunbird/sunbird-pdf-player-v9/*": [
         "dist/sunbird-pdf-player/*"
-      ],
+      ]
     }
   }
 }

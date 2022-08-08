@@ -17,7 +17,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "vendorSourceMap": true,
             "outputPath": "dist/sunbird-pdf-player-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,8 +38,12 @@
             "scripts": [
               "node_modules/@project-sunbird/telemetry-sdk/index.js"
             ],
-            "es5BrowserSupport": true,
-            "preserveSymlinks": true
+            "preserveSymlinks": true,
+            "sourceMap": {
+              "styles": true,
+              "scripts": true,
+              "vendor": true
+            }
           },
           "configurations": {
             "production": {
