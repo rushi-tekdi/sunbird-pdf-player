@@ -12,12 +12,12 @@ describe('ViewerService', () => {
   });
 
   it('should be created', () => {
-    const service: ViewerService = TestBed.get(ViewerService);
+    const service: ViewerService = TestBed.inject(ViewerService);
     expect(service).toBeTruthy();
   });
 
   xit('should initialize player config', () => {
-    const service = TestBed.get(ViewerService);
+    const service = TestBed.inject(ViewerService);
     service.initialize(mockData.playerConfig);
     expect(service.src).toEqual(mockData.playerConfig.metadata.artifactUrl);
     expect(service.endPageSeen).toBeFalsy();
@@ -25,15 +25,15 @@ describe('ViewerService', () => {
   });
 
   it('should update metadata for page session ', () => {
-    const service = TestBed.get(ViewerService);
+    const service = TestBed.inject(ViewerService);
     service.initialize(mockData.playerConfig);
     service.pageSessionUpdate();
     expect(service?.metaData.pagesVisited.length).toEqual(1);
   });
 
   it('should raise Start event ', () => {
-    const service = TestBed.get(ViewerService);
-    const sunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(ViewerService);
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
     spyOn(sunbirdPdfPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdPdfPlayerService, 'start');
     spyOn(service.playerEvent, 'emit');
@@ -46,8 +46,8 @@ describe('ViewerService', () => {
   });
 
   it('should raise End event ', () => {
-    const service = TestBed.get(ViewerService);
-    const sunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(ViewerService);
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
     spyOn(sunbirdPdfPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdPdfPlayerService, 'end');
     spyOn(service.playerEvent, 'emit');
@@ -61,8 +61,8 @@ describe('ViewerService', () => {
   });
 
   it('should raise Heart Beat Event', () => {
-    const service = TestBed.get(ViewerService);
-    const sunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(ViewerService);
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
     spyOn(sunbirdPdfPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdPdfPlayerService, 'interact');
     spyOn(sunbirdPdfPlayerService, 'heartBeat');
@@ -75,8 +75,8 @@ describe('ViewerService', () => {
   });
 
   it('should raise Heart Beat Event for PAGE_CHANGE', () => {
-    const service = TestBed.get(ViewerService);
-    const sunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(ViewerService);
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
     spyOn(sunbirdPdfPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdPdfPlayerService, 'impression');
     spyOn(sunbirdPdfPlayerService, 'heartBeat');
@@ -89,8 +89,8 @@ describe('ViewerService', () => {
   });
 
   it('should raise Error event', () => {
-    const service = TestBed.get(ViewerService);
-    const sunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(ViewerService);
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
     spyOn(sunbirdPdfPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdPdfPlayerService, 'error');
     spyOn(service.playerEvent, 'emit');

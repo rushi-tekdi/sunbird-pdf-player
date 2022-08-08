@@ -21,7 +21,7 @@ import { SunbirdPdfPlayerComponent } from '../../../sunbird-pdf-player/src/lib/s
     SunbirdPlayerSdkModule
   ],
   providers: [],
-  entryComponents: [SunbirdPdfPlayerComponent]
+  // entryComponents: [SunbirdPdfPlayerComponent]
 })
 export class AppModule implements DoBootstrap {
   constructor(private injector: Injector) { }

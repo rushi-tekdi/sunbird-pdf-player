@@ -7,12 +7,12 @@ describe('SunbirdPdfPlayerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
+    const service: SunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
     expect(service).toBeTruthy();
   });
 
   it('should initialize player config', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     expect(service.playSessionId).toBeDefined();
     expect(CsTelemetryModule.instance.isInitialised).toBeTruthy();
@@ -20,7 +20,7 @@ describe('SunbirdPdfPlayerService', () => {
   });
 
   it('should raise start telemetry event', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseStartTelemetry');
     service.start(12);
@@ -28,7 +28,7 @@ describe('SunbirdPdfPlayerService', () => {
   });
 
   it('should raise end telemetry event', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseEndTelemetry');
     service.end(10, 5, 10, 5, false);
@@ -36,7 +36,7 @@ describe('SunbirdPdfPlayerService', () => {
   });
 
   it('should raise interact telemetry event', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseInteractTelemetry');
     service.interact('pageId', 1);
@@ -44,7 +44,7 @@ describe('SunbirdPdfPlayerService', () => {
   });
 
   it('should raise heartBeat telemetry event', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.playerTelemetryService, 'onHeartBeatEvent');
     service.heartBeat({});
@@ -52,7 +52,7 @@ describe('SunbirdPdfPlayerService', () => {
   });
 
   it('should raise impression telemetry event', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseImpressionTelemetry');
     service.impression(1);
@@ -60,7 +60,7 @@ describe('SunbirdPdfPlayerService', () => {
   });
 
   xit('should raise error telemetry event', () => {
-    const service = TestBed.get(SunbirdPdfPlayerService);
+    const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseErrorTelemetry');
     service.error({});
