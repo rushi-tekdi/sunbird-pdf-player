@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SunbirdPdfPlayerComponent } from './sunbird-pdf-player.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { ViewerService } from './services/viewer.service';
@@ -9,7 +9,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   let component: SunbirdPdfPlayerComponent;
   let fixture: ComponentFixture<SunbirdPdfPlayerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SunbirdPdfPlayerComponent ],
       schemas: [NO_ERRORS_SCHEMA],
