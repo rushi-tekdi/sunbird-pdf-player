@@ -43,7 +43,13 @@
               "styles": true,
               "scripts": true,
               "vendor": true
-            }
+            },
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -69,7 +75,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -201,7 +208,6 @@
             "main": "projects/pdf-player-wc/src/main.ts",
             "polyfills": "projects/pdf-player-wc/src/polyfills.ts",
             "tsConfig": "projects/pdf-player-wc/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/pdf-player-wc/src/favicon.ico",
               "projects/pdf-player-wc/src/assets",
@@ -217,7 +223,13 @@
             ],
             "scripts": [
               "node_modules/@project-sunbird/telemetry-sdk/index.js"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -247,7 +259,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
