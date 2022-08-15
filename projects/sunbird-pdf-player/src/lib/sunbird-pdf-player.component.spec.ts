@@ -197,6 +197,39 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(viewerService.endPageSeen).toBeTruthy();
   });
 
+  it('should call viewer events for INVALID_PAGE_ERROR', () => {
+    spyOn(component, 'resetValidPage').and.callThrough();
+    component.viewerEvent({type: 'INVALID_PAGE_ERROR', data: true});
+    expect(component.resetValidPage).toHaveBeenCalled();
+    expect(component.validPage).toBe(true);
+  });
+  it('should call viewer events for INVALID_PAGE_ERROR and should not call onPdfLoadFailed', () => {
+    spyOn(component, 'resetValidPage').and.callThrough();
+    spyOn(component, 'onPdfLoadFailed');
+    component.viewerEvent({type: 'INVALID_PAGE_ERROR', data: true});
+    expect(component.onPdfLoadFailed).not.toHaveBeenCalled();
+    expect(component.validPage).not.toBe(false);
+  });
+  it('should call onTelemetryEvent and emit telemetryEvent', () => {
+    spyOn(component.telemetryEvent, 'emit').and.callThrough();
+    component.onTelemetryEvent({details: 'abc'});
+    expect(component.telemetryEvent.emit).toHaveBeenCalled();
+  });
+  it('should call playContent and emit raiseHeartBeatEvent event', () => {
+    spyOn(component.viewerService, 'raiseHeartBeatEvent');
+    component.playContent({type: 'error'});
+    expect(component.viewerService.raiseHeartBeatEvent).toHaveBeenCalledWith('error');
+  });
+  it('should call exitContent and emit raiseHeartBeatEvent event', () => {
+    spyOn(component.viewerService, 'raiseHeartBeatEvent');
+    component.exitContent({type: 'error'});
+    expect(component.viewerService.raiseHeartBeatEvent).toHaveBeenCalledWith('error');
+  });
+  it('should call ngOnDestroy', () => {
+    spyOn(component.viewerService, 'raiseEndEvent');
+    component.ngOnDestroy();
+    expect(component.viewerService.isEndEventRaised).toBeFalsy();
+  });
   it('should call viewer events for error', () => {
     spyOn(component, 'onPdfLoadFailed');
     component.viewerEvent({type: 'error', data: ''});

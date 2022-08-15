@@ -8,9 +8,9 @@ describe('PdfViewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PdfViewerComponent ]
+      declarations: [PdfViewerComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +21,23 @@ describe('PdfViewerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('#pagesLoadedCallback should emit viewerEvent', () => {
+    // tslint:disable-next-line:no-string-literal
+    component['progressInterval'] = 123;
+    spyOn(component.viewerEvent, 'emit');
+    spyOn(global, 'clearInterval');
+    const data = {};
+    // tslint:disable-next-line:no-string-literal
+    component['pagesLoadedCallback']({});
+    expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'progress', data: 100 });
+    expect(clearInterval).toHaveBeenCalledWith(123);
+    expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'pagesloaded', data });
+  });
+  it('#ngAfterViewInit and should define iframe', () => {
+    component.ngAfterViewInit();
+    component.src = 'anc.com';
+    component.pdfURL = 'samplepdfcontent.doId.pdf';
+    expect(component.iframeRef).toBeDefined();
   });
 });
