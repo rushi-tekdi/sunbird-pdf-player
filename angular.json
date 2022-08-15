@@ -17,7 +17,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "vendorSourceMap": true,
             "outputPath": "dist/sunbird-pdf-player-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,8 +38,18 @@
             "scripts": [
               "node_modules/@project-sunbird/telemetry-sdk/index.js"
             ],
-            "es5BrowserSupport": true,
-            "preserveSymlinks": true
+            "preserveSymlinks": true,
+            "sourceMap": {
+              "styles": true,
+              "scripts": true,
+              "vendor": true
+            },
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -53,7 +62,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -67,7 +75,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -152,7 +161,7 @@
       "prefix": "",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/sunbird-pdf-player/tsconfig.lib.json",
             "project": "projects/sunbird-pdf-player/ng-package.json"
@@ -199,7 +208,6 @@
             "main": "projects/pdf-player-wc/src/main.ts",
             "polyfills": "projects/pdf-player-wc/src/polyfills.ts",
             "tsConfig": "projects/pdf-player-wc/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/pdf-player-wc/src/favicon.ico",
               "projects/pdf-player-wc/src/assets",
@@ -215,7 +223,13 @@
             ],
             "scripts": [
               "node_modules/@project-sunbird/telemetry-sdk/index.js"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -228,7 +242,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -246,7 +259,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

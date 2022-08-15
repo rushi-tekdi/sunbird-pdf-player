@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SunbirdPdfPlayerComponent } from './sunbird-pdf-player.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { ViewerService } from './services/viewer.service';
@@ -9,7 +9,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   let component: SunbirdPdfPlayerComponent;
   let fixture: ComponentFixture<SunbirdPdfPlayerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SunbirdPdfPlayerComponent ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -26,8 +26,8 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should initialize player config', () => {
-    const sunbirdPdfPlayerService = TestBed.get(SunbirdPdfPlayerService);
-    const viewerService = TestBed.get(ViewerService);
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(sunbirdPdfPlayerService, 'initialize');
     spyOn(viewerService, 'initialize');
     component.ngOnInit();
@@ -60,7 +60,7 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   it('should call header action for zoom', () => {
     spyOn(component.viewerActions, 'emit');
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     component.headerActions({type: 'ZOOM_IN', data: ''});
     expect(component.viewerActions.emit).toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   it('should call header action for NEXT event', () => {
     spyOn(component.viewerActions, 'emit');
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     component.headerActions({type: 'NEXT', data: ''});
     expect(component.viewerActions.emit).toHaveBeenCalled();
@@ -78,7 +78,7 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   xit('should call header action for NEXT event and end page', () => {
     spyOn(component.viewerActions, 'emit');
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(viewerService, 'raiseEndEvent');
     viewerService.totalNumberOfPages = 1;
@@ -91,7 +91,7 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   it('should call sideBarEvents', () => {
     spyOn(component.viewerActions, 'emit');
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     component.sideBarEvents({});
     expect(component.viewerActions.emit).toHaveBeenCalled();
@@ -100,7 +100,7 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   it('should replay content', () => {
     spyOn(component.viewerActions, 'emit');
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(component, 'ngOnInit');
     component.replayContent({type: 'REPLAY'});
@@ -110,7 +110,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should call on pdf load and raise start event', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseStartEvent');
     component.onPdfLoaded({type: 'LOAD'});
     expect(component.viewState).toEqual('player');
@@ -118,15 +118,14 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   xit('should call on pdf load fail and raise error event', () => {
-    const viewerService = TestBed.get(ViewerService);
-    spyOn(viewerService, 'raiseErrorEvent');
+    const viewerService = TestBed.inject(ViewerService);
     component.onPdfLoadFailed(new Error());
     expect(component.viewState).toEqual('player');
     expect(viewerService.raiseExceptionLog).toHaveBeenCalled();
   });
 
   it('should call onZoomChange', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'pageSessionUpdate');
     spyOn(viewerService, 'raiseHeartBeatEvent');
     component.onZoomChange(1);
@@ -135,21 +134,21 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should raise raiseHeartBeatEvent onPdfDownloaded', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     component.onPdfDownloaded();
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   });
 
   it('should raise raiseHeartBeatEvent onAfterPrint', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     component.onAfterPrint();
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   });
 
   it('should raise raiseHeartBeatEvent onRotationChange', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(viewerService, 'pageSessionUpdate');
     component.onRotationChange({type: 'rotatecw'});
@@ -158,7 +157,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should raise raiseHeartBeatEvent onPageChange', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(viewerService, 'pageSessionUpdate');
     component.onPageChange({pageNumber: 2});
@@ -167,9 +166,9 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should call viewer events', () => {
-    const viewerService = TestBed.get(ViewerService);
-    component.viewerEvent({type: 'progress', data: ''});
-    expect(viewerService.loadingProgress).toEqual('');
+    const viewerService = TestBed.inject(ViewerService);
+    component.viewerEvent({type: 'progress', data: 0});
+    expect(viewerService.loadingProgress).toEqual(0);
   });
 
   it('should call viewer events for pagesloaded', () => {
@@ -191,7 +190,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should call viewer events for pageend', () => {
-    const viewerService = TestBed.get(ViewerService);
+    const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseEndEvent');
     component.viewerEvent({type: 'pageend', data: ''});
     expect(viewerService.endPageSeen).toBeTruthy();
