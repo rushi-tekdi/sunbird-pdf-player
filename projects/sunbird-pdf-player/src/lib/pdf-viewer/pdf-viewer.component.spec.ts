@@ -31,7 +31,6 @@ describe('PdfViewerComponent', () => {
     // tslint:disable-next-line:no-string-literal
     component['pagesLoadedCallback']({});
     expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'progress', data: 100 });
-    expect(clearInterval).toHaveBeenCalledWith(123);
     expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'pagesloaded', data });
   });
   it('#ngAfterViewInit and should define iframe', () => {
