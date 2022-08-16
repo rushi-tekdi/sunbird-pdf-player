@@ -11,11 +11,11 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SunbirdPdfPlayerComponent ],
+      declarations: [SunbirdPdfPlayerComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [ViewerService, SunbirdPdfPlayerService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -62,7 +62,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component.viewerActions, 'emit');
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
-    component.headerActions({type: 'ZOOM_IN', data: ''});
+    component.headerActions({ type: 'ZOOM_IN', data: '' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   });
@@ -71,7 +71,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component.viewerActions, 'emit');
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
-    component.headerActions({type: 'NEXT', data: ''});
+    component.headerActions({ type: 'NEXT', data: '' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   });
@@ -82,7 +82,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(viewerService, 'raiseEndEvent');
     viewerService.totalNumberOfPages = 1;
-    component.headerActions({type: 'NEXT', data: ''});
+    component.headerActions({ type: 'NEXT', data: '' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
     expect(viewerService.raiseEndEvent).toHaveBeenCalled();
@@ -103,7 +103,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(component, 'ngOnInit');
-    component.replayContent({type: 'REPLAY'});
+    component.replayContent({ type: 'REPLAY' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
     expect(component.ngOnInit).toHaveBeenCalled();
@@ -112,7 +112,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   it('should call on pdf load and raise start event', () => {
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseStartEvent');
-    component.onPdfLoaded({type: 'LOAD'});
+    component.onPdfLoaded({ type: 'LOAD' });
     expect(component.viewState).toEqual('player');
     expect(viewerService.raiseStartEvent).toHaveBeenCalled();
   });
@@ -151,7 +151,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(viewerService, 'pageSessionUpdate');
-    component.onRotationChange({type: 'rotatecw'});
+    component.onRotationChange({ type: 'rotatecw' });
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
     expect(viewerService.pageSessionUpdate).toHaveBeenCalled();
   });
@@ -160,68 +160,68 @@ describe('SunbirdPdfPlayerComponent', () => {
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
     spyOn(viewerService, 'pageSessionUpdate');
-    component.onPageChange({pageNumber: 2});
+    component.onPageChange({ pageNumber: 2 });
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
     expect(viewerService.pageSessionUpdate).toHaveBeenCalled();
   });
 
   it('should call viewer events', () => {
     const viewerService = TestBed.inject(ViewerService);
-    component.viewerEvent({type: 'progress', data: 0});
+    component.viewerEvent({ type: 'progress', data: 0 });
     expect(viewerService.loadingProgress).toEqual(0);
   });
 
   it('should call viewer events for pagesloaded', () => {
     spyOn(component, 'onPdfLoaded');
-    component.viewerEvent({type: 'pagesloaded', data: ''});
+    component.viewerEvent({ type: 'pagesloaded', data: '' });
     expect(component.onPdfLoaded).toHaveBeenCalled();
   });
 
   it('should call viewer events for pagechanging', () => {
     spyOn(component, 'onPageChange');
-    component.viewerEvent({type: 'pagechanging', data: ''});
+    component.viewerEvent({ type: 'pagechanging', data: '' });
     expect(component.onPageChange).toHaveBeenCalled();
   });
 
   it('should call viewer events for rotatecw', () => {
     spyOn(component, 'onRotationChange');
-    component.viewerEvent({type: 'rotatecw', data: ''});
+    component.viewerEvent({ type: 'rotatecw', data: '' });
     expect(component.onRotationChange).toHaveBeenCalled();
   });
 
   it('should call viewer events for pageend', () => {
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseEndEvent');
-    component.viewerEvent({type: 'pageend', data: ''});
+    component.viewerEvent({ type: 'pageend', data: '' });
     expect(viewerService.endPageSeen).toBeTruthy();
   });
 
   it('should call viewer events for INVALID_PAGE_ERROR', () => {
     spyOn(component, 'resetValidPage').and.callThrough();
-    component.viewerEvent({type: 'INVALID_PAGE_ERROR', data: true});
+    component.viewerEvent({ type: 'INVALID_PAGE_ERROR', data: true });
     expect(component.resetValidPage).toHaveBeenCalled();
     expect(component.validPage).toBe(true);
   });
   it('should call viewer events for INVALID_PAGE_ERROR and should not call onPdfLoadFailed', () => {
     spyOn(component, 'resetValidPage').and.callThrough();
     spyOn(component, 'onPdfLoadFailed');
-    component.viewerEvent({type: 'INVALID_PAGE_ERROR', data: true});
+    component.viewerEvent({ type: 'INVALID_PAGE_ERROR', data: true });
     expect(component.onPdfLoadFailed).not.toHaveBeenCalled();
     expect(component.validPage).not.toBe(false);
   });
   it('should call onTelemetryEvent and emit telemetryEvent', () => {
     spyOn(component.telemetryEvent, 'emit').and.callThrough();
-    component.onTelemetryEvent({details: 'abc'});
+    component.onTelemetryEvent({ details: 'abc' });
     expect(component.telemetryEvent.emit).toHaveBeenCalled();
   });
   it('should call playContent and emit raiseHeartBeatEvent event', () => {
     spyOn(component.viewerService, 'raiseHeartBeatEvent');
-    component.playContent({type: 'error'});
+    component.playContent({ type: 'error' });
     expect(component.viewerService.raiseHeartBeatEvent).toHaveBeenCalledWith('error');
   });
   it('should call exitContent and emit raiseHeartBeatEvent event', () => {
     spyOn(component.viewerService, 'raiseHeartBeatEvent');
-    component.exitContent({type: 'error'});
+    component.exitContent({ type: 'error' });
     expect(component.viewerService.raiseHeartBeatEvent).toHaveBeenCalledWith('error');
   });
   it('should call ngOnDestroy', () => {
@@ -231,7 +231,7 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
   it('should call viewer events for error', () => {
     spyOn(component, 'onPdfLoadFailed');
-    component.viewerEvent({type: 'error', data: ''});
+    component.viewerEvent({ type: 'error', data: '' });
     expect(component.onPdfLoadFailed).toHaveBeenCalled();
   });
 });
