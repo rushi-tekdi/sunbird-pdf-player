@@ -4,6 +4,7 @@ import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import { mockData } from '../lib/services/viewer.service.spec.data';
+import { SimpleChanges, SimpleChange } from '@angular/core';
 
 describe('SunbirdPdfPlayerComponent', () => {
   let component: SunbirdPdfPlayerComponent;
@@ -49,6 +50,10 @@ describe('SunbirdPdfPlayerComponent', () => {
 
   it('should hide controls on mouse leave', () => {
     const renderer2Stub: Renderer2 = fixture.debugElement.injector.get(Renderer2);
+    const viewerService = TestBed.inject(ViewerService);
+    spyOn(viewerService, 'raiseExceptionLog').and.callThrough();
+    spyOn(component.errorService, 'checkContentCompatibility').and.returnValues({isCompitable: true, error: new Error ('error') });
+    component.playerConfig.metadata.compatibilityLevel = 4;
     spyOn(renderer2Stub, 'listen');
     component.ngAfterViewInit();
     const event = new MouseEvent('mouseleave', {});
@@ -68,12 +73,12 @@ describe('SunbirdPdfPlayerComponent', () => {
   });
 
   it('should call header action for NEXT event', () => {
-    spyOn(component.viewerActions, 'emit');
+    component.viewerService.currentPagePointer = 4;
+    component.viewerService.totalNumberOfPages = 4;
     const viewerService = TestBed.inject(ViewerService);
-    spyOn(viewerService, 'raiseHeartBeatEvent');
+    spyOn(viewerService, 'raiseEndEvent').and.callThrough();
     component.headerActions({ type: 'NEXT', data: '' });
-    expect(component.viewerActions.emit).toHaveBeenCalled();
-    expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
+    expect(viewerService.raiseEndEvent).toHaveBeenCalled();
   });
 
   xit('should call header action for NEXT event and end page', () => {
@@ -102,6 +107,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component.viewerActions, 'emit');
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
+    component.playerConfig = mockData.playerConfig;
     spyOn(component, 'ngOnInit');
     component.replayContent({ type: 'REPLAY' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
@@ -117,10 +123,11 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(viewerService.raiseStartEvent).toHaveBeenCalled();
   });
 
-  xit('should call on pdf load fail and raise error event', () => {
+  it('should call on pdf load fail and raise error event', () => {
     const viewerService = TestBed.inject(ViewerService);
+    spyOn(viewerService, 'raiseExceptionLog').and.callThrough();
     component.onPdfLoadFailed(new Error());
-    expect(component.viewState).toEqual('player');
+    expect(component.viewState).toEqual('start');
     expect(viewerService.raiseExceptionLog).toHaveBeenCalled();
   });
 
@@ -233,5 +240,18 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component, 'onPdfLoadFailed');
     component.viewerEvent({ type: 'error', data: '' });
     expect(component.onPdfLoadFailed).toHaveBeenCalled();
+  });
+  it('should call ngOnChanges and emit viewerActions', () => {
+    const changes: SimpleChanges = {
+      action: new SimpleChange('play', 'view', true),
+    };
+    spyOn(component.viewerActions, 'emit').and.callThrough();
+    component.ngOnChanges(changes);
+    expect(component.viewerActions.emit).toHaveBeenCalledWith({type: changes.action});
+  });
+  it('should call resetValidPage', () => {
+    spyOn(component['cdRef'], 'detectChanges');
+    component.resetValidPage();
+    expect(component.validPage).toBeTruthy();
   });
 });
