@@ -250,6 +250,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(component.viewerActions.emit).toHaveBeenCalledWith({type: changes.action});
   });
   it('should call resetValidPage', () => {
+    // tslint:disable-next-line:no-string-literal
     spyOn(component['cdRef'], 'detectChanges');
     component.resetValidPage();
     expect(component.validPage).toBeTruthy();
