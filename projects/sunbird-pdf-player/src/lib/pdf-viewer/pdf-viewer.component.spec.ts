@@ -73,6 +73,8 @@ describe('PdfViewerComponent', () => {
     component.registerForEvents();
     expect(component.iframeRef).toBeDefined();
     // tslint:disable-next-line:no-string-literal
+    setTimeout(() => {
     expect(component['ListenToPageScroll']).toHaveBeenCalled();
+  }, 500);
   });
 });
