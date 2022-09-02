@@ -25,15 +25,15 @@ export interface ObjectRollup {
 }
 
 export interface Context {
-    mode: string;
+    mode?: string;
     authToken?: string;
-    sid: string;
-    did: string;
-    uid: string;
-    channel: string;
-    pdata: Pdata;
-    contextRollup: ContextRollup;
-    tags: string[];
+    sid?: string;
+    did?: string;
+    uid?: string;
+    channel?: string;
+    pdata?: Pdata;
+    contextRollup?: ContextRollup;
+    tags?: string[];
     cdata?: Cdata[];
     timeDiff?: number;
     objectRollup?: ObjectRollup;
