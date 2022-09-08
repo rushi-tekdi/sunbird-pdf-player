@@ -75,6 +75,7 @@ describe('PdfViewerComponent', () => {
     setTimeout(() => {
     // tslint:disable-next-line:no-string-literal
     expect(component['ListenToPageScroll']).toHaveBeenCalled();
+    expect(component['viewerApp'].rotatePages).toHaveBeenCalled();
   }, 500);
   });
   it('#ListenToPageScroll should emit viewerEvent', () => {
