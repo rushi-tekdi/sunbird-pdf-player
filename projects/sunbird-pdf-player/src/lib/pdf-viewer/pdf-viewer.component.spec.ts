@@ -47,6 +47,16 @@ describe('PdfViewerComponent', () => {
     expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'INVALID_PAGE_ERROR', data: false });
     expect(component.iframeRef).toBeDefined();
   });
+  it('#ngAfterViewInit and should call for NAVIGATE_TO_PAGE', () => {
+    spyOn(component.viewerEvent, 'emit').and.callThrough();
+    // tslint:disable-next-line:no-string-literal
+    component['viewerApp'] = {
+      page: true
+    };
+    component.actions.emit({ type: 'NAVIGATE_TO_PAGE', data: true });
+    component.ngAfterViewInit();
+    expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'INVALID_PAGE_ERROR', data: true });
+  });
   it('#registerForEvents and should call for pagesloaded', () => {
     spyOn<any>(component, 'ListenToPageScroll');
     // tslint:disable-next-line:no-string-literal
@@ -67,14 +77,10 @@ describe('PdfViewerComponent', () => {
     expect(component['ListenToPageScroll']).toHaveBeenCalled();
   }, 500);
   });
-  it('#ngAfterViewInit and should call for NAVIGATE_TO_PAGE', () => {
-    spyOn(component.viewerEvent, 'emit').and.callThrough();
+  it('#ListenToPageScroll should emit viewerEvent', () => {
+    spyOn(component.viewerEvent, 'emit');
     // tslint:disable-next-line:no-string-literal
-    component['viewerApp'] = {
-      page: true
-    };
-    component.actions.emit({ type: 'NAVIGATE_TO_PAGE', data: true });
-    component.ngAfterViewInit();
-    expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'INVALID_PAGE_ERROR', data: true });
+    component['ListenToPageScroll']();
+    expect(component.viewerEvent.emit).not.toHaveBeenCalledWith({ type: 'pageend' });
   });
 });
