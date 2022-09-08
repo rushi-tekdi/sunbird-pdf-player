@@ -79,7 +79,7 @@ describe('PdfViewerComponent', () => {
     expect(component['viewerApp'].rotatePages).toHaveBeenCalled();
   }, 500);
   });
-  it('#ListenToPageScroll should emit viewerEvent', () => {
+  it('#ListenToPageScroll should not emit viewerEvent', () => {
     spyOn(component.viewerEvent, 'emit');
     // tslint:disable-next-line:no-string-literal
     component['ListenToPageScroll']();
