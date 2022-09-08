@@ -98,6 +98,7 @@ export class PdfViewerComponent implements AfterViewInit {
       this.viewerApp.eventBus.on('pagesloaded', (data) => {
         setTimeout(() => {
           this.viewerApp.rotatePages(this.viewerService.rotation);
+          this.ListenToPageScroll();
         }, 500);
         this.pagesLoadedCallback(data);
         if (this.viewerApp?.page && this.viewerService.currentPagePointer) {
@@ -112,7 +113,6 @@ export class PdfViewerComponent implements AfterViewInit {
         this.viewerEvent.emit({ type: 'rotatecw', data: this.viewerApp.pdfViewer.pagesRotation });
       });
 
-      this.ListenToPageScroll();
   }
 
   private pagesLoadedCallback(data: any) {
@@ -122,10 +122,13 @@ export class PdfViewerComponent implements AfterViewInit {
   }
 
   private ListenToPageScroll() {
-    this.iframeWindow.document.getElementById('viewerContainer').onscroll = (e: any) => {
-      if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
-        this.viewerEvent.emit({ type: 'pageend' });
-      }
-    };
+    const viewerContainer =  this.iframeRef.nativeElement.contentDocument.getElementById('viewerContainer');
+    if (viewerContainer) {
+      viewerContainer.onscroll = (e: any) => {
+        if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
+          this.viewerEvent.emit({ type: 'pageend' });
+        }
+      };
+    }
   }
 }

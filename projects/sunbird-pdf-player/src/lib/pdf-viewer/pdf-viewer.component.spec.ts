@@ -72,7 +72,17 @@ describe('PdfViewerComponent', () => {
     };
     component.registerForEvents();
     expect(component.iframeRef).toBeDefined();
+    setTimeout(() => {
     // tslint:disable-next-line:no-string-literal
     expect(component['ListenToPageScroll']).toHaveBeenCalled();
+    // tslint:disable-next-line:no-string-literal
+    expect(component['viewerApp'].rotatePages).toHaveBeenCalled();
+  }, 500);
+  });
+  it('#ListenToPageScroll should not emit viewerEvent', () => {
+    spyOn(component.viewerEvent, 'emit');
+    // tslint:disable-next-line:no-string-literal
+    component['ListenToPageScroll']();
+    expect(component.viewerEvent.emit).not.toHaveBeenCalledWith({ type: 'pageend' });
   });
 });
