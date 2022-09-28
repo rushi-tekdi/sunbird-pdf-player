@@ -28,7 +28,7 @@ jobs:
           name: Install  Node.js v14.20.0 with build in nvm tool
           command: |
             export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
             nvm install v14 && nvm use v14.20.0 && nvm alias default v14.20.0
             node -v
       - run:
