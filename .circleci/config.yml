@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/sunbird-pdf-player
     docker:
-      - image: ubuntu-2004:202010-01
+      - image: circleci/node:14.20.0-browsers
     steps:
       - checkout:
           path: ~/sunbird-pdf-player
