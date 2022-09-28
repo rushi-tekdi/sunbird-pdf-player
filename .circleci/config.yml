@@ -23,9 +23,7 @@ jobs:
           command: npm run lint
       - run:
           name: Testing
-          command: npm run test
-          name: Alter Node version
-          command: 'node --version'    
+          command: npm run test  
       - run:
           name: Install sonar scanner
           command: 'sudo npm install -i -g sonarqube-scanner'
