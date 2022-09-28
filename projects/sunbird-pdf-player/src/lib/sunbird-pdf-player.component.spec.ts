@@ -72,11 +72,11 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   });
 
-  xit('should call header action for NEXT event', () => {
+  it('should call header action for NEXT event', () => {
     component.viewerService.currentPagePointer = 4;
     component.viewerService.totalNumberOfPages = 4;
     const viewerService = TestBed.inject(ViewerService);
-    spyOn(viewerService, 'raiseEndEvent').and.callThrough();
+    spyOn(viewerService, 'raiseEndEvent').and.callFake(() => {});
     component.headerActions({ type: 'NEXT', data: '' });
     expect(viewerService.raiseEndEvent).toHaveBeenCalled();
   });
@@ -85,7 +85,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component.viewerActions, 'emit');
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
-    spyOn(viewerService, 'raiseEndEvent');
+    spyOn(viewerService, 'raiseEndEvent').and.callFake(() => {});;
     viewerService.totalNumberOfPages = 1;
     component.headerActions({ type: 'NEXT', data: '' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
