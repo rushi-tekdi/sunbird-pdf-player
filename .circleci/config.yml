@@ -10,9 +10,7 @@ jobs:
       - run:
           name: Node version
           command: 'node --version'
-       - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH} 
+
 workflows:
   version: 2.1
   build_and_test:
