@@ -2,54 +2,15 @@ version: 2.1
 jobs:
   build:
     working_directory: ~/sunbird-pdf-player
-    docker:
-      - image: circleci/node:14.20.0-browsers
+    machine:
+      - image: ubuntu-2004:202010-01
     steps:
       - checkout:
           path: ~/sunbird-pdf-player
       - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-      - run:
-          environment:
-            NG_CLI_ANALYTICS: "ci"
-          command: npm install
-      - run: cd projects/sunbird-pdf-player && sudo npm install
-      - run:
-          name: Node install
-          command: sudo npm install
-      - run:
-          name: Linting
-          command: npm run lint
-      - run:
-          name: Testing
-          command: npm run test
-      - run:
-          name: Install  Node.js v14.20.0 with build in nvm tool
-          command: |
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-            nvm install v14 && nvm use v14.20.0 && nvm alias default v14.20.0
-            node -v
-      - run:
-          name: Alter Node version
-          command: 'node --version'    
-      - run:
-          name: Install sonar scanner
-          command: 'sudo npm install -i -g sonarqube-scanner'
-      - run:
-          name: Sonar scanner
-          command: cd ~/sunbird-pdf-player && sonar-scanner
-      - run:
-          name: Publish to NPM
-          command: |
-            if [ -z $CIRCLE_PR_NUMBER ]; then
-              npm run build-lib && npm pack ./dist/sunbird-pdf-player
-              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-              npm publish project-sunbird-sunbird-pdf-player-v9-*
-            else
-              npm run build-lib && npm pack ./dist/sunbird-pdf-player
-            fi
+          name: Node version
+          command: 'node --version'
+ 
 workflows:
   version: 2.1
   build_and_test:
