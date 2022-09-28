@@ -3,14 +3,13 @@ jobs:
   build:
     working_directory: ~/sunbird-pdf-player
     machine:
-      - image: ubuntu-2004:202010-01
+      image: ubuntu-2004:202010-01
     steps:
       - checkout:
           path: ~/sunbird-pdf-player
       - run:
           name: Node version
           command: 'node --version'
- 
 workflows:
   version: 2.1
   build_and_test:
