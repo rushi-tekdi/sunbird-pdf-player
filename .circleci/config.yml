@@ -24,6 +24,22 @@ jobs:
       - run:
           name: Testing
           command: npm run test
+      - run:
+          name: Install sonar scanner
+          command: 'sudo npm install -i -g sonarqube-scanner'
+      - run:
+          name: Sonar scanner
+          command: cd ~/sunbird-pdf-player && sonar-scanner
+      - run:
+          name: Publish to NPM
+          command: |
+            if [ -z $CIRCLE_PR_NUMBER ]; then
+              npm run build-lib && npm pack ./dist/sunbird-pdf-player
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+              npm publish project-sunbird-sunbird-pdf-player-v9-*
+            else
+              npm run build-lib && npm pack ./dist/sunbird-pdf-player
+            fi
 workflows:
   version: 2.1
   build_and_test:
