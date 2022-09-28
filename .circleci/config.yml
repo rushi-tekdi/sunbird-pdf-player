@@ -12,12 +12,7 @@ jobs:
           command: 'node --version'
        - run:
           name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-      - run:
-          environment:
-            NG_CLI_ANALYTICS: "ci"
-          command: npm install
-      - run: cd projects/sunbird-pdf-player &&  npm install   
+          command: echo ${CIRCLE_BRANCH} 
 workflows:
   version: 2.1
   build_and_test:
