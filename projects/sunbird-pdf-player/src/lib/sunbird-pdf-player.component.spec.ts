@@ -72,7 +72,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   });
 
-  it('should call header action for NEXT event', () => {
+  xit('should call header action for NEXT event', () => {
     component.viewerService.currentPagePointer = 4;
     component.viewerService.totalNumberOfPages = 4;
     const viewerService = TestBed.inject(ViewerService);
