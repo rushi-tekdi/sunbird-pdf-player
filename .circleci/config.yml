@@ -15,6 +15,15 @@ jobs:
             NG_CLI_ANALYTICS: "ci"
           command: npm install
       - run: cd projects/sunbird-pdf-player &&  npm install
+      - run:
+          name: Node install
+          command: npm install
+      - run:
+          name: Linting
+          command: npm run lint
+      - run:
+          name: Testing
+          command: npm run test
 workflows:
   version: 2.1
   build_and_test:
