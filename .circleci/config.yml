@@ -26,7 +26,7 @@ jobs:
           command: npm run test
       - run:
           name: Install sonar scanner
-          command: 'sudo npm install -i -g sonarqube-scanner'
+          command: 'npm install -i -g sonarqube-scanner'
       - run:
           name: Sonar scanner
           command: cd ~/sunbird-pdf-player && sonar-scanner
