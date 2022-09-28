@@ -85,7 +85,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component.viewerActions, 'emit');
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
-    spyOn(viewerService, 'raiseEndEvent').and.callFake(() => {});;
+    spyOn(viewerService, 'raiseEndEvent').and.callFake(() => {});
     viewerService.totalNumberOfPages = 1;
     component.headerActions({ type: 'NEXT', data: '' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
