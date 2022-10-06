@@ -171,13 +171,12 @@ var playerConfig = {
 ## Config property description
 |Property Name| Description| Default Value |  Mandatory/Optional
 |--|----------------------|--| --|
-| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` | Mandatory |
+| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` | Optional |
 | `config.sideMenu.showShare` | It is  `boolean` to show/hide share button in side menu| ```true```| Optional |
 | `config.sideMenu.showDownload` | It is  `boolean` to show/hide download button in side menu| ```true```| Optional |
 | `config.sideMenu.showReplay` | It is  `boolean` to show/hide replay button in side menu| ```true```| Optional |
 | `config.sideMenu.showExit` | It is  `boolean` to show/hide exit button in side menu| ```false```| Optional |
 | `config.sideMenu.showPrint` | It is  `boolean` to show/hide print button in side menu| ```true```| Optional |
-| `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```| Mandatory |
 
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
