@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SunbirdPdfPlayerComponent } from './sunbird-pdf-player.component';
-import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Renderer2, Component } from '@angular/core';
 import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import { mockData } from '../lib/services/viewer.service.spec.data';
@@ -242,11 +242,15 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(component.onPdfLoadFailed).toHaveBeenCalled();
   });
   it('should call ngOnChanges and emit viewerActions', () => {
+    component.isInitialized = true;
     const changes: SimpleChanges = {
       action: new SimpleChange('play', 'view', true),
+      playerConfig: new SimpleChange('play', 'view', true)
     };
+    spyOn(component, 'ngOnInit');
     spyOn(component.viewerActions, 'emit').and.callThrough();
     component.ngOnChanges(changes);
+    expect(component.ngOnInit).toHaveBeenCalled();
     expect(component.viewerActions.emit).toHaveBeenCalledWith({type: changes.action});
   });
   it('should call resetValidPage', () => {
