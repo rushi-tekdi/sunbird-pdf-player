@@ -242,11 +242,15 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(component.onPdfLoadFailed).toHaveBeenCalled();
   });
   it('should call ngOnChanges and emit viewerActions', () => {
+    component.isInitialized = true;
     const changes: SimpleChanges = {
       action: new SimpleChange('play', 'view', true),
+      playerConfig: new SimpleChange('play', 'view', true)
     };
+    spyOn(component, 'ngOnInit');
     spyOn(component.viewerActions, 'emit').and.callThrough();
     component.ngOnChanges(changes);
+    expect(component.ngOnInit).toHaveBeenCalled();
     expect(component.viewerActions.emit).toHaveBeenCalledWith({type: changes.action});
   });
   it('should call resetValidPage', () => {
