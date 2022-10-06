@@ -127,34 +127,55 @@ var playerConfig = {
 } 
 
 ```
-## Telemetry property description
-|Property Name| Description| Default Value
+
+## Metadata Mandatory property description
+|Property Name| Description|  Mandatory/Optional|
 |--|----------------------|--|
-| `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |
-| `mode` | It is  `string` to identify preview used by the user to play/edit/preview | ```play```|
-| `authToken` | It is  `string` and Auth key to make  api calls | ```''```|
-| `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|
-| `did` | It is  `string` and Unique id to identify the device or browser| ```''```|
-| `uid` | It is  `string` and Current logged in user id| ```''```|
-| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |
-| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|
-| `contextRollup` | It is an `object` which defines content roll up data | ```{}```|
-| `tags` | It is an `array` which defines the tag data | ```[]```|
-| `objectRollup` | It is an `object` which defines object rollup data | ```{}```|
-| `host` | It is  `string` which defines the from which domain content should be load|```window.location.origin```  |
-| `userData` | It is an `object` which defines user data | ```{}```|
-| `cdata` | It is an `array` which defines the correlation data | ```[]```|
+| `identifier` | It is  `string` of uniq content id | Mandatory |
+| `Name` | It is  `string` to represent the name of the content or pdf | Mandatory |
+| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Mandatory |
+
+Sample config for mandatory fields
+```js
+var playerConfig = {
+	"context": {},
+	"config": {},
+	"metadata": {
+		identifier: 'do_31291455031832576019477',
+		name: 'NAME_OF_THE_CONTENT',
+		streamingUrl: 'https://ntpproductionall.blob.core.windows.net/ntp-content-production/content/assets/do_31291458881611366418883/b331332333_std_5_mathssciencesocial_tm_term-1_opt.pdf'
+    }	
+}
+```
+
+## Telemetry property description
+|Property Name| Description| Default Value | Mandatory/Optional
+|--|----------------------|--|--|
+| `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |Optional|
+| `mode` | It is  `string` to identify preview used by the user to play/edit/preview | ```play```|Optional|
+| `authToken` | It is  `string` and Auth key to make  api calls | ```''```|Optional|
+| `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|Optional|
+| `did` | It is  `string` and Unique id to identify the device or browser| ```''```|Optional|
+| `uid` | It is  `string` and Current logged in user id| ```''```|Optional|
+| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |Optional|
+| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|Optional|
+| `contextRollup` | It is an `object` which defines content roll up data | ```{}```|Optional|
+| `tags` | It is an `array` which defines the tag data | ```[]```|Optional|
+| `objectRollup` | It is an `object` which defines object rollup data | ```{}```|Optional|
+| `host` | It is  `string` which defines the from which domain content should be load|```window.location.origin```  |Optional|
+| `userData` | It is an `object` which defines user data | ```{}```|Optional|
+| `cdata` | It is an `array` which defines the correlation data | ```[]```|Optional|
 
 ## Config property description
-|Property Name| Description| Default Value
-|--|----------------------|--|
-| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` |
-| `config.sideMenu.showShare` | It is  `boolean` to show/hide share button in side menu| ```true```|
-| `config.sideMenu.showDownload` | It is  `boolean` to show/hide download button in side menu| ```true```|
-| `config.sideMenu.showReplay` | It is  `boolean` to show/hide replay button in side menu| ```true```|
-| `config.sideMenu.showExit` | It is  `boolean` to show/hide exit button in side menu| ```false```|
-| `config.sideMenu.showPrint` | It is  `boolean` to show/hide print button in side menu| ```true```|
-| `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```|
+|Property Name| Description| Default Value |  Mandatory/Optional
+|--|----------------------|--| --|
+| `config` | It is an `object` it contains the `sideMenu`, these will be used to configure the canvas  | ```{  sideMenu: {"showShare": true, "showDownload": true, "showReplay": true, "showExit": false,"showPrint": true}}``` | Mandatory |
+| `config.sideMenu.showShare` | It is  `boolean` to show/hide share button in side menu| ```true```| Optional |
+| `config.sideMenu.showDownload` | It is  `boolean` to show/hide download button in side menu| ```true```| Optional |
+| `config.sideMenu.showReplay` | It is  `boolean` to show/hide replay button in side menu| ```true```| Optional |
+| `config.sideMenu.showExit` | It is  `boolean` to show/hide exit button in side menu| ```false```| Optional |
+| `config.sideMenu.showPrint` | It is  `boolean` to show/hide print button in side menu| ```true```| Optional |
+| `metadata` | It is an `object` which defines content metadata json object (from API response take -> response.result.content) | ```{}```| Mandatory |
 
 ## Available components
 |Feature| Notes| Selector|Code|Input|Output
