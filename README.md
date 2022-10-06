@@ -133,17 +133,19 @@ var playerConfig = {
 |--|----------------------|--|
 | `identifier` | It is  `string` of uniq content id | Mandatory |
 | `Name` | It is  `string` to represent the name of the content or pdf | Mandatory |
-| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Mandatory |
+| `artifactUrl` | It is  `string` url  to load the pdf from artifact url | Mandatory |
+| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Optional |
+| `isAvailableLocally` | It is a `boolen` value which indicate the content is locally available | Optional |
+| `basePath` | It is `string` to represent the base path of the pdf file | Optional |
+| `baseDir` | It is `string` to represent the base path of the pdf file | Optional |
 
 Sample config for mandatory fields
 ```js
 var playerConfig = {
-	"context": {},
-	"config": {},
 	"metadata": {
 		identifier: 'do_31291455031832576019477',
 		name: 'NAME_OF_THE_CONTENT',
-		streamingUrl: 'https://ntpproductionall.blob.core.windows.net/ntp-content-production/content/assets/do_31291458881611366418883/b331332333_std_5_mathssciencesocial_tm_term-1_opt.pdf'
+		artifactUrl: 'https://ntpproductionall.blob.core.windows.net/ntp-content-production/content/assets/do_31291458881611366418883/b331332333_std_5_mathssciencesocial_tm_term-1_opt.pdf'
     }	
 }
 ```
@@ -157,8 +159,8 @@ var playerConfig = {
 | `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|Optional|
 | `did` | It is  `string` and Unique id to identify the device or browser| ```''```|Optional|
 | `uid` | It is  `string` and Current logged in user id| ```''```|Optional|
-| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |Optional|
-| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|Optional|
+| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |Mandatory|
+| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|Mandatory|
 | `contextRollup` | It is an `object` which defines content roll up data | ```{}```|Optional|
 | `tags` | It is an `array` which defines the tag data | ```[]```|Optional|
 | `objectRollup` | It is an `object` which defines object rollup data | ```{}```|Optional|
