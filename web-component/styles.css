@@ -1,11 +1,10 @@
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[1].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[5].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].rules[1].use[1]!./projects/pdf-player-wc/src/styles.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[6].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[6].rules[1].use[1]!./projects/pdf-player-wc/src/styles.scss ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* You can add global styles to this file, and also import other style files */
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[1].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[5].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].rules[1].use[1]!./node_modules/@project-sunbird/sb-styles/assets/_styles.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[6].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[6].rules[1].use[1]!./node_modules/@project-sunbird/sb-styles/assets/_styles.scss ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-@charset "UTF-8";
 /* css3 variable & sass variables */
 :root {
   --font-stack-en: "Noto Sans", "Noto Sans Devanagari", "Noto Sans Tamil",
@@ -239,43 +238,43 @@
   -moz-osx-font-smoothing: grayscale;
 }
 .sb-icon-preview:before {
-  content: "";
+  content: "\e909";
 }
 .sb-icon-refresh:before {
-  content: "";
+  content: "\e90c";
 }
 .sb-icon-reviewer:before {
-  content: "";
+  content: "\e90a";
 }
 .sb-icon-folder:before {
-  content: "";
+  content: "\e902";
 }
 .sb-icon-comment:before {
-  content: "";
+  content: "\e908";
 }
 .sb-icon-send:before {
-  content: "";
+  content: "\e90b";
 }
 .sb-icon-book:before {
-  content: "";
+  content: "\e900";
 }
 .sb-icon-content:before {
-  content: "";
+  content: "\e901";
 }
 .sb-icon-collection:before {
-  content: "";
+  content: "\e903";
 }
 .sb-icon-doc:before {
-  content: "";
+  content: "\e904";
 }
 .sb-icon-mp3:before {
-  content: "";
+  content: "\e905";
 }
 .sb-icon-open-book:before {
-  content: "";
+  content: "\e906";
 }
 .sb-icon-video:before {
-  content: "";
+  content: "\e907";
 }
 .sb-lock-icon {
   cursor: pointer;
@@ -1334,48 +1333,48 @@ template {
 h1, .sb-h1 {
   font-size: 2rem;
   font-size: var(--h1-font-size);
-  line-height: calc(2rem * $line-height-value);
-  line-height: calc(var(--h1-font-size) * $line-height-value);
+  line-height: calc(2rem * 1.6180339888);
+  line-height: calc(var(--h1-font-size) * 1.6180339888);
   margin: 0;
   padding: 0;
 }
 h2, .sb-h2 {
   font-size: 1.75rem;
   font-size: var(--h2-font-size);
-  line-height: calc(1.75rem * $line-height-value);
-  line-height: calc(var(--h2-font-size) * $line-height-value);
+  line-height: calc(1.75rem * 1.6180339888);
+  line-height: calc(var(--h2-font-size) * 1.6180339888);
   margin: 0;
   padding: 0;
 }
 h3, .sb-h3 {
   font-size: 1.5rem;
   font-size: var(--h3-font-size);
-  line-height: calc(1.5rem * $line-height-value);
-  line-height: calc(var(--h3-font-size) * $line-height-value);
+  line-height: calc(1.5rem * 1.6180339888);
+  line-height: calc(var(--h3-font-size) * 1.6180339888);
   margin: 0;
   padding: 0;
 }
 h4, .sb-h4 {
   font-size: 1.2rem;
   font-size: var(--h4-font-size);
-  line-height: calc(1.2rem * $line-height-value);
-  line-height: calc(var(--h4-font-size) * $line-height-value);
+  line-height: calc(1.2rem * 1.6180339888);
+  line-height: calc(var(--h4-font-size) * 1.6180339888);
   margin: 0;
   padding: 0;
 }
 h5, .sb-h5 {
   font-size: 1rem;
   font-size: var(--h5-font-size);
-  line-height: calc(1rem * $line-height-value);
-  line-height: calc(var(--h5-font-size) * $line-height-value);
+  line-height: calc(1rem * 1.6180339888);
+  line-height: calc(var(--h5-font-size) * 1.6180339888);
   margin: 0;
   padding: 0;
 }
 h6, .sb-h6 {
   font-size: 0.875rem;
   font-size: var(--h6-font-size);
-  line-height: calc(0.875rem * $line-height-value);
-  line-height: calc(var(--h6-font-size) * $line-height-value);
+  line-height: calc(0.875rem * 1.6180339888);
+  line-height: calc(var(--h6-font-size) * 1.6180339888);
   margin: 0;
   padding: 0;
 }
@@ -1486,8 +1485,8 @@ p,
 .sb-para {
   font-size: 0.875rem;
   font-size: var(--p-font-size);
-  line-height: calc(0.875rem * 1.61803398875);
-  line-height: calc(var(--p-font-size) * 1.61803398875);
+  line-height: calc(0.875rem * 1.6180339888);
+  line-height: calc(var(--p-font-size) * 1.6180339888);
 }
 .font-italic {
   font-style: italic;
@@ -1621,7 +1620,6 @@ html[dir=rtl] .left-0 {
 }
 .sb-sticky-bottom,
 .sb-sticky-top {
-  position: -webkit-sticky;
   position: sticky;
   z-index: 999999;
 }
@@ -4654,27 +4652,24 @@ a.sb-btn {
   transition: all 1.2s ease-in-out;
 }
 .sb-btn-download i::after {
-  content: "";
+  content: "\f019";
   font-size: 0.8125rem;
   color: #ffffff;
   color: var(--white);
 }
 .sb-btn-download:hover {
-  -webkit-animation: pulse 0.2s 2 both;
-          animation: pulse 0.2s 2 both;
+  animation: pulse 0.2s 2 both;
 }
 .sb-btn-download.loading i {
-  -webkit-animation: loading 2s infinite linear;
-          animation: loading 2s infinite linear;
+  animation: loading 2s infinite linear;
 }
 .sb-btn-download.loading i::after {
-  content: "";
+  content: "\f1ce";
 }
 .sb-btn-download.success i::after {
-  content: "";
+  content: "\f00c";
   color: transparent;
-  -webkit-animation: change-icon 1s 0.6s linear both;
-          animation: change-icon 1s 0.6s linear both;
+  animation: change-icon 1s 0.6s linear both;
 }
 .sb-right-icon-btn {
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;

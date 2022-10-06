@@ -111,18 +111,6 @@
               "src/assets"
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -141,15 +129,6 @@
             "production": {
               "devServerTarget": "sunbird-pdf-player-app:serve:production"
             }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -173,18 +152,6 @@
             "main": "projects/sunbird-pdf-player/src/test.ts",
             "tsConfig": "projects/sunbird-pdf-player/tsconfig.spec.json",
             "karmaConfig": "projects/sunbird-pdf-player/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/sunbird-pdf-player/tsconfig.lib.json",
-              "projects/sunbird-pdf-player/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -294,19 +261,6 @@
               "projects/pdf-player-wc/src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/pdf-player-wc/tsconfig.app.json",
-              "projects/pdf-player-wc/tsconfig.spec.json",
-              "projects/pdf-player-wc/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {
