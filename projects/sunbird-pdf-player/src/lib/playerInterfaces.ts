@@ -60,13 +60,21 @@ sideMenu?: {
     showDownload?: boolean;
     showReplay?: boolean;
     showExit?: boolean;
+    showPrint?: boolean;
 };
 [propName: string]: any;
 }
 
 export interface PlayerConfig {
-    context: Context;
-    config: Config;
+    context?: Context;
+    config?: Config;
     metadata: any; // content
     data?: any; // body
+}
+
+export interface Metadata {
+  id: string;
+  name: string;
+  artifactUrl: string;
+  streamingUrl?: string;
 }

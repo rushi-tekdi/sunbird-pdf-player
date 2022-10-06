@@ -22,40 +22,42 @@ export class SunbirdPdfPlayerService {
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
 
-    if (!CsTelemetryModule.instance.isInitialised) {
-      CsTelemetryModule.instance.init({});
-      const telemetryConfig: any =  {
-        config: {
-          pdata: context.pdata,
-          env: 'contentplayer',
-          channel: context.channel,
-          did: context.did,
-          authtoken: context.authToken || '',
-          uid: context.uid || '',
-          sid: context.sid,
-          batchsize: 20,
-          mode: context.mode,
-          host: context.host || '',
-          endpoint: context.endpoint || '/data/v3/telemetry',
-          tags: context.tags,
-          cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
-          { id: this.playSessionId, type: 'PlaySession' },
-          {id: '2.0' , type: 'PlayerVersion'}]
-        },
-        userOrgDetails: {}
-      };
-      if (context.dispatcher) {
-        telemetryConfig.config.dispatcher = context.dispatcher;
+    if (context){
+      if (!CsTelemetryModule.instance.isInitialised) {
+        CsTelemetryModule.instance.init({});
+        const telemetryConfig: any =  {
+          config: {
+            pdata: context.pdata,
+            env: 'contentplayer',
+            channel: context.channel,
+            did: context.did,
+            authtoken: context.authToken || '',
+            uid: context.uid || '',
+            sid: context.sid,
+            batchsize: 20,
+            mode: context.mode,
+            host: context.host || '',
+            endpoint: context.endpoint || '/data/v3/telemetry',
+            tags: context.tags,
+            cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
+            { id: this.playSessionId, type: 'PlaySession' },
+            {id: '2.0' , type: 'PlayerVersion'}]
+          },
+          userOrgDetails: {}
+        };
+        if (context.dispatcher) {
+          telemetryConfig.config.dispatcher = context.dispatcher;
+        }
+        CsTelemetryModule.instance.telemetryService.initTelemetry(telemetryConfig);
       }
-      CsTelemetryModule.instance.telemetryService.initTelemetry(telemetryConfig);
-    }
 
-    this.telemetryObject = {
-      id: metadata.identifier,
-      type: 'Content',
-      ver: metadata.pkgVersion + '' || '1.0',
-      rollup: context.objectRollup || {}
-    };
+      this.telemetryObject = {
+        id: metadata.identifier,
+        type: 'Content',
+        ver: metadata.pkgVersion + '' || '1.0',
+        rollup: context.objectRollup || {}
+      };
+    }
   }
 
 
