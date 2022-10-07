@@ -27,7 +27,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   public traceId: string;
   public nextContent: any;
   public validPage = true;
-
+  public isInitialized = false;
   @ViewChild('pdfPlayer', { static: true }) pdfPlayerRef: ElementRef;
   sideMenuConfig = {
     showShare: true,
@@ -71,6 +71,8 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   }
 
   ngOnInit() {
+    this.isInitialized = true;
+    if (this.playerConfig) {
     if (typeof this.playerConfig === 'string') {
       try {
         this.playerConfig = JSON.parse(this.playerConfig);
@@ -78,13 +80,14 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
         console.error('Invalid playerConfig: ', error);
       }
     }
-
+  }
     this.nextContent = this.playerConfig.config.nextContent;
     this.viewState = 'start';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.pdfPlayerService.initialize(this.playerConfig);
     this.viewerService.initialize(this.playerConfig);
+
   }
 
   ngAfterViewInit() {
@@ -198,6 +201,10 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.action) {
       this.viewerActions.emit({ type: changes.action });
+    }
+    if (changes.playerConfig.firstChange && this.isInitialized) {
+      // Calling for web component explicitly and life cycle works in different order
+      this.ngOnInit();
     }
   }
 
