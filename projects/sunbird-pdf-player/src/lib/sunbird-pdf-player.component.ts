@@ -80,13 +80,13 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
         console.error('Invalid playerConfig: ', error);
       }
     }
+  }
     this.nextContent = this.playerConfig.config.nextContent;
     this.viewState = 'start';
     this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.pdfPlayerService.initialize(this.playerConfig);
     this.viewerService.initialize(this.playerConfig);
-  }
 
   }
 
