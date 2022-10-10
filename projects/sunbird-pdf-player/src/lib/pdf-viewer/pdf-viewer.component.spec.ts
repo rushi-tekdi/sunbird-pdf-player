@@ -26,7 +26,6 @@ describe('PdfViewerComponent', () => {
     // tslint:disable-next-line:no-string-literal
     component['progressInterval'] = 123;
     spyOn(component.viewerEvent, 'emit');
-    spyOn(global, 'clearInterval');
     const data = {};
     // tslint:disable-next-line:no-string-literal
     component['pagesLoadedCallback']({});
