@@ -1,8 +1,8 @@
 
 export interface Pdata {
     id: string;
-    pid: string;
-    ver: string;
+    pid?: string;
+    ver?: string;
 }
 
 export interface ContextRollup {
