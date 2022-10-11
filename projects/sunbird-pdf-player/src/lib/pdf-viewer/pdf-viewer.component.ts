@@ -46,7 +46,7 @@ export class PdfViewerComponent implements AfterViewInit {
             clearInterval(this.progressInterval);
             this.viewerEvent.emit({
               type: 'error', data:
-                // tslint:disable-next-line:max-line-length
+                // eslint-disable-next-line max-len
                 (navigator.onLine ? `Internet available but unable to fetch the url ${this.pdfURL} ` : `No internet to load pdf with url ${this.pdfURL} `) + (error ? error.toString() : '')
             });
           });
@@ -60,7 +60,7 @@ export class PdfViewerComponent implements AfterViewInit {
     }).catch(error => {
       this.viewerEvent.emit({
         type: 'error', data:
-          // tslint:disable-next-line:max-line-length
+          // eslint-disable-next-line max-len
           (navigator.onLine ? `Internet available but unable to fetch the url ${this.pdfURL} ` : `No internet to load pdf with url ${this.pdfURL} `) + (error ? error.toString() : '')
       });
     });

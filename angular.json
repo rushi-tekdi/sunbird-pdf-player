@@ -153,6 +153,15 @@
             "tsConfig": "projects/sunbird-pdf-player/tsconfig.spec.json",
             "karmaConfig": "projects/sunbird-pdf-player/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/sunbird-pdf-player/**/*.ts",
+              "projects/sunbird-pdf-player/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -274,12 +283,22 @@
               "devServerTarget": "pdf-player-wc:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/pdf-player-wc/**/*.ts",
+              "projects/pdf-player-wc/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "defaultProject": "sunbird-pdf-player-app",
   "cli": {
-    "analytics": "b8b027aa-f253-42af-ba3d-27482a50fca0"
+    "analytics": "b8b027aa-f253-42af-ba3d-27482a50fca0",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
