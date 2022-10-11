@@ -65,16 +65,20 @@ sideMenu?: {
 [propName: string]: any;
 }
 
-export interface PlayerConfig {
-    context?: Context;
-    config?: Config;
-    metadata: any; // content
-    data?: any; // body
-}
-
 export interface Metadata {
-  id: string;
+  identifier: string;
   name: string;
   artifactUrl: string;
   streamingUrl?: string;
+  compatibilityLevel?: number;
+  pkgVersion?: number;
+  isAvailableLocally?: boolean;
+  basePath?: string;
+  baseDir?: string;
+
+}
+export interface PlayerConfig {
+    context?: Context;
+    config?: Config;
+    metadata: Metadata;
 }

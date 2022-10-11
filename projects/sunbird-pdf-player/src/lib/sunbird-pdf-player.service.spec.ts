@@ -11,6 +11,87 @@ describe('SunbirdPdfPlayerService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should not initialize telemetry player config if context not available', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not initialize telemetry player config if context does not have pdata', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      context: {channel: 'test_channelid'},
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not initialize telemetry player config if context does not have channel', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      context: {pdata: {id: 'in.ekstep'}},
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not raise start telemetry event if mandatoy fields not available', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      context: {pdata: {id: 'in.ekstep'}},
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    service.start(12);
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not raise end telemetry event if mandatoy fields not available', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    service.end(10, 5, 10, 5, false);
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not raise interact telemetry event', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    service.interact('pageId', 1);
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not raise heartBeat telemetry event', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    service.heartBeat({});
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not raise impression telemetry event', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    service.impression(1);
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
+  it('should not raise error telemetry event', () => {
+    const service = TestBed.inject(SunbirdPdfPlayerService);
+    service.initialize({
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    });
+    service.error({}, { err: '', errtype: '' });
+    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
+  });
+
   it('should initialize player config', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
@@ -22,6 +103,7 @@ describe('SunbirdPdfPlayerService', () => {
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseStartTelemetry');
     service.start(12);
+    expect(CsTelemetryModule.instance.isInitialised).toBeTruthy();
     expect(CsTelemetryModule.instance.telemetryService.raiseStartTelemetry).toHaveBeenCalled();
   });
 
@@ -57,12 +139,14 @@ describe('SunbirdPdfPlayerService', () => {
     expect(CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry).toHaveBeenCalled();
   });
 
-  xit('should raise error telemetry event', () => {
+  it('should raise error telemetry event', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.playerConfig);
     spyOn(CsTelemetryModule.instance.telemetryService, 'raiseErrorTelemetry');
     service.error({}, { err: '', errtype: '' });
     expect(CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry).toHaveBeenCalled();
   });
+
+
 
 });

@@ -22,10 +22,10 @@ export class SunbirdPdfPlayerService {
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
 
-    if (!context.channel){
+    if (!context?.channel){
       console.error('should have required property \'channel\'');
       return;
-    }else if (!context.pdata){
+    }else if (!context?.pdata){
       console.error('should have required property \'pdata\'');
       return;
     }
