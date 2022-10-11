@@ -296,9 +296,10 @@
       }
     }
   },
-  "defaultProject": "sunbird-pdf-player-app",
   "cli": {
     "analytics": "b8b027aa-f253-42af-ba3d-27482a50fca0",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
