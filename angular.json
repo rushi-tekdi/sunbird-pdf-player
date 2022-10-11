@@ -48,7 +48,7 @@
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
-            "optimization": false,
+            "optimization": true,
             "namedChunks": true
           },
           "configurations": {
