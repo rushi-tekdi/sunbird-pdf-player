@@ -28,7 +28,7 @@
  /** Adds a package to the package.json in the given host tree. */
  export function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree {
    if (host.exists('package.json')) {
-     // tslint:disable-next-line:no-non-null-assertion
+     /* eslint-disable  @typescript-eslint/no-non-null-assertion */
      const sourceText = host.read('package.json')!.toString('utf-8');
      const json = JSON.parse(sourceText) as PackageJson;
 
@@ -53,7 +53,7 @@
      return null;
    }
 
-   // tslint:disable-next-line:no-non-null-assertion
+   /* eslint-disable  @typescript-eslint/no-non-null-assertion */
    const packageJson = JSON.parse(tree.read('package.json')!.toString('utf8')) as PackageJson;
 
    if (packageJson.dependencies && packageJson.dependencies[name]) {

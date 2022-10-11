@@ -106,7 +106,7 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible.isCompitable) {
-        // tslint:disable-next-line:max-line-length
+        // eslint-disable-next-line max-len
         this.viewerService.raiseExceptionLog(errorCode.contentCompatibility, errorMessage.contentCompatibility, checkContentCompatible.error, this.traceId);
       }
     }

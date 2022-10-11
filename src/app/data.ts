@@ -30,7 +30,7 @@ context: {
 config: {},
 metadata: {
   compatibilityLevel: 4,
-  // tslint:disable-next-line:max-line-length
+  /* eslint-disable max-len */
   artifactUrl: 'https://ntpproductionall.blob.core.windows.net/ntp-content-production/content/assets/do_31291455031832576019477/b301b302_std_1_tamilenglish_lang_term-1_opt.pdf',
   contentType: 'FocusSpot',
   identifier: 'do_31291455031832576019477',
@@ -44,7 +44,7 @@ metadata: {
   status: 'Live',
   code: '43e68089-997e-49a4-902a-6262e5654515',
   description: 'epdf',
-  // tslint:disable-next-line:max-line-length
+  /* eslint-disable max-len */
   streamingUrl: 'https://ntpproductionall.blob.core.windows.net/ntp-content-production/content/assets/do_31291458881611366418883/b331332333_std_5_mathssciencesocial_tm_term-1_opt.pdf',
   createdOn: '2019-12-16T07:59:53.154+0000',
   copyrightYear: 2019,
