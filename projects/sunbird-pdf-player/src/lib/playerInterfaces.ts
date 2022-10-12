@@ -75,7 +75,6 @@ export interface Metadata {
   isAvailableLocally?: boolean;
   basePath?: string;
   baseDir?: string;
-
 }
 export interface PlayerConfig {
     context?: Context;
