@@ -22,7 +22,6 @@ describe('SunbirdPdfPlayerService', () => {
   it('should not initialize telemetry player config if context does not have pdata', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize({
-      context: {channel: 'test_channelid'},
       metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
     });
     expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
@@ -31,7 +30,6 @@ describe('SunbirdPdfPlayerService', () => {
   it('should not initialize telemetry player config if context does not have channel', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize({
-      context: {pdata: {id: 'in.ekstep'}},
       metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
     });
     expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
