@@ -138,6 +138,8 @@ var playerConfig = {
 | `isAvailableLocally` | It is a `boolen` value which indicate the content is locally available | Optional |
 | `basePath` | It is `string` to represent the base path of the pdf file | Optional |
 | `baseDir` | It is `string` to represent the base path of the pdf file | Optional |
+| `compatibilityLevel` | It is `number` to represent the compatibility level | Optional |
+| `pkgVersion` | It is `number` to represent the version of the current packages | Optional |
 
 Sample config for mandatory fields
 ```js
