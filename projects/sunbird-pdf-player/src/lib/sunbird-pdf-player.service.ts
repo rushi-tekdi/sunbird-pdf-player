@@ -34,7 +34,6 @@ export class SunbirdPdfPlayerService {
       CsTelemetryModule.instance.init({});
       const telemetryConfig: any =  {
         config: {
-          enableValidation: true,
           pdata: context.pdata,
           env: 'contentplayer',
           channel: context.channel,
