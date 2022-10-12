@@ -38,7 +38,6 @@ describe('SunbirdPdfPlayerService', () => {
   it('should not raise start telemetry event if mandatoy fields not available', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize({
-      context: {pdata: {id: 'in.ekstep'}},
       metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
     });
     service.start(12);
@@ -144,7 +143,4 @@ describe('SunbirdPdfPlayerService', () => {
     service.error({}, { err: '', errtype: '' });
     expect(CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry).toHaveBeenCalled();
   });
-
-
-
 });
