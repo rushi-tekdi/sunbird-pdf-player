@@ -30,8 +30,8 @@ export interface Context {
     sid?: string;
     did?: string;
     uid?: string;
-    channel?: string;
-    pdata?: Pdata;
+    channel: string;
+    pdata: Pdata;
     contextRollup?: ContextRollup;
     tags?: string[];
     cdata?: Cdata[];
