@@ -76,7 +76,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     component.viewerService.currentPagePointer = 4;
     component.viewerService.totalNumberOfPages = 4;
     const viewerService = TestBed.inject(ViewerService);
-    spyOn(viewerService, 'raiseEndEvent').and.callThrough();
+    spyOn(viewerService, 'raiseEndEvent').and.callFake(() => {});
     component.headerActions({ type: 'NEXT', data: '' });
     expect(viewerService.raiseEndEvent).toHaveBeenCalled();
   });
@@ -85,7 +85,7 @@ describe('SunbirdPdfPlayerComponent', () => {
     spyOn(component.viewerActions, 'emit');
     const viewerService = TestBed.inject(ViewerService);
     spyOn(viewerService, 'raiseHeartBeatEvent');
-    spyOn(viewerService, 'raiseEndEvent');
+    spyOn(viewerService, 'raiseEndEvent').and.callFake(() => {});
     viewerService.totalNumberOfPages = 1;
     component.headerActions({ type: 'NEXT', data: '' });
     expect(component.viewerActions.emit).toHaveBeenCalled();
@@ -242,15 +242,19 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(component.onPdfLoadFailed).toHaveBeenCalled();
   });
   it('should call ngOnChanges and emit viewerActions', () => {
+    component.isInitialized = true;
     const changes: SimpleChanges = {
       action: new SimpleChange('play', 'view', true),
+      playerConfig: new SimpleChange('play', 'view', true)
     };
+    spyOn(component, 'ngOnInit');
     spyOn(component.viewerActions, 'emit').and.callThrough();
     component.ngOnChanges(changes);
+    expect(component.ngOnInit).toHaveBeenCalled();
     expect(component.viewerActions.emit).toHaveBeenCalledWith({type: changes.action});
   });
   it('should call resetValidPage', () => {
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     spyOn(component['cdRef'], 'detectChanges');
     component.resetValidPage();
     expect(component.validPage).toBeTruthy();

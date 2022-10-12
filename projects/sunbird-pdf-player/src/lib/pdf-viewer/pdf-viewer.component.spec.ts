@@ -23,12 +23,11 @@ describe('PdfViewerComponent', () => {
     expect(component).toBeTruthy();
   });
   it('#pagesLoadedCallback should emit viewerEvent', () => {
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     component['progressInterval'] = 123;
     spyOn(component.viewerEvent, 'emit');
-    spyOn(global, 'clearInterval');
     const data = {};
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     component['pagesLoadedCallback']({});
     expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'progress', data: 100 });
     expect(component.viewerEvent.emit).toHaveBeenCalledWith({ type: 'pagesloaded', data });
@@ -49,7 +48,7 @@ describe('PdfViewerComponent', () => {
   });
   it('#ngAfterViewInit and should call for NAVIGATE_TO_PAGE', () => {
     spyOn(component.viewerEvent, 'emit').and.callThrough();
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     component['viewerApp'] = {
       page: true
     };
@@ -59,7 +58,7 @@ describe('PdfViewerComponent', () => {
   });
   it('#registerForEvents and should call for pagesloaded', () => {
     spyOn<any>(component, 'ListenToPageScroll');
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     component['viewerApp'] = {
       pdfViewer: {
         pagesRotation: '90'
@@ -72,7 +71,17 @@ describe('PdfViewerComponent', () => {
     };
     component.registerForEvents();
     expect(component.iframeRef).toBeDefined();
-    // tslint:disable-next-line:no-string-literal
+    setTimeout(() => {
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     expect(component['ListenToPageScroll']).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    expect(component['viewerApp'].rotatePages).toHaveBeenCalled();
+  }, 500);
+  });
+  it('#ListenToPageScroll should not emit viewerEvent', () => {
+    spyOn(component.viewerEvent, 'emit');
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    component['ListenToPageScroll']();
+    expect(component.viewerEvent.emit).not.toHaveBeenCalledWith({ type: 'pageend' });
   });
 });

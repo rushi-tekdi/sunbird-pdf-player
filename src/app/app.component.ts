@@ -39,7 +39,6 @@ export class AppComponent implements OnInit {
       }
     },
     config: this.config,
-    // tslint:disable-next-line:max-line-length
     metadata: this.metadata
   };
 
@@ -73,7 +72,7 @@ export class AppComponent implements OnInit {
     if (event?.edata?.type === 'PRINT') {
       const windowFrame = window.document.querySelector('pdf-viewer iframe');
       if (windowFrame) {
-        // tslint:disable-next-line:no-string-literal
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         windowFrame['contentWindow'].print();
       }
     }

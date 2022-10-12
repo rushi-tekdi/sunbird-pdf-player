@@ -9,19 +9,18 @@ import { PdfViewerComponent } from '../../../sunbird-pdf-player/src/lib/pdf-view
 import { SunbirdPdfPlayerComponent } from '../../../sunbird-pdf-player/src/lib/sunbird-pdf-player.component';
 
 @NgModule({
-  declarations: [
-    SunbirdPdfPlayerComponent,
-    PdfViewerComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    SunbirdPlayerSdkModule
-  ],
-  providers: [],
-  entryComponents: [SunbirdPdfPlayerComponent]
+    declarations: [
+        SunbirdPdfPlayerComponent,
+        PdfViewerComponent
+    ],
+    imports: [
+        BrowserModule,
+        CommonModule,
+        FormsModule,
+        HttpClientModule,
+        SunbirdPlayerSdkModule
+    ],
+    providers: []
 })
 export class AppModule implements DoBootstrap {
   constructor(private injector: Injector) { }
