@@ -293,6 +293,4 @@ Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](htt
     (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-pdf-player>
     ```
 
-- Step 8: Send input to render PDF player , click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts)
-<br />
-**Note:** : Send input config as string
+- Step 8: Send input to render PDF player , click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts) **Note:** : Send input config as **string**
