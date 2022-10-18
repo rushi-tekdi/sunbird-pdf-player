@@ -61,7 +61,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 
 - ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
 
-# Web component integration steps in the Angular app
+# Use as Web component  in the Angular app
 
 - Copy the assets files from web component folder
   [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
