@@ -252,23 +252,23 @@ Follow below-mentioned steps to use it in plain javascript project:
 
 # Web component integration steps in the Angular app
 
-- Step 1: Copy the assets files
-Copy  [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
+- Step 1:
+ Copy the assets files from web component folder
+  [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
 
-- Step 2: Copy the sunbird-pdf-player.js and styles.css files 
-Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css).
-<br /><br />
+- Step 2: 
+Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css). and Add/import these enteries in angular json file inside scripts and styles respectively.
 
-Add/import these enteries in angular json file inside scripts and styles respectively.
-
-- Step 3: Add the reflect-metadata script to index.html file
+- Step 3:
+ Add the reflect-metadata script to index.html file
 	```javascript
       <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
       integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
-- Step 4: Import reflect-metadata in main.ts file 
+- Step 4:
+ Import reflect-metadata in main.ts file 
 
 	```javascript
   import 'reflect-metadata';
@@ -280,14 +280,14 @@ Add/import these enteries in angular json file inside scripts and styles respect
   import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 	```
 
-- Step 5: Import  sunbird-pdf-player in given html file/ component
-Import sunbird-pdf-player inside the container div and apply styling to it as applicable.
-
-<sunbird-pdf-player  [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
+- Step 5: Import  sunbird-pdf-player in component
+    ```bash
+    <sunbird-pdf-player  [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
     (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-pdf-player>
+    ```
 
 - Step 6: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
 Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts)
-   
+**Note:** : Send input config as string   
