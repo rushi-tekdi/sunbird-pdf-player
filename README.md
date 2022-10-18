@@ -262,11 +262,11 @@ Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](htt
 Add/import these enteries in angular json file inside scripts and styles respectively.
 
 ## Step 3: Add the reflect-metadata script to index.html file
-	    ```javascript
+	```javascript
       <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
       integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	    ```
+	```
 
 ## Step 4: Import reflect-metadata in main.ts file 
 
