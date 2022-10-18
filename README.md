@@ -278,7 +278,6 @@ Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](htt
  Import below library in package,json file and do npm install
 
 	```bash
-    "jquery": "^3.5.1",
     "reflect-metadata": "^0.1.13",
 	```
 - Step 6: Import  CUSTOM_ELEMENTS_SCHEMA in app module
