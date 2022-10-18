@@ -262,26 +262,22 @@ Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](htt
 Add/import these enteries in angular json file inside scripts and styles respectively.
 
 ## Step 3: Add the reflect-metadata script to index.html file
-Add bellow script to index.html file
-
-	```javascript
+	    ```javascript
       <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
       integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	```
+	    ```
 
 ## Step 4: Import reflect-metadata in main.ts file 
-import bellow in main.ts file 
 
 	```javascript
-import 'reflect-metadata';
+  import 'reflect-metadata';
 	```
 
 ## Step 4: Import  CUSTOM_ELEMENTS_SCHEMA in app module
-Import  CUSTOM_ELEMENTS_SCHEMA in app.module 
 
 	```javascript
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+  import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 	```
 
 ## Step 5: Import  sunbird-pdf-player in given html file/ component
