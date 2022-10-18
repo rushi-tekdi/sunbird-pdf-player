@@ -63,10 +63,11 @@ Follow below-mentioned steps to use it in plain javascript project:
 
 
 
-# Use as Web component in Angular app
+<details>
+<summary> # Use as Web component in Angular app </summary>
 For help getting started with a new Angular app, check out the [Angular CLI](https://angular.io/cli).
 If you have an Angular ≥ 9 CLI project, you could simply use our schematics to add sunbird-pdf-player web component to it.
-
+ 
 ## Step 1:
  Copy the assets files from web component folder
   [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
@@ -103,6 +104,7 @@ Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](htt
 ## Step 7: Send input to render PDF player ,
  click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts) **Note:** : Send input config as **string**
 
+</details>
 
 # Use as Angular library in angular app
 
@@ -295,19 +297,3 @@ Click to see the input data - [playerConfig](README.md#step-4-send-input-to-rend
 ## Sample code
 Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app/blob/release-4.8.0/src/app/player/player.page.html)
 <br /><br />
-
-<details>
-<summary>use as web comp</summary>
-Collapsible section introduction text
- 
-## Additional Content (heading)
-More context about this section
-</details>
-
-<details>
-<summary>Header-Like Text</summary>
-Collapsible section introduction text
- 
-## Additional Content (heading)
-More context about this section
-</details>
