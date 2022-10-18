@@ -6,6 +6,7 @@ Contains PDF player library components powered by angular. These components are 
 
 # Use as web components	
 Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
+
 <details>
 <summary> View steps </summary>
 
@@ -66,6 +67,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 
 ## Step 7: Demo 
 ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
+
 <details>
 
 
