@@ -274,20 +274,25 @@ Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](htt
   import 'reflect-metadata';
 	```
 
-- Step 4: Import  CUSTOM_ELEMENTS_SCHEMA in app module
+- Step 5:
+ Import below library in package,json file and do npm install
+
+	```bash
+    "jquery": "^3.5.1",
+    "reflect-metadata": "^0.1.13",
+	```
+- Step 6: Import  CUSTOM_ELEMENTS_SCHEMA in app module
 
 	```javascript
   import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 	```
 
-- Step 5: Import  sunbird-pdf-player in component
+- Step 7: Import  sunbird-pdf-player in component
     ```bash
     <sunbird-pdf-player  [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
     (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-pdf-player>
     ```
 
-- Step 6: Send input to render PDF player
-
-Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts)
-**Note:** : Send input config as string   
+- Step 8: Send input to render PDF player , click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts)
+<br />
+**Note:** : Send input config as string
