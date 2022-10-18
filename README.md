@@ -7,39 +7,34 @@ Contains PDF player library components powered by angular. These components are 
 # Use as web components	
 Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
 
-<details>
-<summary> View steps </summary>
-
 Follow below-mentioned steps to use it in plain javascript project:
 
-## Step 1: Insert sunbird-pdf-player.js file
- Insert [library](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/sunbird-pdf-player.js) as below:
+- Insert [library](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/sunbird-pdf-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-pdf-player.js"></script>
 	```
-## Step 2: Update below script in index.html file 
+- Update below script in index.html file 
 	```javascript
       <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
       integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
-## Step 3: Get sample playerConfig
- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.3.0/src/app/data.ts)
+- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.3.0/src/app/data.ts)
 
-## Step 4: Create a custom html element: `sunbird-pdf-player`
+- Create a custom html element: `sunbird-pdf-player`
 	```javascript
     const  pdfElement = document.createElement('sunbird-pdf-player');
    ```
 
-## Step 4: Pass data using `player-config`
+- Pass data using `player-config`
 	```javascript
 	pdfElement.setAttribute('player-config', JSON.stringify(playerConfig));
 	```
 
 	**Note:** Attribute name should be in kebab-case regardless of the actual Attribute name used in the Angular app. The value of the attribute should be in **string** type, as web-component does not accept any objects or arrays.
 
-## Step 5: Listen for the output events: **playerEvent** and **telemetryEvent**
+- Listen for the output events: **playerEvent** and **telemetryEvent**
 
 	```javascript
 	pdfElement.addEventListener('playerEvent', (event) => {
@@ -49,15 +44,14 @@ Follow below-mentioned steps to use it in plain javascript project:
 		console.log("On telemetryEvent", event);
 	});
 	```
-## Step 6: Append this element to existing element
+- Append this element to existing element
 	```javascript
 	const  myPlayer = document.getElementById("my-player");
 	myPlayer.appendChild(pdfPlayerElement);
 	```
-## Step 7: Refer demo
- Refer demo [example](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/index.html)
+- Refer demo [example](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/index.html)
 
-## Step 7: To run the project, use the following command:
+- To run the project, use the following command:
 	```bash
 	npm run build-web-component
 	http-server --cors web-component .
@@ -65,10 +59,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 	open [http://127.0.0.1:8081/web-component/](http://127.0.0.1:8081/web-component/)
 	**Note:** There are some request for which we need to run this on server, so we need to run this on server for demo purpose we are using [http-server](https://www.npmjs.com/package/http-server).
 
-## Step 7: Demo 
-![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
-
-<details>
+- ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
 
 
 # Use as Web component in Angular app 
