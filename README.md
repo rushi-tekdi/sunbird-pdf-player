@@ -61,50 +61,44 @@ Follow below-mentioned steps to use it in plain javascript project:
 
 - ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
 
+# Web component integration steps in the Angular app
 
-# Use as Web component in Angular app 
-For help getting started with a new Angular app, check out the [Angular CLI](https://angular.io/cli).
-If you have an Angular ≥ 9 CLI project, you could simply use our schematics to add sunbird-pdf-player web component to it.
-<details>
-<summary> View steps </summary>
- 
-## Step 1: Copy the assets files from web component folder
- Copy the assets files from web component folder
+- Copy the assets files from web component folder
   [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
 
-## Step 2: Copy the sunbird-pdf-player.js and styles.css files from web component folder
-Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css). and Add/import these enteries in angular json file inside scripts and styles respectively.
+- Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css). and Add/import these enteries in angular json file inside scripts and styles respectively.
 
-## Step 3: Add reflect-metadata script to index.html file
- Add the reflect-metadata script to index.html file
+- Add the reflect-metadata script to index.html file
 	```javascript
       <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
       integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
-## Step 4: Import reflect-metadata in package,json file
- Import below library in package,json file and do npm install
+- Import reflect-metadata in main.ts file 
 
-	```bash
-    "reflect-metadata": "^0.1.13",
+	```javascript
+  import 'reflect-metadata';
 	```
-## Step 5: Import  CUSTOM_ELEMENTS_SCHEMA in app module
+
+- Import  CUSTOM_ELEMENTS_SCHEMA in app module
 
 	```javascript
   import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 	```
 
-## Step 6: Import  sunbird-pdf-player in component
+- Import  sunbird-pdf-player in component
     ```bash
     <sunbird-pdf-player  [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
     (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-pdf-player>
     ```
 
-## Step 7: Send input to render PDF player ,
- click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts) **Note:** : Send input config as **string**
+- Send input to render PDF player
 
-</details>
+Use the mock config in your component to send input to PDF player
+Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts)
+**Note:** : Send input config as string 
+
 
 # Use as Angular library in angular app
 
