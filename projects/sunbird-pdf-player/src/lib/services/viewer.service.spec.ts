@@ -101,4 +101,15 @@ describe('ViewerService', () => {
     expect(sunbirdPdfPlayerService.error).toHaveBeenCalled();
   });
 
+  it('if context or context.userdata is not available default Anonymous should log as a username', () => {
+    const service = TestBed.inject(ViewerService);
+    service.initialize(mockData.playerConfig);
+    expect(service.userName).toEqual("Anonymous");
+  });
+
+  it('if context or context.userdata is available user firstname and last name should log as a username', () => {
+    const service = TestBed.inject(ViewerService);
+    service.initialize(mockData.optionalPlayerConfig);
+    expect(service.userName).toEqual("Harish Kumar Gangula");
+  });
 });
