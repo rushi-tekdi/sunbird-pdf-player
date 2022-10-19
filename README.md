@@ -229,19 +229,39 @@ var playerConfig = {
 ```
 
 ## Metadata Mandatory property description
-|Property Name| Description|  Mandatory/Optional|
-|--|----------------------|--|
-| `identifier` | It is  `string` of uniq content id | Mandatory |
-| `Name` | It is  `string` to represent the name of the content or pdf | Mandatory |
-| `artifactUrl` | It is  `string` url  to load the pdf from artifact url | Mandatory |
-| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Optional |
-| `isAvailableLocally` | It is a `boolen` value which indicate the content is locally available | Optional |
-| `basePath` | It is `string` to represent the base path of the pdf file | Optional |
-| `baseDir` | It is `string` to represent the base path of the pdf file | Optional |
-| `compatibilityLevel` | It is `number` to represent the compatibility level | Optional |
-| `pkgVersion` | It is `number` to represent the version of the current packages | Optional |
+Metadata gives a complete information about the content.
 
-Sample config for mandatory fields
+Sample metadata object interface:
+
+```js
+"metadata": {
+  identifier: string;
+  name: string;
+  artifactUrl: string;
+  streamingUrl?: string;
+  compatibilityLevel?: number;
+  pkgVersion?: number;
+  isAvailableLocally?: boolean;
+  basePath?: string;
+  baseDir?: string;
+}
+  ```
+  
+ In metadata the following properties are mandatory to play the content.
+ 
+ |Property Name| Description|  Mandatory/Optional| Without field | Comment
+|--|----------------------|--| --| --|
+| `identifier` | It is  `string` of uniq content id | Mandatory | Unable to load the content error | Its a unique content id so Its a required to log the telemetry and other data against contnet|
+| `Name` | It is  `string` to represent the name of the content or pdf | Mandatory | Unable to load the content error | Its a required to show the name of the pdf while loading the pdf|
+| `artifactUrl` | It is  `string` url  to load the pdf from artifact url | Mandatory | Unable to load the content error | It is required to load the pdf file|
+| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Optional | Unable to load the content error | It is optional field. This is required if you want to load the streaming pdf url|
+| `isAvailableLocally` | It is a `boolen` value which indicate the content is locally available | Optional | Content will not load offline | It is required to know - the content is downloaded and can be play offline|
+| `basePath` | It is `string` to represent the base path of the pdf file | Optional | Content will not load offline | It is required to load the pdf file in offline use case|
+| `baseDir` | It is `string` to represent the base path of the pdf file | Optional | Content will not load offline |  It is required to load the pdf file in offline use case |
+| `compatibilityLevel` | It is `number` to represent the compatibility level | Optional | Defalut compatibilityLevel 4 will set | Its an Optional field
+| `pkgVersion` | It is `number` to represent the version of the current packages | Optional | Defalut compatibilityLevel 1.0 will set | its an optional field
+ 
+  Sample config for mandatory fields
 ```js
 var playerConfig = {
 	"metadata": {
@@ -253,22 +273,23 @@ var playerConfig = {
 ```
 
 ## Telemetry property description
-|Property Name| Description| Default Value | Mandatory/Optional
-|--|----------------------|--|--|
-| `context` | It is an `object` it contains the `uid`,`did`,`sid`,`mode` etc., these will be logged inside the telemetry  | ```{}``` |Optional|
-| `mode` | It is  `string` to identify preview used by the user to play/edit/preview | ```play```|Optional|
-| `authToken` | It is  `string` and Auth key to make  api calls | ```''```|Optional|
-| `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|Optional|
-| `did` | It is  `string` and Unique id to identify the device or browser| ```''```|Optional|
-| `uid` | It is  `string` and Current logged in user id| ```''```|Optional|
-| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |Mandatory|
-| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|Mandatory|
-| `contextRollup` | It is an `object` which defines content roll up data | ```{}```|Optional|
-| `tags` | It is an `array` which defines the tag data | ```[]```|Optional|
-| `objectRollup` | It is an `object` which defines object rollup data | ```{}```|Optional|
-| `host` | It is  `string` which defines the from which domain content should be load|```window.location.origin```  |Optional|
-| `userData` | It is an `object` which defines user data | ```{}```|Optional|
-| `cdata` | It is an `array` which defines the correlation data | ```[]```|Optional|
+|Property Name| Description| Default Value | Mandatory/Optional| Comment|
+|--|----------------------|--|--| --|
+| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |Mandatory| Default can be set from player side.  Telemetry sdk will set by default ```“in.ekstep"```|
+| `env` | It is an string containing Unique environment where the event has occurred | ```"contentplayer"```|Optional| Content player set it by default to “contentplayer"|
+| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|Mandatory| Default can be set from player side.  Telemetry sdk will set by default ```{ id: "in.ekstep", ver: "1.0", pid: "" }```|
+| `mode` | It is  `string` to identify preview used by the user to play/edit/preview | ```play```|Optional| Telemetry sdk will set by default as ```"play"```|
+| `sid` | It is an `string` containing user session id. | ```sid = uid  ```|Optional| Telemetry sdk will set by default as ```"uid"```|
+| `did` | It is an `string` containing unique device id.| ```fingerPrintjs2```|Optional| Telemetry sdk will set by default  using ```fingerPrintJs```|
+| `uid` |It is an `string` containing user id.| ```actor.id = did ? did : "anonymous" ```|Optional| Telemetry sdk will use ```did``` as default|
+| `authToken` | It is an `string` to send telemetry to given endpoint (API uses for authentication) | ```''```|Optional| Player will set default ```""```|
+| `contextRollup` | It is an `object` which defines content roll up data | ```{}```|Optional| Its an optional field in telemetry|
+| `objectRollup` | It is an `object` which defines object rollup data | ```{}```|Optional| Its an optional field in telemetry|
+| `tags` | It is an `array`. It can be used to tag devices so that summaries/metrics can be derived via specific tags. Helpful during analysis | ```[]```|Optional| Its an optional field in telemetry|
+| `cdata` | It is an `array`. Correlation data. Can be used to correlate multiple events. Generally used to track user flow | ```[]```|Optional| This is an optional but - if we are passing the ````type``` and ```id``` is required.|
+| `host` | It is  `string` which defines the from which domain content should be load|```window.location.origin```  |Optional| Content Player set it as `""` and Telemetry sdk will set by default as ```“https://api.ekstep.in"```|
+| `userData` | It is an `object` which defines user data | ```Anoymous```|Optional| User first and lastname will not show in endpage|
+
 
 ## Config property description
 |Property Name| Description| Default Value |  Mandatory/Optional
