@@ -49,7 +49,7 @@ export class ViewerService {
     if (context?.userData) {
       const { userData: { firstName, lastName } } = context;
       this.userName = firstName === lastName ? firstName : `${firstName} ${lastName}`;
-    }else{
+    } else {
       this.userName = 'Anonymous';
     }
     this.metaData = {
