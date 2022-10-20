@@ -11,77 +11,6 @@ describe('SunbirdPdfPlayerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should not initialize telemetry player config if context not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not initialize telemetry player config if context does not have pdata and channel', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      config: {},
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not raise START telemetry event if mandatoy fields not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    service.start(12);
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not raise END telemetry event if mandatoy fields not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    service.end(10, 5, 10, 5, false);
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not raise INTERACT telemetry event if mandatoy fields not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    service.interact('pageId', 1);
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not raise HEARTBEAT telemetry event if mandatoy fields not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    service.heartBeat({});
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not raise IMPRESSION telemetry event if mandatoy fields not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    service.impression(1);
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
-  it('should not raise ERROR telemetry event if mandatoy fields not available', () => {
-    const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize({
-      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
-    });
-    service.error({}, { err: '', errtype: '' });
-    expect(CsTelemetryModule.instance.isInitialised).toBeFalsy();
-  });
-
   it('should initialize player config if mandatory fields are available', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
     service.initialize(mockData.optionalPlayerConfig);
@@ -115,7 +44,7 @@ describe('SunbirdPdfPlayerService', () => {
 
   it('should raise HEARTBEAT telemetry event if mandatory fields are available', () => {
     const service = TestBed.inject(SunbirdPdfPlayerService);
-    service.initialize(mockData.playerConfig);
+    service.initialize(mockData.optionalPlayerConfig);
     spyOn(CsTelemetryModule.instance.playerTelemetryService, 'onHeartBeatEvent');
     service.heartBeat({});
     expect(CsTelemetryModule.instance.playerTelemetryService.onHeartBeatEvent).toHaveBeenCalled();

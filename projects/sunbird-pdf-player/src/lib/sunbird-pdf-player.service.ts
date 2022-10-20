@@ -18,8 +18,8 @@ export class SunbirdPdfPlayerService {
   }
 
   public initialize({ context, config, metadata }: PlayerConfig) {
-    context.channel = context.channel || "in.sunbird";
-    context.pdata = context.pdata || {'id':'in.sunbird', 'ver':'1.0'};
+    context.channel = context?.channel || "in.sunbird";
+    context.pdata = context?.pdata || {'id':'in.sunbird', 'ver':'1.0'};
     this.context = context;
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
