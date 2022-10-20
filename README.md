@@ -259,7 +259,7 @@ Sample metadata object interface:
 | `basePath` | It is `string` to represent the base path of the pdf file | Optional | Content will not load offline | It is required to load the pdf file in offline use case|
 | `baseDir` | It is `string` to represent the base path of the pdf file | Optional | Content will not load offline |  It is required to load the pdf file in offline use case |
 | `compatibilityLevel` | It is `number` to represent the compatibility level | Optional | Default compatibilityLevel 4 will be set | It's an optional field
-| `pkgVersion` | It is `number` to represent the version of the current packages | Optional | Default compatibilityLevel 1.0 will be set | it's an optional field
+| `pkgVersion` | It is `number` to represent the version of the current packages | Optional | Default compatibilityLevel `1.0` will be set | it's an optional field
  
   Sample config for mandatory fields
 ```js
