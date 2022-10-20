@@ -66,7 +66,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 - Copy the assets files from web component folder
   [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
 
-- Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css). and Add/import these enteries in angular json file inside scripts and styles respectively.
+- Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css). and Add/import these entries in angular json file inside scripts and styles respectively.
 
 - Add the reflect-metadata script to index.html file
 	```javascript
@@ -251,15 +251,15 @@ Sample metadata object interface:
  
  |Property Name| Description|  Mandatory/Optional| Without field | Comment
 |--|----------------------|--| --| --|
-| `identifier` | It is  `string` of uniq content id | Mandatory | Unable to load the content error | Its a unique content id so Its a required to log the telemetry and other data against contnet|
+| `identifier` | It is  `string` of unique content id | Mandatory | Unable to load the content error | Its a unique content id so Its a required to log the telemetry and other data against content|
 | `name` | It is  `string` to represent the name of the content or pdf | Mandatory | Unable to load the content error | Its a required to show the name of the pdf while loading the pdf|
 | `artifactUrl` | It is  `string` url  to load the pdf from artifact url | Mandatory | Unable to load the content error | It is required to load the pdf file|
-| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Optional | Unable to load the content error | It is optional field. This is required if you want to load the streaming pdf URL|
-| `isAvailableLocally` | It is a `boolean` value which indicate the content is locally available | Optional | Content will not load offline | It is required to know - the content is downloaded and can be play offline|
+| `streamingUrl` | It is  `string` url  to load the pdf from streaming url | Optional | Unable to load the content error | This is required if you want to load the streaming pdf URL|
+| `isAvailableLocally` | It is a `boolean` value which indicate the content is locally available | Optional | Content will not load offline | It is required to know - the content is downloaded and can be played offline|
 | `basePath` | It is `string` to represent the base path of the pdf file | Optional | Content will not load offline | It is required to load the pdf file in offline use case|
 | `baseDir` | It is `string` to represent the base path of the pdf file | Optional | Content will not load offline |  It is required to load the pdf file in offline use case |
-| `compatibilityLevel` | It is `number` to represent the compatibility level | Optional | Defalut compatibilityLevel 4 will be set | It's an optional field
-| `pkgVersion` | It is `number` to represent the version of the current packages | Optional | Defalut compatibilityLevel 1.0 will be set | it's an optional field
+| `compatibilityLevel` | It is `number` to represent the compatibility level | Optional | Default compatibilityLevel 4 will be set | It's an optional field
+| `pkgVersion` | It is `number` to represent the version of the current packages | Optional | Default compatibilityLevel 1.0 will be set | it's an optional field
  
   Sample config for mandatory fields
 ```js
@@ -288,7 +288,7 @@ var playerConfig = {
 | `tags` | It is an `array`. It can be used to tag devices so that summaries or metrics can be derived via specific tags. Helpful during analysis | ```[]```|Optional| 
 | `cdata` | It is an `array` Correlation data. Can be used to correlate multiple events. Generally used to track user flow | ```[]```|Optional| 
 | `host` | It is a `string` which defines the from which domain content should be load|```window.location.origin```  |Optional| 
-| `userData` | It is an `object` which defines user data | ```Anoymous```|Optional|
+| `userData` | It is an `object` which defines user data | ```Anonymous```|Optional|
 
 
 ## Config property description
