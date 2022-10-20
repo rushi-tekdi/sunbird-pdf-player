@@ -18,17 +18,11 @@ export class SunbirdPdfPlayerService {
   }
 
   public initialize({ context, config, metadata }: PlayerConfig) {
+    context.channel = context.channel || "in.sunbird";
+    context.pdata = context.pdata || {'id':'in.sunbird', 'ver':'1.0'};
     this.context = context;
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
-
-    if (!context?.channel){
-      console.error('should have required property \'channel\'');
-      return;
-    }else if (!context?.pdata){
-      console.error('should have required property \'pdata\'');
-      return;
-    }
 
     if (!CsTelemetryModule.instance.isInitialised) {
       CsTelemetryModule.instance.init({});
