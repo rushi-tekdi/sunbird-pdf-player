@@ -75,12 +75,6 @@ Follow below-mentioned steps to use it in plain javascript project:
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
-- Import reflect-metadata in main.ts file 
-
-	```javascript
-  import 'reflect-metadata';
-	```
-
 - Import  CUSTOM_ELEMENTS_SCHEMA in app module
 
 	```javascript
@@ -262,6 +256,9 @@ var playerConfig = {
 | PDF Player | Can be used to render pdf | sunbird-pdf-player| *`<sunbird-pdf-player [playerConfig]="playerConfig"><sunbird-pdf-player>`*|playerConfig|playerEvent, telemetryEvent|
 
 <br /><br />
+
+# Use as Web component in Mobile app 
+For existing apps, follow these steps [steps](README.md#use-as-web-component--in-the-angular-app) to begin using.
 
 # Use as Angular library in Mobile app 
 For existing apps, follow these steps to begin using.
