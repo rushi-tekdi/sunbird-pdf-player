@@ -18,8 +18,6 @@ export class SunbirdPdfPlayerService {
   }
 
   public initialize({ context, config, metadata }: PlayerConfig) {
-    context.channel = context?.channel || "in.sunbird";
-    context.pdata = context?.pdata || {'id':'in.sunbird', 'ver':'1.0'};
     this.context = context;
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
@@ -28,9 +26,9 @@ export class SunbirdPdfPlayerService {
       CsTelemetryModule.instance.init({});
       const telemetryConfig: any =  {
         config: {
-          pdata: context.pdata,
+          pdata: context.pdata || {'id':'in.sunbird', 'ver':'1.0'},
           env: 'contentplayer',
-          channel: context.channel,
+          channel: context.channel || "in.sunbird",
           did: context.did,
           authtoken: context.authToken || '',
           uid: context.uid || '',
@@ -148,8 +146,8 @@ export class SunbirdPdfPlayerService {
     return ({
       object: this.telemetryObject,
       context: {
-        channel: this.context.channel,
-        pdata: this.context.pdata,
+        channel: this.context.channel || "in.sunbird",
+        pdata: this.context.pdata || {'id':'in.sunbird', 'ver':'1.0'},
         env: 'contentplayer',
         sid: this.context.sid,
         uid: this.context.uid,
