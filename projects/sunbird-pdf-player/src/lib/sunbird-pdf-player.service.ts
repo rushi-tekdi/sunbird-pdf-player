@@ -22,13 +22,17 @@ export class SunbirdPdfPlayerService {
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
 
+    if (!context) {
+      return;
+    }
+
     if (!CsTelemetryModule.instance.isInitialised) {
       CsTelemetryModule.instance.init({});
       const telemetryConfig: any =  {
         config: {
-          pdata: context.pdata,
+          pdata: context.pdata || {'id':'in.sunbird', 'ver':'1.0'},
           env: 'contentplayer',
-          channel: context.channel,
+          channel: context.channel || "in.sunbird",
           did: context.did,
           authtoken: context.authToken || '',
           uid: context.uid || '',
@@ -60,84 +64,94 @@ export class SunbirdPdfPlayerService {
 
 
   public start(duration) {
-    CsTelemetryModule.instance.telemetryService.raiseStartTelemetry(
-      {
-        options: this.getEventOptions(),
-        edata: { type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2)) }
-      }
-    );
-
+    if (CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.telemetryService.raiseStartTelemetry(
+        {
+          options: this.getEventOptions(),
+          edata: { type: 'content', mode: 'play', pageid: '', duration: Number((duration / 1e3).toFixed(2)) }
+        }
+      );
+    }
   }
 
   public end(duration, currentPage, totalpages, visitedlength, endpageseen) {
     const durationSec = Number((duration / 1e3).toFixed(2));
-    CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
-      edata: {
-        type: 'content',
-        mode: 'play',
-        pageid: 'sunbird-player-Endpage',
-        summary: [
-          {
-            progress: Number(((currentPage / totalpages) * 100).toFixed(0))
-          },
-          {
-            totallength: totalpages
-          },
-          {
-            visitedlength
-          },
-          {
-            visitedcontentend: (currentPage === totalpages)
-          },
-          {
-            totalseekedlength: totalpages - visitedlength
-          },
-          {
-            endpageseen
-          }
-        ],
-        duration: durationSec
-      },
-      options: this.getEventOptions()
-    });
-
+    if (CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
+        edata: {
+          type: 'content',
+          mode: 'play',
+          pageid: 'sunbird-player-Endpage',
+          summary: [
+            {
+              progress: Number(((currentPage / totalpages) * 100).toFixed(0))
+            },
+            {
+              totallength: totalpages
+            },
+            {
+              visitedlength
+            },
+            {
+              visitedcontentend: (currentPage === totalpages)
+            },
+            {
+              totalseekedlength: totalpages - visitedlength
+            },
+            {
+              endpageseen
+            }
+          ],
+          duration: durationSec
+        },
+        options: this.getEventOptions()
+      });
+    }
   }
 
   public interact(id, currentPage) {
-    CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
-      options: this.getEventOptions(),
-      edata: { type: 'TOUCH', subtype: '', id, pageid: currentPage + '' }
-    });
+    if (CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
+        options: this.getEventOptions(),
+        edata: { type: 'TOUCH', subtype: '', id, pageid: currentPage + '' }
+      });
+    }
   }
 
   public heartBeat(data) {
-    CsTelemetryModule.instance.playerTelemetryService.onHeartBeatEvent(data, {});
+    if (CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.playerTelemetryService.onHeartBeatEvent(data, {});
+    }
   }
 
   public impression(currentPage) {
-    CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry({
-      options: this.getEventOptions(),
-      edata: { type: 'workflow', subtype: '', pageid: currentPage + '', uri: '' }
-    });
+    if (CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry({
+        options: this.getEventOptions(),
+        edata: { type: 'workflow', subtype: '', pageid: currentPage + '', uri: '' }
+      });
+    }
   }
 
   public error(error: any, data: { err: string, errtype: string }) {
-    CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
-      options: this.getEventOptions(),
-      edata: {
-        err: data.err,
-        errtype: data.errtype,
-        stacktrace: error.toString() || ''
-      }
-    });
+    if (CsTelemetryModule.instance.isInitialised) {
+      CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
+        options: this.getEventOptions(),
+        edata: {
+          err: data.err,
+          errtype: data.errtype,
+          stacktrace: error.toString() || ''
+        }
+      });
+    }
   }
 
   private getEventOptions() {
     return ({
       object: this.telemetryObject,
       context: {
-        channel: this.context.channel,
-        pdata: this.context.pdata,
+        channel: this.context.channel || "in.sunbird",
+        pdata: this.context.pdata || {'id':'in.sunbird', 'ver':'1.0'},
         env: 'contentplayer',
         sid: this.context.sid,
         uid: this.context.uid,

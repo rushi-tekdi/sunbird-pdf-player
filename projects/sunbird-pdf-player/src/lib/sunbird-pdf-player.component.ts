@@ -73,18 +73,18 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
   ngOnInit() {
     this.isInitialized = true;
     if (this.playerConfig) {
-    if (typeof this.playerConfig === 'string') {
-      try {
-        this.playerConfig = JSON.parse(this.playerConfig);
-      } catch (error) {
-        console.error('Invalid playerConfig: ', error);
+      if (typeof this.playerConfig === 'string') {
+        try {
+          this.playerConfig = JSON.parse(this.playerConfig);
+        } catch (error) {
+          console.error('Invalid playerConfig: ', error);
+        }
       }
     }
-  }
-    this.nextContent = this.playerConfig.config.nextContent;
+    this.nextContent = this.playerConfig?.config?.nextContent;
     this.viewState = 'start';
-    this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig.config };
-    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
+    this.pdfConfig = { ...this.viewerService.defaultConfig, ...this.playerConfig?.config };
+    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig?.config?.sideMenu };
     this.pdfPlayerService.initialize(this.playerConfig);
     this.viewerService.initialize(this.playerConfig);
 
@@ -100,9 +100,9 @@ export class SunbirdPdfPlayerComponent implements OnInit, OnDestroy, OnChanges, 
       this.showControls = false;
     });
 
-    this.traceId = this.playerConfig.config?.traceId;
+    this.traceId = this.playerConfig?.config?.traceId;
 
-    const contentCompabilityLevel = this.playerConfig.metadata.compatibilityLevel;
+    const contentCompabilityLevel = this.playerConfig.metadata?.compatibilityLevel;
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible.isCompitable) {

@@ -259,4 +259,47 @@ describe('SunbirdPdfPlayerComponent', () => {
     component.resetValidPage();
     expect(component.validPage).toBeTruthy();
   });
+
+  it('player config should have metadata object', () => {
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
+    const viewerService = TestBed.inject(ViewerService);
+    spyOn(sunbirdPdfPlayerService, 'initialize');
+    spyOn(viewerService, 'initialize');
+    component.ngOnInit();
+    expect(Object.keys(component.playerConfig)).toContain('metadata');
+    expect(sunbirdPdfPlayerService.initialize).toHaveBeenCalled();
+    expect(viewerService.initialize).toHaveBeenCalled();
+  });
+
+  it('config and context should optional property for player and metadata should be mandatory field', () => {
+    component.playerConfig = {
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    };
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
+    const viewerService = TestBed.inject(ViewerService);
+    spyOn(sunbirdPdfPlayerService, 'initialize');
+    spyOn(viewerService, 'initialize');
+    component.ngOnInit();
+    expect(Object.keys(component.playerConfig)).not.toContain('context');
+    expect(Object.keys(component.playerConfig)).not.toContain('config');
+    expect(Object.keys(component.playerConfig)).toContain('metadata');
+    expect(sunbirdPdfPlayerService.initialize).toHaveBeenCalled();
+    expect(viewerService.initialize).toHaveBeenCalled();
+  });
+
+  it('player config metadata should have the identifer, name, artifactUrl', () => {
+    component.playerConfig = {
+      metadata: {identifier: 'do_testId', name: 'test_name', artifactUrl: 'testArtifact url'}
+    };
+    const sunbirdPdfPlayerService = TestBed.inject(SunbirdPdfPlayerService);
+    const viewerService = TestBed.inject(ViewerService);
+    spyOn(sunbirdPdfPlayerService, 'initialize');
+    spyOn(viewerService, 'initialize');
+    component.ngOnInit();
+    expect(Object.keys(component.playerConfig.metadata)).toContain('identifier');
+    expect(Object.keys(component.playerConfig.metadata)).toContain('name');
+    expect(Object.keys(component.playerConfig.metadata)).toContain('artifactUrl');
+    expect(sunbirdPdfPlayerService.initialize).toHaveBeenCalled();
+    expect(viewerService.initialize).toHaveBeenCalled();
+  });
 });

@@ -33,11 +33,11 @@ export class ViewerService {
               private utilService: UtilService) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
-    this.zoom = _.last(config.zoom) || 'auto';
-    this.rotation = _.last(config.rotation) || 0;
+    this.zoom = _.last(config?.zoom) || 'auto';
+    this.rotation = _.last(config?.rotation) || 0;
     this.pdfPlayerStartTime = this.pdfLastPageTime = new Date().getTime();
     this.totalNumberOfPages = 0;
-    this.currentPagePointer = _.last(config.pagesVisited) || 1;
+    this.currentPagePointer = _.last(config?.pagesVisited) || 1;
     this.contentName = metadata.name;
     this.isAvailableLocally = metadata.isAvailableLocally;
     if (this.isAvailableLocally) {
@@ -46,9 +46,11 @@ export class ViewerService {
     } else {
       this.src =  metadata.streamingUrl || metadata.artifactUrl;
     }
-    if (context.userData) {
+    if (context?.userData) {
       const { userData: { firstName, lastName } } = context;
       this.userName = firstName === lastName ? firstName : `${firstName} ${lastName}`;
+    } else {
+      this.userName = 'Anonymous';
     }
     this.metaData = {
       pagesVisited: [],
@@ -62,7 +64,7 @@ export class ViewerService {
     this.endPageSeen = false;
 
     this.defaultConfig = {
-      startFromPage: _.last(config.pagesVisited) || 1,
+      startFromPage: _.last(config?.pagesVisited) || 1,
       zoom: this.zoom,
       rotation: this.rotation
     };

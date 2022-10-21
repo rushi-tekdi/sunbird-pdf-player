@@ -1,8 +1,8 @@
 
 export interface Pdata {
     id: string;
-    pid: string;
-    ver: string;
+    pid?: string;
+    ver?: string;
 }
 
 export interface ContextRollup {
@@ -25,15 +25,15 @@ export interface ObjectRollup {
 }
 
 export interface Context {
-    mode: string;
+    mode?: string;
     authToken?: string;
-    sid: string;
-    did: string;
-    uid: string;
+    sid?: string;
+    did?: string;
+    uid?: string;
     channel: string;
     pdata: Pdata;
-    contextRollup: ContextRollup;
-    tags: string[];
+    contextRollup?: ContextRollup;
+    tags?: string[];
     cdata?: Cdata[];
     timeDiff?: number;
     objectRollup?: ObjectRollup;
@@ -60,13 +60,24 @@ sideMenu?: {
     showDownload?: boolean;
     showReplay?: boolean;
     showExit?: boolean;
+    showPrint?: boolean;
 };
 [propName: string]: any;
 }
 
+export interface Metadata {
+  identifier: string;
+  name: string;
+  artifactUrl: string;
+  streamingUrl?: string;
+  compatibilityLevel?: number;
+  pkgVersion?: number;
+  isAvailableLocally?: boolean;
+  basePath?: string;
+  baseDir?: string;
+}
 export interface PlayerConfig {
-    context: Context;
-    config: Config;
-    metadata: any; // content
-    data?: any; // body
+    context?: Context;
+    config?: Config;
+    metadata: Metadata;
 }
