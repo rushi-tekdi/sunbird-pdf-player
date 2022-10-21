@@ -22,6 +22,10 @@ export class SunbirdPdfPlayerService {
     this.config = config;
     this.playSessionId = this.utilService.uniqueId();
 
+    if (!context) {
+      return;
+    }
+
     if (!CsTelemetryModule.instance.isInitialised) {
       CsTelemetryModule.instance.init({});
       const telemetryConfig: any =  {
