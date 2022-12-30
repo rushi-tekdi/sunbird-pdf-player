@@ -329,6 +329,14 @@ Click to see the steps - [Import](README.md#step-3-import-the-modules-and-compon
 
 Click to see the input data - [playerConfig](README.md#step-4-send-input-to-render-pdf-player)
 
+# Use as Web component in React app 
+For existing apps, follow these steps [steps](https://github.com/Sunbird-Knowlg/knowlg-portal/tree/release-5.3.0/react-app#readme) to begin using.
+
+# Use as Web component in Flutter app 
+For existing apps, follow these steps [steps](https://github.com/Sunbird-Knowlg/knowlg-portal/tree/release-5.3.0/flutter_app#readme) to begin using.
+
+# Use as Web component in React native app(Android)
+For existing apps, follow these steps [steps](https://github.com/Sunbird-Knowlg/knowlg-portal/tree/release-5.3.0/reactNative#readme) to begin using.
 
 ## Sample code
 Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app/blob/release-4.8.0/src/app/player/player.page.html)
