@@ -1,0 +1,17 @@
+{
+  "name": "@project-sunbird/sunbird-pdf-player-web-component",
+  "version": "1.0.0",
+  "description": "The web component package for the sunbird pdf player",
+  "main": "sunbird-pdf-player.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sunbird",
+    "pdf",
+    "player",
+    "web-component"
+  ],
+  "author": "sunbird",
+  "license": "MIT"
+}
