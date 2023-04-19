@@ -124,6 +124,10 @@ Follow below-mentioned steps to use it in plain javascript project:
 ```bash
 
 ....
+
+@ViewChild('pdf') pdf: ElementRef;
+
+  ....
  ngAfterViewInit() {
     const playerConfig = <Config need be added>;
       const pdfElement = document.createElement('sunbird-pdf-player');
