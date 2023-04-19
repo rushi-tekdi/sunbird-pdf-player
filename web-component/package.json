@@ -1,11 +1,12 @@
 {
   "name": "@project-sunbird/sunbird-pdf-player-web-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The web component package for the sunbird pdf player",
   "main": "sunbird-pdf-player.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.5.0/README.md",
   "keywords": [
     "sunbird",
     "pdf",
