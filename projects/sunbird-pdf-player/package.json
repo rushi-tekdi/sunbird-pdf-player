@@ -11,7 +11,7 @@
     "@project-sunbird/sunbird-player-sdk-v9": "5.1.0",
     "tslib": "^2.0.0"
   },
-  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.8.0/README.md",
+  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.5.0/README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/project-sunbird/sunbird-pdf-player.git"
