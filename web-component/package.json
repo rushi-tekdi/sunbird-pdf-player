@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.5.0/README.md",
+  "homepage": "https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sunbird-Knowlg/sunbird-pdf-player.git"
+  },
   "keywords": [
     "sunbird",
     "pdf",

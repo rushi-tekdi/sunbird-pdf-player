@@ -11,7 +11,7 @@ Any web based application can use this library as a web component. It accepts co
 
 Follow below-mentioned steps to use it in plain javascript project:
 
-- Insert [library](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/sunbird-pdf-player.js) as below:
+- Insert [library](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component/sunbird-pdf-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-pdf-player.js"></script>
 	```
@@ -22,7 +22,7 @@ Follow below-mentioned steps to use it in plain javascript project:
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
-- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.3.0/src/app/data.ts)
+- Get sample playerConfig from here: [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts)
 
 - Create a custom html element: `sunbird-pdf-player`
 	```javascript
@@ -51,7 +51,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 	const  myPlayer = document.getElementById("my-player");
 	myPlayer.appendChild(pdfPlayerElement);
 	```
-- Refer demo [example](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/index.html)
+- Refer demo [example](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component-demo/index.html)
 
 - To run the demo project, use the following commands:
 	```bash
@@ -61,7 +61,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 	open [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 	**Note:** Due to cors errors when you open the index.html from demo folder as file, it is recomanded to run a static server in it like [http-server](https://www.npmjs.com/package/http-server).
 
-- ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
+- ![demo](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component-demo/pdf-player-wc.png)
 
 # Use as Web component  in the Angular app
 
@@ -146,7 +146,7 @@ Follow below-mentioned steps to use it in plain javascript project:
 
 ```
 
-**Note:** : Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts) and send input config as string 
+**Note:** : Click to see the mock - [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts) and send input config as string 
 
 
 # Use as Angular library in angular app
@@ -230,7 +230,7 @@ If you prefer not to use schematics or want to add `sunbird-pdf-player-v9` to an
 ## Step 2: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
+Click to see the mock - [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts)
 
 ## Player config
 ```js
