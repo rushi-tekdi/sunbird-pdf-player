@@ -81,7 +81,7 @@ describe('PdfViewerComponent', () => {
   it('#ListenToPageScroll should not emit viewerEvent', () => {
     spyOn(component.viewerEvent, 'emit');
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    component['ListenToPageScroll']();
+    component['ListenToPageScroll'](1);
     expect(component.viewerEvent.emit).not.toHaveBeenCalledWith({ type: 'pageend' });
   });
 });
