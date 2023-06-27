@@ -18,6 +18,7 @@ export class PdfViewerComponent implements AfterViewInit {
   private progressInterval;
   private viewerApp;
   private iframeWindow;
+  private isNextLastPageClicked = false;
   @Output() viewerEvent = new EventEmitter<any>();
   private actionsMap = new Map([
     ['ZOOM_OUT', 'zoomout'],
@@ -86,6 +87,9 @@ export class PdfViewerComponent implements AfterViewInit {
         this.viewerEvent.emit({ type: 'INVALID_PAGE_ERROR', data: true });
         this.viewerApp.page = data;
       } else if (this.actionsMap.has(type)) {
+        if(type === "NEXT"){
+          this.isNextLastPageClicked = true;
+        } 
         this.viewerApp.eventBus.dispatch(this.actionsMap.get(type));
       } else if (type === 'INVALID_PAGE_ERROR') {
         this.viewerEvent.emit({ type: 'INVALID_PAGE_ERROR', data: false });
@@ -98,7 +102,6 @@ export class PdfViewerComponent implements AfterViewInit {
       this.viewerApp.eventBus.on('pagesloaded', (data) => {
         setTimeout(() => {
           this.viewerApp.rotatePages(this.viewerService.rotation);
-          this.ListenToPageScroll();
         }, 500);
         this.pagesLoadedCallback(data);
         if (this.viewerApp?.page && this.viewerService.currentPagePointer) {
@@ -112,7 +115,9 @@ export class PdfViewerComponent implements AfterViewInit {
       this.viewerApp.eventBus.on('rotatecw', () => {
         this.viewerEvent.emit({ type: 'rotatecw', data: this.viewerApp.pdfViewer.pagesRotation });
       });
-
+      this.viewerApp.eventBus.on('pagerendered', (data: any) => {
+        this.ListenToPageScroll(data?.pageNumber);
+      });
   }
 
   private pagesLoadedCallback(data: any) {
@@ -121,14 +126,24 @@ export class PdfViewerComponent implements AfterViewInit {
     this.viewerEvent.emit({ type: 'pagesloaded', data });
   }
 
-  private ListenToPageScroll() {
+  private ListenToPageScroll(pageNumber) {
+
+    if(this.viewerService.totalNumberOfPages <= 1) {
+      return;
+    }
+
+    if(pageNumber !== this.viewerService.totalNumberOfPages) {
+      return;
+    }
     const viewerContainer =  this.iframeRef.nativeElement.contentDocument.getElementById('viewerContainer');
     if (viewerContainer) {
       viewerContainer.onscroll = (e: any) => {
-        if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.viewerService.totalNumberOfPages > 1) {
+        if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.isNextLastPageClicked == false) {
           this.viewerEvent.emit({ type: 'pageend' });
         }
+        this.isNextLastPageClicked = false
       };
+      
     }
   }
 }
