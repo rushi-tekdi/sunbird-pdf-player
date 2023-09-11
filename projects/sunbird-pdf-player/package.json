@@ -1,6 +1,6 @@
 {
   "name": "@project-sunbird/sunbird-pdf-player-v9",
-  "version": "5.2.1",
+  "version": "5.5.0",
   "peerDependencies": {
     "@angular/common": ">= 14.2.5",
     "@angular/core": ">= 14.2.5",
@@ -11,10 +11,10 @@
     "@project-sunbird/sunbird-player-sdk-v9": "5.1.0",
     "tslib": "^2.0.0"
   },
-  "homepage": "https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.8.0/README.md",
+  "homepage": "https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/project-sunbird/sunbird-pdf-player.git"
+    "url": "https://github.com/Sunbird-Knowlg/sunbird-pdf-player.git"
   },
   "keywords": [
     "sunbird, pdf player, project-sunbird"

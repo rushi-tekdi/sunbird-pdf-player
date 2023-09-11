@@ -45,3 +45,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/project-sunbird-sunbird-pdf-player-web-component-*

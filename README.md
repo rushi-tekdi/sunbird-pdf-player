@@ -1,15 +1,17 @@
-# Pdf player library for Sunbird platform!
-Contains PDF player library components powered by angular. These components are designed to be used in sunbird consumption platforms *(mobile app, web portal, offline desktop app)* to drive reusability, maintainability hence reducing the redundant development effort significantly.
+## The PDF player for the Sunbird!
 
-# Getting Started with different integrations steps
- The pdf player can be integrated as web component in plain javascript projects and as web component in angular apps and also as angular library in angular and mobile applications.
+The PDF player library is powered by Angular. This player is primarily designed to be used on Sunbird consumption platforms _(mobile app, web portal, offline desktop app)_ to drive reusability and maintainability, hence reducing the redundant development effort significantly, and it can be integrated with any platform irrespective of the platforms and the frontend frameworks. It is exported not only as an angular library but also as a web component. 
+
+## Getting started with integration steps
+
+The pdf player can be integrated as a web component and also as an angular library in angular application projects and it can also be integrated into any mobile framework as a web component.
 
 # Use as web components	
-Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
+Any web based application can use this library as a web component. It accepts couple of inputs and triggers player and telemetry events back to the application.
 
 Follow below-mentioned steps to use it in plain javascript project:
 
-- Insert [library](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/sunbird-pdf-player.js) as below:
+- Insert [library](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component/sunbird-pdf-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-pdf-player.js"></script>
 	```
@@ -20,7 +22,7 @@ Follow below-mentioned steps to use it in plain javascript project:
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
-- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.3.0/src/app/data.ts)
+- Get sample playerConfig from here: [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts)
 
 - Create a custom html element: `sunbird-pdf-player`
 	```javascript
@@ -49,49 +51,102 @@ Follow below-mentioned steps to use it in plain javascript project:
 	const  myPlayer = document.getElementById("my-player");
 	myPlayer.appendChild(pdfPlayerElement);
 	```
-- Refer demo [example](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/index.html)
+- Refer demo [example](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component-demo/index.html)
 
-- To run the project, use the following command:
+- To run the demo project, use the following commands:
 	```bash
-	npm run build-web-component
-	http-server --cors web-component .
+  cd web-component-demo
+	npx http-server --cors .
 	```
-	open [http://127.0.0.1:8081/web-component/](http://127.0.0.1:8081/web-component/)
-	**Note:** There are some request for which we need to run this on server, so we need to run this on server for demo purpose we are using [http-server](https://www.npmjs.com/package/http-server).
+	open [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+	**Note:** Due to cors errors when you open the index.html from demo folder as file, it is recomanded to run a static server in it like [http-server](https://www.npmjs.com/package/http-server).
 
-- ![demo](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/web-component/pdf-player-wc.png)
+- ![demo](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component-demo/pdf-player-wc.png)
 
 # Use as Web component  in the Angular app
 
-- Copy the assets files from web component folder
-  [assets](https://github.com/project-sunbird/sunbird-pdf-player/tree/release-5.2.0/web-component/assets) to assets folder
+- Run command 
+  ```bash
+    npm i @project-sunbird/sunbird-pdf-player-web-component
+    npm i reflect-metadata
+  ```
 
-- Create sunbird folder inside assets folder, and copy [sunbird-pdf-player.js](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/sunbird-pdf-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/web-component/styles.css). and Add/import these entries in angular json file inside scripts and styles respectively.
+- Add these entries in angular json file inside assets, scripts and styles like below
 
-- Add the reflect-metadata script to index.html file
+  ```bash
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*.*",
+                "input": "./node_modules/@project-sunbird/sunbird-pdf-player-web-component/assets",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/@project-sunbird/sunbird-pdf-player-web-component/styles.css"
+            ],
+            "scripts": [
+              "node_modules/reflect-metadata/Reflect.js",
+              "node_modules/@project-sunbird/sunbird-pdf-player-web-component/sunbird-pdf-player.js"
+            ]
+
+  ```
+
+- Import  CUSTOM_ELEMENTS_SCHEMA in app module and add it to the NgModule as part of schemas like below
+
 	```javascript
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
-      integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	```
-
-- Import  CUSTOM_ELEMENTS_SCHEMA in app module
-
-	```javascript
+  ...
   import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+  ...
+
+  @NgModule({
+    ...
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    ...
+  })
+
 	```
 
-- Import  sunbird-pdf-player in component
-    ```bash
-    <sunbird-pdf-player  [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
-    (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-pdf-player>
-    ```
+- Integrating sunbird-pdf-player web component in angular component
+    
+  Create a viewChild in html template of the angular component like
 
-- Provide input to render PDF player
+  ```bash
 
-Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-5.2.0/src/app/data.ts)
-**Note:** : Send input config as string 
+      <div #pdf></div>
+
+  ```
+
+  Refer the viewChild in ts file of the component and create the pdf player using document.createElement, then attach the player config and listen to the player and telemetry events like below and since we are rendering using viewChild these steps should be under ngAfterViewInit hook of the angular component.
+
+```bash
+
+....
+
+@ViewChild('pdf') pdf: ElementRef;
+
+  ....
+ ngAfterViewInit() {
+    const playerConfig = <Config need be added>;
+      const pdfElement = document.createElement('sunbird-pdf-player');
+      pdfElement.setAttribute('player-config', JSON.stringify(playerConfig));
+
+      pdfElement.addEventListener('playerEvent', (event) => {
+        console.log("On playerEvent", event);
+      });
+
+      pdfElement.addEventListener('telemetryEvent', (event) => {
+        console.log("On telemetryEvent", event);
+      });
+      this.pdf.nativeElement.append(pdfElement);
+  }
+  ....
+
+```
+
+**Note:** : Click to see the mock - [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts) and send input config as string 
 
 
 # Use as Angular library in angular app
@@ -175,7 +230,7 @@ If you prefer not to use schematics or want to add `sunbird-pdf-player-v9` to an
 ## Step 2: Send input to render PDF player
 
 Use the mock config in your component to send input to PDF player
-Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-pdf-player/blob/release-4.5.0/src/app/data.ts)
+Click to see the mock - [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts)
 
 ## Player config
 ```js
@@ -329,7 +384,16 @@ Click to see the steps - [Import](README.md#step-3-import-the-modules-and-compon
 
 Click to see the input data - [playerConfig](README.md#step-4-send-input-to-render-pdf-player)
 
+# Use as Web component in React app 
+For existing apps, follow these steps [steps](https://github.com/Sunbird-Knowlg/knowlg-portal/tree/release-5.3.0/react-app#readme) to begin using.
+
+# Use as Web component in Flutter app 
+For existing apps, follow these steps [steps](https://github.com/Sunbird-Knowlg/knowlg-portal/tree/release-5.3.0/flutter_app#readme) to begin using.
+
+# Use as Web component in React native app(Android)
+For existing apps, follow these steps [steps](https://github.com/Sunbird-Knowlg/knowlg-portal/tree/release-5.3.0/reactNative#readme) to begin using.
 
 ## Sample code
 Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app/blob/release-4.8.0/src/app/player/player.page.html)
 <br /><br />
+
