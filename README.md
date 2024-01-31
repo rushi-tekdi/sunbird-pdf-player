@@ -1,3 +1,6 @@
+### Note: 
+This version of the angular library is compatilbe with angular version 15 and may not work with older versions of the angular 15 Apps.
+
 ## The PDF player for the Sunbird!
 
 The PDF player library is powered by Angular. This player is primarily designed to be used on Sunbird consumption platforms _(mobile app, web portal, offline desktop app)_ to drive reusability and maintainability, hence reducing the redundant development effort significantly, and it can be integrated with any platform irrespective of the platforms and the frontend frameworks. It is exported not only as an angular library but also as a web component. 
@@ -14,12 +17,6 @@ Follow below-mentioned steps to use it in plain javascript project:
 - Insert [library](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/web-component/sunbird-pdf-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-pdf-player.js"></script>
-	```
-- Update below script in index.html file 
-	```javascript
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
-      integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	```
 
 - Get sample playerConfig from here: [playerConfig](https://github.com/Sunbird-Knowlg/sunbird-pdf-player/blob/release-5.5.0/src/app/data.ts)
