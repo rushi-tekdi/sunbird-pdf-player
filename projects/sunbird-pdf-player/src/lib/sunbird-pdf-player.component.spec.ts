@@ -5,6 +5,7 @@ import { ViewerService } from './services/viewer.service';
 import { SunbirdPdfPlayerService } from './sunbird-pdf-player.service';
 import { mockData } from '../lib/services/viewer.service.spec.data';
 import { SimpleChanges, SimpleChange } from '@angular/core';
+import { PLAYER_CONFIG } from '@project-sunbird/sunbird-player-sdk-v9';
 
 describe('SunbirdPdfPlayerComponent', () => {
   let component: SunbirdPdfPlayerComponent;
@@ -14,7 +15,9 @@ describe('SunbirdPdfPlayerComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SunbirdPdfPlayerComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ViewerService, SunbirdPdfPlayerService]
+      providers: [ViewerService, SunbirdPdfPlayerService, {
+        provide: PLAYER_CONFIG, useValue: {contentCompatibilityLevel: 5}
+      }]
     })
       .compileComponents();
   }));
@@ -254,7 +257,6 @@ describe('SunbirdPdfPlayerComponent', () => {
     expect(component.viewerActions.emit).toHaveBeenCalledWith({type: changes.action});
   });
   it('should call resetValidPage', () => {
-    // eslint-disable-next-line @typescript-eslint/dot-notation
     spyOn(component['cdRef'], 'detectChanges');
     component.resetValidPage();
     expect(component.validPage).toBeTruthy();
