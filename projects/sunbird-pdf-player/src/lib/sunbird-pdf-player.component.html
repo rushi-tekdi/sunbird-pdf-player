@@ -9,6 +9,7 @@
     *ngIf="viewState ==='player'" [ngClass]="{'isVisible': showControls}">
     </sb-player-side-menu-icon>
     <span [style.display]="viewState ==='player' ? 'inline': 'none'">
+      <div class="pdf-viewer-spacing"></div>
       <pdf-viewer (viewerEvent)="viewerEvent($event)" [pdfURL]="viewerService.src"
         [actions]="viewerActions"></pdf-viewer>
     </span>

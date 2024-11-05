@@ -1,4 +1,6 @@
 iframe {
     width:100%;
     height:100%;
+    //UI fix for pdf footer text hide behind previous and next controller 
+    padding-bottom: 93px;
 }

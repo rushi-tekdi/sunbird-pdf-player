@@ -139,7 +139,9 @@ export class PdfViewerComponent implements AfterViewInit {
     if (viewerContainer) {
       viewerContainer.onscroll = (e: any) => {
         if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) >= e.target.scrollHeight && this.isNextLastPageClicked == false) {
-          this.viewerEvent.emit({ type: 'pageend' });
+          //issue fixed for
+          //disable last page scroll going auto end page show 
+          //this.viewerEvent.emit({ type: 'pageend' });
         }
         this.isNextLastPageClicked = false
       };

@@ -18,7 +18,8 @@
     "serve": "node assets-copy.js && npm link ./dist/sunbird-pdf-player && ng serve",
     "build-web-component": "npm run build-lib && ng build pdf-player-wc --output-hashing none && node ./build-wc.js",
     "schematics:build": "./node_modules/.bin/tsc -p tsconfig.schematics.json",
-    "postschematics:build": "./node_modules/.bin/copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ./dist/sunbird-pdf-player/"
+    "postschematics:build": "./node_modules/.bin/copyfiles schematics/*/schema.json schematics/*/files/** schematics/collection.json ./dist/sunbird-pdf-player/",
+    "prodbuild": "ng build pdf-player-wc --output-hashing none && node ./build-wc.js"
   },
   "private": true,
   "dependencies": {
@@ -37,13 +38,14 @@
     "@project-sunbird/sunbird-pdf-player-v9": "6.1.0",
     "@project-sunbird/sunbird-player-sdk-v9": "6.0.7",
     "@project-sunbird/telemetry-sdk": "1.3.0",
+    "ally.js": "1.4.1",
     "core-js": "^2.5.4",
     "document-register-element": "^1.7.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
-    "zone.js": "~0.14.4",
-    "ally.js": "1.4.1"
+    "webpack-bundle-analyzer": "^4.10.2",
+    "zone.js": "~0.14.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "17.2.3",
